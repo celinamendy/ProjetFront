@@ -1,0 +1,52 @@
+<!-- register.component.html -->
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <label for="type">Type d'utilisateur :</label>
+  <select formControlName="type" (change)="onTypeChange()">
+    <option value="passenger">Passager</option>
+    <option value="driver">Conducteur</option>
+  </select>
+
+  <div>
+    <label for="nom">Nom :</label>
+    <input formControlName="nom" required>
+  </div>
+
+  <div>
+    <label for="prenom">Prénom :</label>
+    <input formControlName="prenom" required>
+  </div>
+
+  <div>
+    <label for="email">Email :</label>
+    <input formControlName="email" type="email" required>
+  </div>
+
+  <div>
+    <label for="password">Mot de passe :</label>
+    <input formControlName="password" type="password" required>
+  </div>
+
+  <div>
+    <label for="adresse">Adresse :</label>
+    <input formControlName="adresse" required>
+  </div>
+
+  <div *ngIf="isDriver">
+    <div>
+      <label for="permisDeConduire">Permis de conduire :</label>
+      <input formControlName="permisDeConduire" required>
+    </div>
+
+    <div>
+      <label for="cni">CNI :</label>
+      <input formControlName="cni" required>
+    </div>
+
+    <div>
+      <label for="carteAssurance">Carte d'assurance :</label>
+      <input formControlName="carteAssurance" required>
+    </div>
+  </div>
+
+  <button type="submit">S'inscrire</button>
+</form>
