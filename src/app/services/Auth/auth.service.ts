@@ -24,7 +24,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, identifiant);
   }
   register(identifiant:any){
-    return this.http.post(`${this.apiUrl}/login`, identifiant);
+    return this.http.post(`${this.apiUrl}/register`, identifiant);
 }
 getProfile(){
   return this.http.get(`${this.apiUrl}/profile`);

@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { LoginComponent } from './composants/auth/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TrajetComponent } from './Models/trajet/trajet.component';
 @Component({
   selector: 'app-root',
   standalone: true,

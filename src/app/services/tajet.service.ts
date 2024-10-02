@@ -1,56 +1,41 @@
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class TajetService {
-
-//   constructor() { }
-// }
-
-
-import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
-// import { apiUrl } from "./apiUrl";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: "root"
+  providedIn: 'root'
 })
-
-export class TajetService  {
+export class TrajetService {
   private apiUrl = 'http://127.0.0.1:8000/api'; // URL de votre backend Laravel
 
-    private http = inject(HttpClient);
+  constructor(private http: HttpClient) {}
 
-    // Methode pour recuperer toutes les Tajet
-    getAllTajet(){
-        return this.http.get(`${this.apiUrl}/tajets`);
-    }
+  // Méthode pour récupérer tous les Trajets
+  getAllTrajets() {
+    return this.http.get(`${this.apiUrl}/trajets`);
+  }
 
-    // Methode pour ajouter un Tajet
-    addTajet(tajet:any){
-        return this.http.post(`${this.apiUrl}/tajets`, tajet);
-    }
+  // Méthode pour ajouter un Trajet
+  addTrajet(trajet: any) {
+    return this.http.post(`${this.apiUrl}/trajets`, trajet);
+  }
 
-    // Methode pour mettre a jour un Tajet
-    updateTajet(id:any, tajet:any){
-        return this.http.post(`${this.apiUrl}/tajets/${id}`, tajet);
-    }
+  // Méthode pour mettre à jour un Trajet
+  updateTrajet(id: any, trajet: any) {
+    return this.http.put(`${this.apiUrl}/trajets/${id}`, trajet); // Utiliser PUT pour les mises à jour
+  }
 
-    // Methode pour archiver un Tajet
-    archiveTajet(id:any){
-        return this.http.delete(`${this.apiUrl}/tajets/${id}`);
-    }
+  // Méthode pour archiver un Trajet
+  archiveTrajet(id: any) {
+    return this.http.delete(`${this.apiUrl}/trajets/${id}`);
+  }
 
-    // Methode pour restaurer un Tajet
-    restaureTajet(id:any){
-        return this.http.post(`${this.apiUrl}/tajets/${id}/restore`, "");
-    }
+  // Méthode pour restaurer un Trajet archivé
+  restoreTrajet(id: any) {
+    return this.http.post(`${this.apiUrl}/trajets/${id}/restore`, {});
+  }
 
-    // Methode pour supprimer definitivement un Tajet
-    deleteTajet(id:any){
-        return this.http.delete(`${this.apiUrl}/tajets/${id}/force-delete`);
-    }
-
-
+  // Méthode pour supprimer définitivement un Trajet
+  deleteTrajet(id: any) {
+    return this.http.delete(`${this.apiUrl}/trajets/${id}/force-delete`);
+  }
 }

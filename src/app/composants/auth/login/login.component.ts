@@ -113,7 +113,7 @@ export class LoginComponent {
 
           // Redirection en fonction des rôles
           if (response.roles=="passager") {
-            this.router.navigate(["/register"]);
+            this.router.navigate(["/trajet"]);
           } else if (response.roles.includes('admin')) {
             this.router.navigate(['/admin']);
           } else {
