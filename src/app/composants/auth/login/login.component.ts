@@ -69,8 +69,8 @@ import { CommonModule } from '@angular/common';
 
 // Interface pour la réponse d'authentification
 interface AuthResponse {
-  // access_token: string;
-  // roles: string[];
+  access_token: string;
+  roles: string[];
   user: {
     id: number;
     nom: string;
@@ -103,7 +103,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const credentials = this.loginForm.value;
       this.authService.login(credentials).subscribe(
-         (response:any) => { // Typage explicite
+        (response: AuthResponse) => { // Assurez-vous que AuthResponse est défini
           console.log(response.access_token);
           console.log('Connexion réussie:', response);
 
@@ -112,7 +112,7 @@ export class LoginComponent {
           localStorage.setItem('roles', JSON.stringify(response.roles));
 
           // Redirection en fonction des rôles
-          if (response.roles=="passager") {
+          if (response.roles.includes("passager")) {
             this.router.navigate(["/trajet"]);
           } else if (response.roles.includes('admin')) {
             this.router.navigate(['/admin']);
@@ -120,11 +120,11 @@ export class LoginComponent {
             this.router.navigate(['/']);
           }
         },
-        // error: (error) => {
-        //   console.error('Erreur lors de la connexion:', error);
-        //   // Gestion des erreurs
-        //   this.errorMessage = error.error?.message || 'Erreur de connexion';
-        // }
+      //   (error) => {
+      //     console.error('Erreur lors de la connexion:', error);
+      //     // Gestion des erreurs
+      //     this.errorMessage = error.error?.message || 'Erreur de connexion';
+      //   }
       );
     }
   }

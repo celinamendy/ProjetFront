@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -10,52 +11,89 @@ export class AuthService {
   private apiUrl = 'http://127.0.0.1:8000/api'; // URL de votre backend Laravel
   private token: string | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
-  // login(credentials: { email: string, password: string }): Observable<AuthenticatorResponse> {
-  //   return this.http.post<AuthenticatorResponse>(`${this.apiUrl}/login`, credentials);
-  // }
-
-
-
-
-
-  login(identifiant:any) {
-    return this.http.post(`${this.apiUrl}/login`, identifiant);
-  }
-  register(identifiant:any){
-    return this.http.post(`${this.apiUrl}/register`, identifiant);
-}
-getProfile(){
-  return this.http.get(`${this.apiUrl}/profile`);
-}
-// Méthode de déconnexion
-// logout(): void {
-//   // Supprimer les informations de l'utilisateur, comme le token
-//   localStorage.removeItem('token');
-
-//   // Rediriger l'utilisateur vers la page de connexion
-//   this.router.navigate(['/login']);
-// }
-
-  // Méthode pour obtenir le token (ici, depuis le stockage local ou une variable interne)
-  getToken(): string | null {
-    // Récupération du token depuis le localStorage ou autre mécanisme
-    return this.token || localStorage.getItem('access_token');
+  // Méthode de connexion
+  login(identifiant: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, identifiant).pipe(
+      tap((response: any) => {
+        this.setToken(response.token); // Sauvegarder le token
+        this.redirectUser(response.user); // Rediriger l'utilisateur selon son rôle
+      }),
+      catchError(error => {
+        console.error('Erreur de connexion', error);
+        return throwError(() => new Error('Erreur de connexion'));
+      })
+    );
   }
 
-  // // Simule une méthode de rafraîchissement de token
-  // refreshToken(): Observable<string> {
-  //   // Exemple d'appel API pour rafraîchir le token
-  //   return this.http.post<string>('/api/refresh-token', { /* Payload ici si nécessaire */ });
-  // }
-  refreshToken(){
-    return this.http.get(`${this.apiUrl}/refresh`);
-}
+  // Méthode d'inscription
+  register(identifiant: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, identifiant).pipe(
+      tap((response: any) => {
+        console.log('Inscription réussie', response);
+      }),
+      catchError(error => {
+        console.error('Erreur d\'inscription', error);
+        return throwError(() => new Error('Erreur d\'inscription'));
+      })
+    );
+  }
 
-  // Méthode pour définir le token
+  // Récupération du profil
+  getProfile(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/profile`).pipe(
+      catchError(error => {
+        console.error('Erreur lors de la récupération du profil', error);
+        return throwError(() => new Error('Erreur lors de la récupération du profil'));
+      })
+    );
+  }
+
+  // Redirige l'utilisateur selon son rôle
+  redirectUser(user: any): void {
+    if (user.role === 'conducteur') {
+      this.router.navigate(['/trajet']);
+    } else if (user.role === 'passager') {
+      this.router.navigate(['/trajets-disponibles']);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
+
+  // Sauvegarde du token dans le localStorage
   setToken(token: string): void {
     this.token = token;
     localStorage.setItem('access_token', token);
+  }
+
+  // Méthode pour obtenir le token
+  getToken(): string | null {
+    return this.token || localStorage.getItem('access_token');
+  }
+
+  // Rafraîchissement du token
+  refreshToken(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/refresh`).pipe(
+      tap((response: any) => {
+        this.setToken(response.token); // Sauvegarder le nouveau token
+      }),
+      catchError(error => {
+        console.error('Erreur de rafraîchissement du token', error);
+        return throwError(() => new Error('Erreur de rafraîchissement du token'));
+      })
+    );
+  }
+
+  // Méthode de déconnexion
+  logout(): void {
+    this.token = null;
+    localStorage.removeItem('access_token');
+    this.router.navigate(['/login']); // Redirection vers la page de connexion
+  }
+
+  // Vérifier si l'utilisateur est connecté
+  isLoggedIn(): boolean {
+    return !!this.getToken(); // Vérifie si un token est présent
   }
 }

@@ -1,0 +1,932 @@
+/* Header Section */
+header {
+  background-color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ff6600;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #ff6600;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.actions .action-btn {
+  background-color: #ff6600;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.actions .action-btn:hover {
+  background-color: #ff6600;
+}
+
+
+/* Hero Section */
+.hero {
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Positionnement vertical par défaut en haut */
+  align-items: flex-end; /* Aligner à droite */
+  background-image: url(/assets/images/im1.jpg);
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: white;
+  padding: 2rem;
+  margin-top: var(--hero-margin-top, 10); /* Paramètre pour monter ou descendre */
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to left, rgba(247, 133, 76, 0.7), rgba(255, 255, 255, 0));
+  z-index: 1;
+}
+
+
+
+.hero-content {
+  position: relative;
+  max-width: 600px;
+  text-align: justify; /* Justifier le texte */
+  margin-bottom: 2rem;
+  font-weight: bold;
+  padding-right: 6rem; /* Espace entre le texte et le bord droit */
+  margin-top: 100px;
+
+}
+
+.hero-buttons .btn {
+  padding: 0.8rem 1.5rem;
+  margin-right: 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-decoration: none;
+  color: white;
+}
+
+
+
+
+/* Search Section */
+.search-bar {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-top: 300px;
+}
+
+.search-fields {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-field {
+  background-color: #f4f4f4;
+  padding: 0.5rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-field img {
+  width: 24px;
+  height: 24px;
+}
+
+.search-field input {
+  border: none;
+  background: none;
+  font-size: 1rem;
+}
+
+.search-actions .btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-decoration: none;
+  color: white;
+}
+
+/* Couleurs des boutons */
+.orange-btn {
+  background-color: #ff6600;
+  color: white;
+}
+
+.orange-btn:hover {
+  background-color: #ff6600;
+}
+
+.blue-btn {
+  background-color: #001E45;
+  color: white;
+}
+
+.blue-btn:hover {
+  background-color: #001E45;
+}
+
+/* Section des cartes */
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+  background-color: #fff;
+  flex-wrap: nowrap; /* Pour garder les cartes sur la même ligne */
+}
+
+.feature-card {
+  background-color: #00254E;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+  margin: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative; /* Permet le positionnement des images */
+}
+
+.feature-image-container {
+  width: 50%; /* Prend toute la largeur de la carte */
+  position: relative; /* Permet le positionnement absolu de l'image */
+}
+
+.feature-image {
+  position: absolute; /* Positionnement absolu pour permettre le repositionnement */
+  top: 80px; /* Ajuste cette valeur pour positionner verticalement */
+  left: 50%; /* Centrer horizontalement */
+  transform: translateX(-50%); /* Centrer l'image */
+  z-index: 1; /* Met l'image au-dessus des cartes */
+  width: 200px; /* Ajuste la taille si nécessaire */
+  height: 100px; /* Garde le ratio de l'image */
+}
+
+.icon {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.icon img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+
+/* Section À propos de nous */
+.about-us {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff;
+  margin-top: 1rem;
+}
+
+.about-content {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.about-image {
+  width: 300px; /* Ajustez la largeur selon vos besoins */
+  height: auto;
+  margin-right: 2rem;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-us h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #00254E;
+}
+
+.about-us p {
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  line-height: 1.6;
+}
+
+.about-us .btn {
+  background-color: #ff6600;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.about-us .btn:hover {
+  background-color: #ff6600;
+}
+
+
+/* General styles for the section */
+.how-it-works {
+  padding: 2rem;
+  text-align: center;
+  background-color: #f0f0f0; /* Light gray background */
+}
+
+.how-it-works h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Styles for the process steps */
+.process-steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.step {
+  background-color: #f0f0f0;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20%; /* Adjust width for a three-item row */
+  margin-bottom: 1rem;
+}
+
+.step-icon {
+  width: 60px; /* Adjust icon size */
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.step h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.step p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Media Query for responsive behavior */
+@media (max-width: 768px) {
+  .process-steps {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .step {
+      width: 80%; /* Adjust width for smaller screens */
+  }
+}
+
+/* Media query for tablet screens to ensure 3 on top and 2 below */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .step {
+      width: 45%; /* Makes sure two per row on tablets */
+  }
+}
+.feature-image-container {
+  width: 100%; /* Prend toute la largeur de la carte */
+  position: relative; /* Permet le positionnement absolu de l'image */
+}
+
+.feature-image {
+  position: absolute; /* Positionnement absolu pour permettre le repositionnement */
+  top: 40px; /* Ajuste cette valeur pour positionner verticalement */
+  left: 50%; /* Centrer horizontalement */
+  transform: translateX(-50%); /* Centrer l'image */
+  z-index: 1; /* Met l'image au-dessus des étapes */
+  width: 350px; /* Ajuste la taille si nécessaire */
+  height: 200px; /* Garde le ratio de l'image */
+}
+
+
+
+/* Styles for the registration-login section */
+.registration-login-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  background-color: #f5f5f5; /* Light gray background */
+}
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 2rem;
+}
+
+.image-wrapper {
+  position: relative;
+  max-width: 50%;
+}
+
+.section-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.text-wrapper {
+  max-width: 50%;
+  padding: 1rem;
+  text-align: left;
+}
+
+.text-wrapper h3 {
+  color: #ff6600; /* Orange color */
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.text-wrapper p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* Styles for the 'Where are you going?' section */
+.where-are-you-going {
+  background-color: #002e5b; /* Dark blue background */
+  padding: 2rem;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Align the heading to the left */
+.where-are-you-going .heading {
+  text-align: left;
+}
+
+.where-are-you-going h2 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+/* Align the trip options to the left */
+.trip-options {
+  display: flex;
+  justify-content: flex-start; /* Align buttons to the left */
+  gap: 1rem;
+}
+
+/* Style for trip buttons */
+.trip-button {
+  background-color: #fff; /* Orange background */
+  color: #ff6600;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.trip-button span {
+  margin-left: 0.5rem;
+}
+
+.trip-button:hover {
+  background-color: #ff6600;
+}
+
+/* Style for the 'Nos trajets' text, aligned to the right */
+.trips-footer {
+  text-align: right;
+  position: absolute;
+  bottom: 1rem;
+  right: 2rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .trip-options {
+      flex-direction: column;
+      gap: 1rem;
+  }
+
+  .trip-button {
+      width: 100%;
+      text-align: center;
+  }
+
+  .trips-footer {
+      position: static;
+      text-align: center;
+      margin-top: 2rem;
+  }
+}
+
+
+/* Section Testimonials */
+.testimonials {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  position: relative; /* For positioning the rectangle image */
+}
+
+.testimonial-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.testimonial-header h2 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.quote-text {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  font-style: italic;
+  position: relative;
+  display: inline-block;
+  max-width: 600px; /* Adjust width as needed */
+}
+
+/* Styles for the quote images */
+.quote-text::before {
+  content: "";
+  display: inline-block;
+  /* background-image: url('assets/images/Groupee.png'); */
+  width: 32px;
+  height: 20px;
+  position: absolute;
+  left: -50px;
+  top: 0;
+}
+
+.quote-text::after {
+  content: "";
+  display: inline-block;
+  /* background-image: url('assets/images/Group\(1\).png'); */
+  width: 32px;
+  height: 20px;
+  position: absolute;
+  right: -50px;
+  bottom: 0;
+}
+
+/* Rectangle Image Styles */
+.rectangle-img15 {
+  position: absolute;
+  right: 5cm;
+  top: 270px; /* Ajustement du top pour un positionnement correct */
+  width: 400px;
+  height: 350px;
+}
+
+.rectangle-img16 {
+  position: absolute;
+  right: 5cm;
+  top: 270px;
+  width: 100px;
+  height: 380px;
+}
+
+.rectangle-img17 {
+  position: absolute;
+  right: -6cm;
+  top: 25px;
+  width: 1000px;
+  height: 300px;
+}
+
+/* Image du témoin */
+.temoin-img {
+  position: absolute;
+  top: -15px; /* Placer l'image du témoin juste en haut du rectangle */
+  left: 300px; /* Ajuster la position à gauche */
+  width: 100px; /* Ajuster la taille de l'image */
+  height: auto;
+}
+
+/* Container for the testimonial */
+.testimonial-container {
+  position: relative;
+  width: 1000px;
+  height: 300px;
+}
+
+/* Positioning the text on top of the image */
+.testimonial-text-overlay {
+  position: absolute;
+  top: 50px;
+  left: 300px;
+  color: #fff;
+  width: 90%;
+  text-align: left;
+}
+
+.testimonial-text-overlay h3 {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.testimonial-text-overlay p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.quote-texte {
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  font-style: italic;
+  position: relative;
+  display: inline-block;
+  max-width: 600px;
+}
+
+/* Styles for the quote images */
+.quote-texte::before {
+  content: "";
+  display: inline-block;
+  /* background-image: url('assets/images/Clip\ path\ group.png'); */
+  width: 80px;
+  height: 65px;
+  position: absolute;
+  left: -75px;
+  top: -50px;
+}
+
+.quote-texte::after {
+  content: "";
+  display: inline-block;
+  /* background-image: url('assets/images/Vector\(1\).png'); */
+  width: 80px;
+  height: 60px;
+  position: absolute;
+  right: -75px;
+  bottom: 0;
+}
+
+.testimonials {
+  margin-bottom: 4rem; /* Espace en bas de la section des témoignages */
+}
+
+
+/* Section cta-section */
+
+
+/* Styles généraux pour la section CTA */
+/* Styles généraux pour la section CTA */
+.cta-section {
+  background-color: #f0f0f0; /* Arrière-plan gris */
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Boîte individuelle */
+.cta-box {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  width: 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+/* Titres des boîtes */
+.cta-box h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+/* Liste des avantages avec images */
+.cta-box ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.cta-box ul li {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.cta-box ul li img {
+  width: 24px; /* Ajuste la taille des icônes */
+  height: 24px;
+  margin-right: 0.5rem; /* Espace entre l'image et le texte */
+}
+
+/* Boutons d'inscription */
+.cta-btn {
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: white;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+/* Style pour la boîte Conducteur */
+.driver {
+  background-color: #ff6600;
+}
+
+.driver .cta-btn {
+  background-color: #002060; /* Bouton bleu foncé */
+}
+
+/* Style pour la boîte Passager */
+.passenger {
+  background-color: #002060;
+}
+
+.passenger .cta-btn {
+  background-color: #ff6600; /* Bouton orange */
+}
+
+
+.cta-box ul li img {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
+  background-color: white; /* Ajoute un fond blanc autour de l'icône */
+  padding: 5px; /* Espace autour de l'image */
+  border-radius: 50%; /* Rend le fond circulaire */
+}
+.cta-box {
+  color: white; /* Change le texte en blanc */
+}
+
+.cta-box ul li {
+  color: white; /* Change aussi la couleur des items de la liste en blanc */
+}
+
+.cta-box h2 {
+  color: white; /* Change la couleur des titres en blanc */
+}
+
+.cta-box .cta-btn {
+  color: white; /* Assure que le bouton ait un texte blanc */
+}
+
+
+/* Section de contact */
+.contact-section {
+  background-color: #ff6600;
+  padding: 2rem 0;
+  position: relative;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 900px;
+  width: 100%;
+}
+
+.contact-form {
+  width: 50%;
+  padding-right: 2rem;
+}
+
+.contact-form h2 {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.contact-form p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.contact-form form input,
+.contact-form form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.contact-form form textarea {
+  height: 120px;
+}
+
+.contact-form button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #001f3f;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background-color: #ff6600;
+  color: white;
+}
+
+.contact-info {
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.contact-info p img {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Image à droite */
+.contact-image {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Section du footer */
+.footer-section {
+  background-color: #001f3f; /* Couleur de fond bleue */
+  padding: 40px 0;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-column {
+  width: 30%;
+}
+
+.footer-column h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.footer-column p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-column ul li a:hover {
+  text-decoration: underline;
+}
+
+.footer-social-icons {
+  margin-top: 20px;
+}
+
+.footer-social-icons a {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.footer-social-icons img {
+  width: 25px; /* Taille des icônes sociales */
+  height: 25px;
+}
+
+

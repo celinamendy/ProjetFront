@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-image: url('/assets/images/img-login.png'); /* Image d'arrière-plan */
+  /* background-image: url('assets/images/insc.png'); Image d'arrière-plan */
   background-size: cover; /* Couvre l'arrière-plan */
   background-position: center; /* Centre l'image */
   display: flex;
