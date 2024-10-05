@@ -92,13 +92,24 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
-    });
-  }
+//   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+//     this.loginForm = this.fb.group({
+//       email: ['', [Validators.required, Validators.email]],
+//       password: ['', [Validators.required]]
+//     });
+//   }
 
+constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  this.loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
+  });
+
+  // Vérifier si l'utilisateur est déjà connecté
+  if (localStorage.getItem('access_token')) {
+    this.router.navigate(['/']);
+  }
+}
   onSubmit() {
     if (this.loginForm.valid) {
       const credentials = this.loginForm.value;
@@ -110,6 +121,7 @@ export class LoginComponent {
           // Sauvegarder le token et les rôles dans localStorage
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('roles', JSON.stringify(response.roles));
+          localStorage.setItem('user', JSON.stringify(response.user));
 
           // Redirection en fonction des rôles
           if (response.roles.includes("passager")) {

@@ -49,8 +49,8 @@ export class ModificationTrajetComponent implements OnInit {
   }
 
   loadTrajet(): void {
-    this.trajetService.getTrajetsById(this.trajetId).subscribe(
-      trajet => {
+    this.trajetService.getTrajetsDetails(this.trajetId).subscribe(
+      (trajet: any)=> {
         const date = trajet.date ? new Date(trajet.date).toISOString().substring(0, 10) : '';
 
         this.trajetForm.patchValue({
@@ -94,7 +94,7 @@ export class ModificationTrajetComponent implements OnInit {
         formData.append('id', this.trajetId.toString());
       }
 
-      this.trajetService.updateTrajets(formData).subscribe({
+      this.trajetService.updateTrajets(this.trajetId,formData).subscribe({
         next: (response) => {
           Swal.fire({
             icon: 'success',

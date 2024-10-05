@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -51,15 +51,69 @@ export class AuthService {
   }
 
   // Redirige l'utilisateur selon son rôle
-  redirectUser(user: any): void {
-    if (user.role === 'conducteur') {
-      this.router.navigate(['/trajet']);
-    } else if (user.role === 'passager') {
-      this.router.navigate(['/trajets-disponibles']);
+  // redirectUser(user: any): void {
+  //   if (user.role === 'conducteur') {
+  //     this.router.navigate(['/trajet']);
+  //   } else if (user.role === 'passager') {
+  //     this.router.navigate(['/trajets-disponibles']);
+  //   } else {
+  //     this.router.navigate(['/']);
+  //   }
+  // }
+
+  private redirectUser(user: any) {
+    const roles = user.roles; // Supposons que les rôles sont inclus dans l'objet utilisateur
+
+    if (roles.includes("passager")) {
+      this.router.navigate(['/trajet']); // Rediriger vers la page trajet si l'utilisateur est un passager
+    } else if (roles.includes("conducteur")) {
+      this.router.navigate(['/ajout']); // Rediriger vers la page d'ajout si l'utilisateur est un conducteur
+    } else if (roles.includes('admin')) {
+      this.router.navigate(['/admin']); // Rediriger vers la page admin si l'utilisateur est un admin
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/accueil']); // Rediriger vers la page d'accueil pour tout autre rôle
     }
   }
+
+  // Méthode pour récupérer les détails de l'utilisateur connecté
+// getUser(): Observable<any> {
+//   return this.http.get(`${this.apiUrl}/users*  `, this.getAuthHeaders()).pipe(
+//     catchError(error => {
+//       console.error('Erreur lors de la récupération de l\'utilisateur', error);
+//       return throwError(() => new Error('Erreur lors de la récupération de l\'utilisateur'));
+//     })
+//   );
+// }
+// getUser() {
+//   const headers = new HttpHeaders({
+//     'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+//   });
+//   return this.http.get('http://127.0.0.1:8000/api/user', { headers });
+// }
+getUser() {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  } else {
+    console.warn('localStorage is not available.');
+    return null;
+  }
+}
+
+getUserId(): number {
+  const user = JSON.parse(localStorage.getItem('user')!); // Ou autre méthode pour stocker et récupérer l'utilisateur connecté
+  return user?.id;
+}
+
+// Méthode pour obtenir les en-têtes d'authentification
+private getAuthHeaders() {
+  return {
+    headers: {
+      Authorization: `Bearer ${this.getToken()}` // Utilisez le token stocké
+    }
+  };
+}
+
 
   // Sauvegarde du token dans le localStorage
   setToken(token: string): void {
@@ -69,8 +123,15 @@ export class AuthService {
 
   // Méthode pour obtenir le token
   getToken(): string | null {
-    return this.token || localStorage.getItem('access_token');
-  }
+    if (typeof window !== 'undefined' && window.localStorage) {
+        return this.token || localStorage.getItem('access_token');
+    }
+    console.warn('localStorage is not available');
+    return null; // Retourne null si localStorage n'est pas disponible
+}
+
+
+
 
   // Rafraîchissement du token
   refreshToken(): Observable<any> {

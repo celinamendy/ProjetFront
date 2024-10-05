@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './Auth/auth.service';
+import { Observable, throwError } from 'rxjs'; // Ajout de throwError
+import { catchError } from 'rxjs/operators'; // Importation de catchError
 
 @Injectable({
   providedIn: 'root'
@@ -12,54 +14,93 @@ export class TrajetService {
 
   // Récupérer les en-têtes d'authentification pour les requêtes sécurisées
   private getAuthHeaders() {
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem('access_token');
     return {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`
       })
     };
   }
-  getAllTrajets() {
-    return this.http.get(`${this.apiUrl}/trajets`);
+
+  // Gestion des erreurs
+  private handleError(error: any): Observable<never> {
+    // Log ou gérer l'erreur ici
+    console.error('Une erreur est survenue:', error);
+    return throwError(error);
   }
 
   // Méthode pour récupérer tous les trajets disponibles (pour le passager)
-  getAvailableTrajets() {
-    return this.http.get(`${this.apiUrl}/trajets-disponibles`); // Trajets disponibles aujourd'hui ou à venir
+  getAllTrajets(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/trajets`).pipe(
+      catchError(this.handleError)
+    );
   }
+// trajet.service.ts
+getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/trajets/vehicule/${vehiculeId}`);
+}
+
+  // Méthode pour récupérer tous les trajets disponibles (pour le passager)
+  
 
   // Méthode pour récupérer les trajets du conducteur connecté
-  getUserTrajets() {
-    return this.http.get(`${this.apiUrl}/trajets-user`, this.getAuthHeaders()); // Utiliser les en-têtes d'authentification
+  getUserTrajets(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/trajets`).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  // Méthode pour ajouter un trajet (réservée au conducteur connecté)
-  addTrajets(trajet: any) {
-    return this.http.post(`${this.apiUrl}/trajets`, trajet, this.getAuthHeaders());
+  // // Méthode pour ajouter un trajet (réservée au conducteur connecté)
+  // addTrajets(trajet: FormData): Observable<any> { // Utilisation de FormData
+  //   return this.http.post<any>(`${this.apiUrl}/trajets`, trajet, this.getAuthHeaders()).pipe(
+  //     catchError(this.handleError) // Gestion des erreurs
+  //   );
+  // }
+
+
+  addTrajets(trajetData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/trajets`, trajetData).pipe(
+      catchError(this.handleError) // Gérer les erreurs ici
+    );
+  }
+
+  private catchError(error: any): Observable<never> {
+    console.error('Une erreur est survenue:', error); // Afficher l'erreur dans la console
+    throw new Error('Erreur lors de la requête'); // Vous pouvez également lancer une erreur
   }
 
   // Méthode pour mettre à jour un trajet (réservée au conducteur connecté)
-  updateTrajets(id: any, trajet: any) {
-    return this.http.put(`${this.apiUrl}/trajets/${id}`, trajet, this.getAuthHeaders());
+  updateTrajets(id: any, trajet: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/trajets/${id}`, trajet, this.getAuthHeaders()).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // Méthode pour archiver un trajet (réservée au conducteur connecté)
-  archiveTrajets(id: any) {
-    return this.http.delete(`${this.apiUrl}/trajets/${id}`, this.getAuthHeaders());
+  archiveTrajets(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/trajets/${id}`, this.getAuthHeaders()).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // Méthode pour restaurer un trajet archivé (réservée au conducteur connecté)
-  restoreTrajets(id: any) {
-    return this.http.post(`${this.apiUrl}/trajets/${id}/restore`, {}, this.getAuthHeaders());
+  restoreTrajets(id: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/trajets/${id}/restore`, {}, this.getAuthHeaders()).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // Méthode pour supprimer définitivement un trajet (réservée au conducteur connecté)
-  deleteTrajets(id: any) {
-    return this.http.delete(`${this.apiUrl}/trajets/${id}/force-delete`, this.getAuthHeaders());
+  deleteTrajets(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/trajets/${id}/force-delete`, this.getAuthHeaders()).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // Méthode pour voir les détails d'un trajet (accessible à tout utilisateur)
-  getTrajetsDetails(id: any) {
-    return this.http.get(`${this.apiUrl}/trajets/${id}`);
+  getTrajetsDetails(id: any): Observable<any> {
+    return this.http.get(`${this.apiUrl}/trajets/${id}`).pipe(
+      catchError(this.handleError)
+    );
   }
 }

@@ -5,12 +5,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TrajetComponent } from './composants/trajet/trajet.component';
 import { AjouterTrajetComponent } from './composants/trajet/ajouter/ajouter.component';
+import { ModificationTrajetComponent } from './composants/trajet/modifier/modifier.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet ,LoginComponent,HttpClientModule,TrajetComponent,AjouterTrajetComponent],
+  imports: [RouterOutlet ,
+    LoginComponent,
+    HttpClientModule,
+    TrajetComponent,
+    AjouterTrajetComponent,
+    ModificationTrajetComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

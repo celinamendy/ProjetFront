@@ -1,1 +1,58 @@
-<p>modifier works!</p>
+
+
+<div class="form-container">
+  <form action="#" method="POST" enctype="multipart/form-data" class="two-column-form">
+      <h2>Formulaire de modification Trajet</h2>
+
+      <div class="form-row">
+          <div class="form-group">
+              <label for="depart">Départ</label>
+              <input type="text" id="depart" name="depart" placeholder="Lieu de départ" required>
+          </div>
+
+          <div class="form-group">
+              <label for="destination">Destination</label>
+              <input type="text" id="destination" name="destination" placeholder="Lieu de destination" required>
+          </div>
+      </div>
+
+      <div class="form-row">
+          <div class="form-group">
+              <label for="date">Date de Départ</label>
+              <input type="date" id="date" name="date" required>
+          </div>
+
+          <div class="form-group">
+              <label for="places">Nombre de Places Disponibles</label>
+              <input type="number" id="places" name="places" placeholder="Nombre de places" required>
+          </div>
+      </div>
+
+      <div class="form-row">
+          <div class="form-group">
+              <label for="budget">Prix</label>
+              <input type="number" id="Prix" name="Prix" placeholder="Prix" required>
+          </div>
+
+          <div class="form-group">
+              <label for="photo">Photo</label>
+              <input type="file" id="photo" name="photo" accept="image/*" required>
+          </div>
+      </div>
+
+      <div class="form-row">
+          <div class="form-group">
+              <label for="heure">Heure de Départ</label>
+              <input type="time" id="heure" name="heure" required>
+          </div>
+      </div>
+
+      <div class="form-buttons">
+          <button type="submit" class="submit-btn">Modification du Trajet</button>
+          <button type="reset" class="cancel-btn">Annuler</button>
+      </div>
+  </form>
+</div>
+
+
+
