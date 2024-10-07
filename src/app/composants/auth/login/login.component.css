@@ -1,63 +1,56 @@
-/* Style global du body */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  /* background-image: url('assets/images/insc.png'); Image d'arrière-plan */
-  background-size: cover; /* Couvre l'arrière-plan */
+  background-image: url('/assets/images/Desktop2.png'); /* Remplacez par le chemin de votre image d'arrière-plan */
+  background-size: cover; /* Couvre tout l'arrière-plan */
   background-position: center; /* Centre l'image */
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh; /* Hauteur de la vue */
 }
 
-/* Conteneur du formulaire */
-.login-container {
-  background-color: rgba(255, 255, 255, 0.9); /* Fond blanc avec un peu de transparence */
-  border-radius: 8px; /* Coins arrondis */
-  padding: 30px; /* Espacement interne */
+.form-container {
+  background-color: rgba(255, 255, 255, 0.8); /* Fond blanc avec transparence */
+  border-radius: 8px;
+  padding: 20px;
   max-width: 400px; /* Largeur maximale du formulaire */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
-  width: 100%; /* Pour les petits écrans */
+  margin: auto; /* Centrer le formulaire */
+  box-shadow: white; /* Ombre du formulaire */
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); /* Centrer verticalement */
 }
 
-/* Titre du formulaire */
 h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #ff6600;
 }
 
-/* Label des champs */
 label {
   display: block;
   margin: 10px 0 5px;
 }
 
-/* Champs de saisie */
 input[type="email"],
 input[type="password"] {
   width: 100%; /* Largeur complète */
-  padding: 10px; /* Espacement interne */
+  padding: 10px; /* Espacement intérieur */
   margin-bottom: 15px; /* Espacement entre les champs */
   border: 1px solid #ff6600; /* Bordure */
   border-radius: 4px; /* Coins arrondis */
 }
 
-/* Bouton de soumission */
 button {
   width: 100%; /* Largeur complète */
-  padding: 10px; /* Espacement interne */
+  padding: 10px; /* Espacement intérieur */
   background-color: #002060; /* Couleur du bouton */
   color: white; /* Couleur du texte */
   border: none; /* Pas de bordure */
   border-radius: 4px; /* Coins arrondis */
-  cursor: pointer; /* Curseur en forme de main */
-  font-size: 16px; /* Taille de la police */
+  cursor: pointer; /* Curseur en main */
 }
 
-/* Effet de survol sur le bouton */
 button:hover {
-  background-color: #004080; /* Couleur plus foncée au survol */
+  background-color: #002060; /* Couleur au survol */
 }
+

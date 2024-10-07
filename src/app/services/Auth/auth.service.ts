@@ -42,13 +42,21 @@ export class AuthService {
 
   // Récupération du profil
   getProfile(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/profile`).pipe(
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.getToken()}`,  // Utilise le token
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    };
+    return this.http.get(`${this.apiUrl}/profile`, httpOptions).pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération du profil', error);
         return throwError(() => new Error('Erreur lors de la récupération du profil'));
       })
     );
   }
+
 
   // Redirige l'utilisateur selon son rôle
   // redirectUser(user: any): void {

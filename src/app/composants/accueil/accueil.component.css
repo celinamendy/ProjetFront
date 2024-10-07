@@ -68,7 +68,7 @@ nav ul li a:hover {
   flex-direction: column;
   justify-content: flex-start; /* Positionnement vertical par défaut en haut */
   align-items: flex-end; /* Aligner à droite */
-  background-image: url(/assets/images/im1.jpg);
+  background-image: url('/assets/images/im1.jpg');
   background-size: cover;
   background-position: center;
   position: relative;
@@ -76,18 +76,6 @@ nav ul li a:hover {
   padding: 2rem;
   margin-top: var(--hero-margin-top, 10); /* Paramètre pour monter ou descendre */
 }
-
-.hero::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to left, rgba(247, 133, 76, 0.7), rgba(255, 255, 255, 0));
-  z-index: 1;
-}
-
 
 
 .hero-content {
@@ -124,7 +112,7 @@ nav ul li a:hover {
   gap: 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  margin-top: 300px;
+  margin-top: 150px;
 }
 
 .search-fields {
@@ -138,7 +126,7 @@ nav ul li a:hover {
   border-radius: 5px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .search-field img {
@@ -155,7 +143,7 @@ nav ul li a:hover {
 .search-actions .btn {
   padding: 0.8rem 1.5rem;
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: 0.5rem;
   text-decoration: none;
   color: white;
 }
@@ -538,7 +526,7 @@ nav ul li a:hover {
 .quote-text::before {
   content: "";
   display: inline-block;
-  /* background-image: url('assets/images/Groupee.png'); */
+  background-image: url('/assets/images/Groupee.png');
   width: 32px;
   height: 20px;
   position: absolute;
@@ -549,7 +537,7 @@ nav ul li a:hover {
 .quote-text::after {
   content: "";
   display: inline-block;
-  /* background-image: url('assets/images/Group\(1\).png'); */
+  background-image: url('/assets/images/Group\(1\).png');
   width: 32px;
   height: 20px;
   position: absolute;
@@ -633,7 +621,7 @@ nav ul li a:hover {
 .quote-texte::before {
   content: "";
   display: inline-block;
-  /* background-image: url('assets/images/Clip\ path\ group.png'); */
+  background-image: url('/assets/images/Clip\ path\ group.png');
   width: 80px;
   height: 65px;
   position: absolute;
@@ -644,7 +632,7 @@ nav ul li a:hover {
 .quote-texte::after {
   content: "";
   display: inline-block;
-  /* background-image: url('assets/images/Vector\(1\).png'); */
+  background-image: url('/assets/images/Vector\(1\).png');
   width: 80px;
   height: 60px;
   position: absolute;
@@ -928,5 +916,4 @@ nav ul li a:hover {
   width: 25px; /* Taille des icônes sociales */
   height: 25px;
 }
-
 

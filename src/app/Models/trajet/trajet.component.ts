@@ -6,6 +6,7 @@ export interface Trajet {
   date_heure_depart: Date;
   conducteur_id: number;
   statut: string;
+  nombre_places: number;
   vehicule_id: number;
   prix: number;
 }
