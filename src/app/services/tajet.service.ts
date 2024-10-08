@@ -41,7 +41,7 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
 }
 
   // Méthode pour récupérer tous les trajets disponibles (pour le passager)
-  
+
 
   // Méthode pour récupérer les trajets du conducteur connecté
   getUserTrajets(): Observable<any> {
@@ -104,3 +104,4 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
     );
   }
 }
+

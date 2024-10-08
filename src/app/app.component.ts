@@ -6,7 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TrajetComponent } from './composants/trajet/trajet.component';
 import { AjouterTrajetComponent } from './composants/trajet/ajouter/ajouter.component';
 import { ModificationTrajetComponent } from './composants/trajet/modifier/modifier.component';
-
+import { DetailTrajetComponent } from './composants/trajet/detail/detail.component';
+DetailTrajetComponent
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ import { ModificationTrajetComponent } from './composants/trajet/modifier/modifi
     HttpClientModule,
     TrajetComponent,
     AjouterTrajetComponent,
-    ModificationTrajetComponent
+    ModificationTrajetComponent,
+    DetailTrajetComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

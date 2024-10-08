@@ -20,6 +20,7 @@ import Swal from 'sweetalert2';
   styleUrl: './modifier.component.css'
 })
 export class ModificationTrajetComponent implements OnInit {
+  
   trajetForm: FormGroup;
   trajetId!: number;
   imageFile: File | null = null;

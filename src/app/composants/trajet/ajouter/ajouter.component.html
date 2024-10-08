@@ -5,14 +5,13 @@
       <!-- Conducteur_id caché -->
       <input type="hidden" formControlName="conducteur_id" />
 
-      <!-- Point de départ -->
-      <div class="form-group">
-          <label for="point_depart">Point de départ</label>
-          <input type="text" id="point_depart" class="form-control" formControlName="point_depart" placeholder="Entrez le point de départ" />
-          <div *ngIf="trajetForm.get('point_depart')?.invalid && trajetForm.get('point_depart')?.touched" class="text-danger">
-              Ce champ est requis.
-          </div>
+      <div>
+        <label for="point_depart">Point de départ:</label>
+        <input id="point_depart" formControlName="point_depart">
+        <div *ngIf="trajetForm.get('point_depart')?.invalid && (trajetForm.get('point_depart')?.touched || trajetForm.get('point_depart')?.dirty)">
+        </div>
       </div>
+
 
       <!-- Point d'arrivée -->
       <div class="form-group">

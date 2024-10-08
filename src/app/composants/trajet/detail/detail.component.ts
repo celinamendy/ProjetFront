@@ -1,39 +1,26 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-detail',
-//   standalone: true,
-//   imports: [],
-//   templateUrl: './detail.component.html',
-//   styleUrl: './detail.component.css'
-// })
-// export class DetailComponent {
-
-// }
-
-
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeFR from '@angular/common/locales/fr';
 import { Location } from '@angular/common';
 import { TrajetService } from '../../../services/tajet.service';
 import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
 
 registerLocaleData(localeFR, 'fr');
 
 @Component({
   selector: 'app-detail-trajet',
   standalone: true,
-  imports: [RouterModule, CommonModule],
-  templateUrl: './detail-trajet.component.html',
-  styleUrls: ['./detail-trajet.component.css']
+  imports: [RouterModule, CommonModule, FormsModule],
+  templateUrl: './detail.component.html',
+  styleUrls: ['./detail.component.css']
 })
 export class DetailTrajetComponent implements OnInit {
   trajetId!: string; // ID du trajet à récupérer
   trajet: any; // Objet pour stocker les détails du trajet
   isAvailable: boolean = false; // Propriété pour gérer l'état de disponibilité
+  newComment: string = ''; // Pour stocker le commentaire nouvellement ajouté
 
   constructor(
     private route: ActivatedRoute,
@@ -42,16 +29,16 @@ export class DetailTrajetComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.trajetId = this.route.snapshot.paramMap.get('id')!;
-    this.loadDetails();
+    this.trajetId = this.route.snapshot.paramMap.get('id')!; // Récupération de l'ID du trajet depuis l'URL
+    this.loadDetails(); // Chargement des détails du trajet
   }
 
   loadDetails(): void {
-    this.trajetService.getTrajetsDetails(+this.trajetId).subscribe(
+    this.trajetService.getTrajetsDetails(+this.trajetId).subscribe( // Ensure the service method is correctly named
       (data: any) => {
         this.trajet = {
           ...data,
-          // Vous pouvez ajouter d'autres propriétés ici si nécessaire
+          comments: data.comments || [] // Assurez-vous que la propriété comments est initialisée
         };
         this.isAvailable = this.trajet.statut.trim().toLowerCase() === 'disponible'; // Vérifiez si le trajet est disponible
         console.log('Détails du trajet:', this.trajet);
@@ -85,5 +72,23 @@ export class DetailTrajetComponent implements OnInit {
       });
     }
   }
-}
 
+  addComment(): void {
+    if (this.newComment.trim()) {
+      const comment = {
+        nom: 'Utilisateur', // Vous pouvez récupérer le nom de l'utilisateur connecté
+        message: this.newComment,
+        date: new Date()
+      };
+      this.trajet.comments.push(comment); // Ajoutez le commentaire à la liste
+      this.newComment = ''; // Réinitialisez le champ de commentaire
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Veuillez entrer un commentaire valide.',
+        showConfirmButton: true
+      });
+    }
+  }
+}
