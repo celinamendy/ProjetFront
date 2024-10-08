@@ -49,9 +49,10 @@
                 <input [(ngModel)]="searchTerm" (input)="applyFilter()" placeholder="Date, lieu de départ, prix">                <button class="search-btn">Rechercher</button>
               </div>
 
+              <h3>Trajet du jour</h3>
               <!-- Loop through trajets -->
               <div *ngFor="let trajet of trajets">
-                  <h3>Trajet</h3>
+
 
                   <!-- Carte de Trajet -->
                   <div class="trajet-card">
@@ -99,6 +100,58 @@
                   </div>
               </div>
               <!-- End of loop -->
+              <h3>Trajets à venir</h3>
+                <!-- Loop through upcoming trajets -->
+                <div *ngFor="let trajet of upcomingTrajets">
+
+
+
+                  <!-- Carte de Trajet -->
+                  <div class="trajet-card">
+                      <div class="trajet-info">
+                          <p>
+                              <img src="assets/images/Calendar31.png" alt="Calendrier" class="icon">
+                              DATE ET HEURE : {{ trajet.date_depart }} à {{ trajet.heure_depart }}
+                          </p>
+                          <p>
+                              <img src="assets/images/Address.png" alt="Localisation" class="icon">
+                              Départ et destination : {{ trajet.point_depart }} ➔ {{ trajet.point_arrivee }}
+                          </p>
+
+                          <p>
+                              <img src="assets/images/Tall-Person.png" alt="Places" class="icon">
+                              Places disponibles : {{ trajet.nombre_places }}
+                          </p>
+                          <p>
+                              <img src="assets/images/Mask-group.png" alt="Prix" class="icon">
+                              Prix : {{ trajet.prix }} FCFA
+                          </p>
+
+                          <p>
+                              <img src="assets/images/status.png" alt="Statut" class="icon">
+                              Statut : {{ trajet.statut }}
+                          </p>
+                      </div>
+                      <div class="trajet-actions">
+                        <!-- Edit Button -->
+                        <button (click)="navigateToEdit(trajet.id)">
+                          <img src="assets/images/Edit.png" alt="Editer">
+                        </button>
+
+                        <!-- Detail Button -->
+                        <button (click)="navigateToDetail(trajet.id)">
+                          <img src="assets/images/Eye.png" alt="Voir">
+                        </button>
+
+                        <!-- Delete Button -->
+                        <button (click)="deleteTrajet(trajet.id)">
+                          <img src="assets/images/Trash.png" alt="Supprimer">
+                        </button>
+                      </div>
+
+                  </div>
+                  <!-- End of loop -->
+              </div>
           </div>
       </div>
   </div>

@@ -18,9 +18,12 @@ registerLocaleData(localeFR, 'fr');
 })
 export class DetailTrajetComponent implements OnInit {
   trajetId!: string; // ID du trajet à récupérer
-  trajet: any; // Objet pour stocker les détails du trajet
+  trajet: any = {}; // Initialisez trajet à un objet vide
   isAvailable: boolean = false; // Propriété pour gérer l'état de disponibilité
   newComment: string = ''; // Pour stocker le commentaire nouvellement ajouté
+  loading: boolean = true; // État de chargement
+  trajetsConducteur: any[] = []; // Propriété pour stocker les trajets du conducteur
+  UserId: number | null = null; // Déclarez la propriété UserId
 
   constructor(
     private route: ActivatedRoute,
@@ -30,53 +33,118 @@ export class DetailTrajetComponent implements OnInit {
 
   ngOnInit(): void {
     this.trajetId = this.route.snapshot.paramMap.get('id')!; // Récupération de l'ID du trajet depuis l'URL
+        this.UserId = this.getUserId(); // Récupérez l'ID de l'utilisateur connecté
     this.loadDetails(); // Chargement des détails du trajet
   }
-
+  getUserId(): number | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user).id : null;
+  }
   loadDetails(): void {
-    this.trajetService.getTrajetsDetails(+this.trajetId).subscribe( // Ensure the service method is correctly named
+    this.loading = true; // Définissez loading sur true avant de récupérer
+    this.trajetService.getTrajetsDetails(+this.trajetId).subscribe(
       (data: any) => {
         this.trajet = {
           ...data,
           comments: data.comments || [] // Assurez-vous que la propriété comments est initialisée
         };
-        this.isAvailable = this.trajet.statut.trim().toLowerCase() === 'disponible'; // Vérifiez si le trajet est disponible
-        console.log('Détails du trajet:', this.trajet);
+        this.isAvailable = this.trajet.statut?.trim().toLowerCase() === 'disponible'; // Vérifiez si le trajet est disponible
+        console.log('Détails du trajet:', this.trajet.data);
       },
       (error) => {
         console.error('Erreur lors de la récupération des détails du trajet:', error);
+        this.trajet = {}; // Réinitialisez trajet en cas d'erreur
       }
-    );
+    ).add(() => {
+      this.loading = false; // Définissez loading sur false après récupération
+    });
   }
 
   goBack(): void {
     this.location.back(); // Fonction pour revenir à la page précédente
   }
-
+    // Nouvelle méthode pour charger les trajets par ID du conducteur
+  loadTrajetsByConducteur(conducteurId: number): void {
+    this.trajetService.getTrajetByConducteurId(conducteurId).subscribe(
+      (data: any) => {
+        this.trajetsConducteur = data.data; // Stockez les trajets du conducteur
+        console.log('Trajets du conducteur:', this.trajetsConducteur);
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des trajets du conducteur:', error);
+      }
+    );
+  }
+  // reserveTrajet(): void {
+  //   if (this.trajet && this.isAvailable) {
+  //     // Ajoutez votre logique pour réserver le trajet ici
+  //     Swal.fire({
+  //       icon: 'success',
+  //       title: 'Trajet Réservé',
+  //       text: 'Votre réservation a été confirmée.',
+  //       timer: 3000,
+  //       showConfirmButton: false
+  //     });
+  //   } else {
+  //     Swal.fire({
+  //       icon: 'error',
+  //       title: 'Erreur de réservation',
+  //       text: 'Ce trajet n\'est pas disponible pour le moment.',
+  //       showConfirmButton: true
+  //     });
+  //   }
+  // }
   reserveTrajet(): void {
-    if (this.trajet && this.isAvailable) {
-      // Ajoutez votre logique pour réserver le trajet ici
-      Swal.fire({
-        icon: 'success',
-        title: 'Trajet Réservé',
-        text: 'Votre réservation a été confirmée.',
-        timer: 3000,
-        showConfirmButton: false
-      });
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Erreur de réservation',
-        text: 'Ce trajet n\'est pas disponible pour le moment.',
-        showConfirmButton: true
-      });
+    if (!this.UserId || !this.trajet.id) {
+      console.error('Données manquantes pour la réservation');
+      return;
     }
+
+    const reservationData = new FormData();
+    reservationData.append('user_id', this.UserId.toString());
+    reservationData.append('trajet_id', this.trajet.id.toString());
+    reservationData.append('date_heure_reservation', this.formatDate(new Date()));
+    reservationData.append('statut', 'Réservé');
+
+    this.trajetService.addreserveTrajet(reservationData).subscribe( // Correction de l'appel au service
+      (response) => {
+        console.log('Réservation réussie:', response);
+        this.showSuccessMessage('Réservation effectuée avec succès.');
+      },
+      (error) => {
+        console.error('Erreur lors de la réservation:', error);
+        this.showErrorMessage('Une erreur est survenue lors de la réservation.');
+      }
+    );
+  }
+
+  formatDate(date: Date): string {
+    return date.toISOString().slice(0, 19).replace('T', ' '); // Format YYYY-MM-DD HH:MM:SS
+  }
+
+  showSuccessMessage(message: string): void {
+    Swal.fire({
+      icon: 'success',
+      title: 'Succès',
+      text: message,
+      timer: 3000,
+      showConfirmButton: false
+    });
+  }
+
+  showErrorMessage(message: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur',
+      text: message,
+      showConfirmButton: true
+    });
   }
 
   addComment(): void {
     if (this.newComment.trim()) {
       const comment = {
-        nom: 'Utilisateur', // Vous pouvez récupérer le nom de l'utilisateur connecté
+        nom: 'Utilisateur',
         message: this.newComment,
         date: new Date()
       };

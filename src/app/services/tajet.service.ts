@@ -41,6 +41,9 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
 }
 
   // Méthode pour récupérer tous les trajets disponibles (pour le passager)
+  getTrajetByConducteurId(trajetId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/trajets/trajet/${trajetId}`);
+  }
 
 
   // Méthode pour récupérer les trajets du conducteur connecté
@@ -76,20 +79,6 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
     );
   }
 
-  // Méthode pour archiver un trajet (réservée au conducteur connecté)
-  archiveTrajets(id: any): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/trajets/${id}`, this.getAuthHeaders()).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  // Méthode pour restaurer un trajet archivé (réservée au conducteur connecté)
-  restoreTrajets(id: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/trajets/${id}/restore`, {}, this.getAuthHeaders()).pipe(
-      catchError(this.handleError)
-    );
-  }
-
   // Méthode pour supprimer définitivement un trajet (réservée au conducteur connecté)
   deleteTrajets(id: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/trajets/${id}/force-delete`, this.getAuthHeaders()).pipe(
@@ -100,6 +89,18 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
   // Méthode pour voir les détails d'un trajet (accessible à tout utilisateur)
   getTrajetsDetails(id: any): Observable<any> {
     return this.http.get(`${this.apiUrl}/trajets/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+// Méthode pour ajouter une reservation
+  addreserveTrajet(trajetData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/trajets`, trajetData).pipe(
+      catchError(this.handleError) // Gérer les erreurs ici
+    );
+  }
+  // Méthode pour récupérer la listes des reserves
+  getAllreserveTrajet(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/trajets`).pipe(
       catchError(this.handleError)
     );
   }

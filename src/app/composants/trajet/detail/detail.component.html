@@ -3,24 +3,28 @@
   <div class="left-section">
       <!-- Infos du conducteur -->
       <div class="driver-info">
-          <img src="assets/images/Ellipse 255.png" alt="Driver Avatar" class="avatar">
-          <p><b>Conducteur :</b> {{ trajet.conducteur.nom }}</p>
-          <p><b>Âge :</b> {{ trajet.conducteur.age }} ans</p>
-          <p><b>Tél :</b> {{ trajet.conducteur.telephone }}</p>
-          <p><b>Email :</b> {{ trajet.conducteur.email }}</p>
-      </div>
+        <img src="assets/images/Ellipse 255.png" alt="Driver Avatar" class="avatar">
+        <p><b>Conducteur :</b> {{ trajet.data.conducteur.user.nom }}</p>
+        <p><b>Âge :</b> {{ trajet.data.conducteur?.age }} ans</p>
+        <p><b>Tél :</b> {{ trajet.data.conducteur.telephone }}</p>
+        <p><b>Email :</b> {{ trajet.data.conducteur.user.email }}</p>
+    </div>
 
-      <!-- Liste des réservations -->
-      <div class="reservations">
-          <h4>Liste des réservations</h4>
+     <!-- Liste des réservations -->
+     <div class="reservations">
+      <h4>Liste des réservations</h4>
+      <div *ngIf="trajet.reservations && trajet.reservations.length > 0; else noReservations">
           <div *ngFor="let reservation of trajet.reservations" class="reservation">
               <p><b>{{ reservation.nom }}</b></p>
               <p>Tél: {{ reservation.telephone }}</p>
               <p>Statut : ✔️</p>
           </div>
-          <div *ngIf="trajet.reservations.length === 0">Aucune réservation pour ce trajet.</div>
       </div>
+      <ng-template #noReservations>
+          <div>Aucune réservation pour ce trajet.</div>
+      </ng-template>
   </div>
+</div>
 
   <!-- Section droite : Carte et infos du trajet -->
   <div class="right-section">
@@ -32,25 +36,30 @@
       <!-- Informations sur le trajet -->
       <div class="trip-info">
           <h3>{{ trajet.titre }}</h3>
-          <p><b> Point de départ :</b> {{ trajet.pointDepart }} </p>
-          <p><b>Point d'arrivée :</b> {{ trajet.pointArrivee }} </p>
-          <p><b>Heure de départ :</b> {{ trajet.heureDepart }}</p>
-          <p><b>Date de départ :</b> {{ trajet.dateDepart | date:'dd/MM/yyyy' }}</p>
-          <p><b>Nombre de place :</b> {{ trajet.nombreplace }}</p>
-          <p><b>Prix total pour un passager :</b> {{ trajet.prix | currency:'XOF' }}</p>
+          <p><b> Point de départ :</b> {{ trajet.data.point_depart }} </p>
+          <p><b>Point d'arrivée :</b> {{ trajet.data.point_arrivee }} </p>
+          <p><b>Heure de départ :</b> {{ trajet.data.heure_depart }}</p>
+          <p><b>Date de départ :</b> {{ trajet.data.date_depart | date:'dd/MM/yyyy' }}</p>
+          <p><b>Nombre de place :</b> {{ trajet.data.nombre_places }}</p>
+          <p><b>Prix total pour un passager :</b> {{ trajet.data.prix | currency:'XOF' }}</p>
 
           <!-- Bouton réserver -->
           <button class="reserve-btn" (click)="reserveTrajet()" [disabled]="!isAvailable">RÉSERVER</button>
       </div>
-            <div class="comments-section">
+            <!-- Section des commentaires -->
+              <div class="comments-section">
                 <textarea [(ngModel)]="newComment" placeholder="Ajouter un commentaire"></textarea>
                 <button (click)="addComment()">Envoyer</button>
-                <div class="comment" *ngFor="let comment of trajet.comments">
-                    <p><b>{{ comment.nom }}</b></p>
-                    <p>{{ comment.message }}</p>
-                    <p>{{ comment.date | date:'short' }}</p>
+                <div *ngIf="trajet.comments && trajet.comments.length > 0; else noComments">
+                    <div class="comment" *ngFor="let comment of trajet.comments">
+                        <p><b>{{ comment.nom }}</b></p>
+                        <p>{{ comment.message }}</p>
+                        <p>{{ comment.date | date:'short' }}</p>
+                    </div>
                 </div>
-                <div *ngIf="trajet.comments.length === 0">Aucun commentaire pour ce trajet.</div>
+                <ng-template #noComments>
+                    <div>Aucun commentaire pour ce trajet.</div>
+                </ng-template>
             </div>
         </div>
     </div>

@@ -18,6 +18,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, identifiant).pipe(
       tap((response: any) => {
         this.setToken(response.token); // Sauvegarder le token
+        
         this.redirectUser(response.user); // Rediriger l'utilisateur selon son rôle
       }),
       catchError(error => {
@@ -98,20 +99,48 @@ export class AuthService {
 //   });
 //   return this.http.get('http://127.0.0.1:8000/api/user', { headers });
 // }
+
+//stockage dans le localstorage
+// getUser() {
+//   if (typeof window !== 'undefined' && window.localStorage) {
+//     const user = localStorage.getItem('user');
+//     return user ? JSON.parse(user) : null;
+//   } else {
+//     console.warn('localStorage is not available.');
+//     return null;
+//   }
+// }
 getUser() {
   if (typeof window !== 'undefined' && window.localStorage) {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+    try {
+      const user = localStorage.getItem('user');
+      return user ? JSON.parse(user) : null;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des données utilisateur :', error);
+      return null;
+    }
   } else {
-    console.warn('localStorage is not available.');
+    console.warn('localStorage n\'est pas disponible.');
     return null;
   }
 }
 
-getUserId(): number {
-  const user = JSON.parse(localStorage.getItem('user')!); // Ou autre méthode pour stocker et récupérer l'utilisateur connecté
-  return user?.id;
+
+// getUserId(): number {
+//   const user = JSON.parse(localStorage.getItem('user')!); // Ou autre méthode pour stocker et récupérer l'utilisateur connecté
+//   return user?.id;
+// }
+
+getUserId(): number | null {
+  const user = this.getUser(); // Utiliser la méthode centralisée getUser()
+  if (user && user.id) {
+    return user.id;
+  } else {
+    console.warn('ID utilisateur introuvable.');
+    return null;
+  }
 }
+
 
 // Méthode pour obtenir les en-têtes d'authentification
 private getAuthHeaders() {

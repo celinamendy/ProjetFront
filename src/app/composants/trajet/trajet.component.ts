@@ -5,14 +5,14 @@ import { TrajetService } from '../../services/tajet.service';
 import { Trajet } from '../../Models/trajet/trajet.component';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import FormsModule and ReactiveFormsModule
-import Swal from 'sweetalert2';  // Import SweetAlert if you're using it
+import Swal from 'sweetalert2';  // Import SweetAlert
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-trajet',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],  // Include FormsModule and ReactiveFormsModule
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],  
   templateUrl: './trajet.component.html',
   styleUrls: ['./trajet.component.css']
 })
@@ -20,7 +20,10 @@ export class TrajetComponent implements OnInit {
 
   trajets: Trajet[] = []; // Initialize as an empty array for storing multiple trajets
   trajetForm: FormGroup;
-  searchTerm: string = '';  // Variable for search term
+  searchTerm: string = '';  // Variable pour les recherches
+  trajetsToday: Trajet[] = []; // tableau pour les trajets du jour
+  upcomingTrajets: Trajet[] = []; // tableau pour les trajets a venir
+
 
   constructor(
     private trajetService: TrajetService,
@@ -49,7 +52,7 @@ export class TrajetComponent implements OnInit {
   fetchTrajets(): void {
     this.trajetService.getAllTrajets().subscribe({
       next: (data) => {
-        this.trajets = data;
+        this.trajets = data.data;
         console.log('Trajets loaded successfully:', this.trajets);
       },
       error: (error) => {
@@ -70,6 +73,20 @@ export class TrajetComponent implements OnInit {
     } else {
       this.fetchTrajets(); // Reload all trajets if search term is cleared
     }
+  }
+  // Filter trajets into today's and upcoming
+  filterTrajets(): void {
+    const today = new Date().setHours(0, 0, 0, 0); // Get today's date with time set to midnight
+
+    this.trajetsToday = this.trajets.filter((trajet) => {
+      const trajetDate = new Date(trajet.date_depart).setHours(0, 0, 0, 0); // Format the date_depart field
+      return trajetDate === today; // Check if the trip is today
+    });
+
+    this.upcomingTrajets = this.trajets.filter((trajet) => {
+      const trajetDate = new Date(trajet.date_depart).setHours(0, 0, 0, 0);
+      return trajetDate > today; // Check if the trip is in the future
+    });
   }
 
   // Method to handle form submission
