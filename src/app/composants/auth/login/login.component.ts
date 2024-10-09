@@ -69,8 +69,8 @@ import { CommonModule } from '@angular/common';
 
 // Interface pour la réponse d'authentification
 interface AuthResponse {
-  // access_token: string;
-  // roles: string[];
+  access_token: string;
+  roles: string[];
   user: {
     id: number;
     nom: string;
@@ -92,39 +92,51 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
-    });
-  }
+//   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+//     this.loginForm = this.fb.group({
+//       email: ['', [Validators.required, Validators.email]],
+//       password: ['', [Validators.required]]
+//     });
+//   }
 
+constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  this.loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
+  });
+
+  // Vérifier si l'utilisateur est déjà connecté
+  if (localStorage.getItem('access_token')) {
+    this.router.navigate(['/']);
+  }
+}
   onSubmit() {
     if (this.loginForm.valid) {
       const credentials = this.loginForm.value;
       this.authService.login(credentials).subscribe(
-         (response:any) => { // Typage explicite
+        (response: AuthResponse) => { // Assurez-vous que AuthResponse est défini
           console.log(response.access_token);
           console.log('Connexion réussie:', response);
 
           // Sauvegarder le token et les rôles dans localStorage
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('roles', JSON.stringify(response.roles));
+          localStorage.setItem('user', JSON.stringify(response.user));
 
           // Redirection en fonction des rôles
-          if (response.roles=="passager") {
-            this.router.navigate(["/register"]);
+          if (response.roles.includes("passager")) {
+            this.router.navigate(["/trajet"]);
           } else if (response.roles.includes('admin')) {
             this.router.navigate(['/admin']);
           } else {
             this.router.navigate(['/']);
           }
         },
-        // error: (error) => {
-        //   console.error('Erreur lors de la connexion:', error);
-        //   // Gestion des erreurs
-        //   this.errorMessage = error.error?.message || 'Erreur de connexion';
-        // }
+      //   (error) => {
+      //     console.error('Erreur lors de la connexion:', error);
+      //     // Gestion des erreurs
+      //     this.errorMessage = error.error?.message || 'Erreur de connexion';
+      //   }
       );
     }
   }

@@ -1,0 +1,96 @@
+* Styles pour le corps */
+body {
+    font-family: Arial, sans-serif;
+    background: url('/assets/images/Desktop2.png') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Conteneur du formulaire */
+.form-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    width: 800px; /* Ajustez selon vos besoins */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles pour les lignes du formulaire */
+.form-row {
+    display: flex;
+    justify-content: space-between; /* Espace entre les colonnes */
+    margin-bottom: 15px; /* Espace entre les lignes */
+}
+
+/* Styles pour les champs du formulaire */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    flex: 1; /* Chaque groupe occupe une largeur égale */
+    margin-right: 10px; /* Espace entre les colonnes */
+}
+
+.form-group:last-child {
+    margin-right: 0; /* Pas d'espace à droite pour le dernier élément */
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="file"],
+input[type="time"] {
+    width: 90%; /* Ajustez la largeur pour un meilleur alignement */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input[type="file"] {
+    padding: 5px;
+}
+
+input[type="submit"],
+button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Styles pour les boutons */
+.submit-btn {
+    background-color: #002060;
+    color: white;
+    margin-top: 10px;
+    grid-column: span 2; /* Le bouton s'étend sur les deux colonnes */
+}
+
+.cancel-btn {
+    background-color: white;
+    color: #002060;
+    border: 2px solid #002060; /* Ajouter une bordure */
+    margin-top: 10px;
+    grid-column: span 2; /* Le bouton s'étend sur les deux colonnes */
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+

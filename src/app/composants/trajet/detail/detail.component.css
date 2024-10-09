@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.left-section {
+  width: 25%;
+  padding: 20px;
+}
+
+.right-section {
+  width: 75%;
+  padding: 20px;
+}
+
+.map-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.map-section img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.driver-info, .reservations, .trip-info, .comments-section {
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.reservations h4 {
+  margin-bottom: 10px;
+}
+
+.reservation {
+  background-color: #f7f7f7;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.trip-info h3 {
+  color: #ff7f50;
+  margin-bottom: 10px;
+}
+
+.reserve-btn {
+  display: block;
+  width: 100%;
+  background-color: #ff7f50;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.reserve-btn:hover {
+  background-color: #ff5f30;
+}
+
+.comments-section {
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 50px;
+  border-radius: 8px;
+}
+
+.comments-section input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.comments-section button {
+  width: 18%;
+  padding: 10px;
+  background-color: #ff7f50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comments-section .comment {
+  background-color: #f7f7f7;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.comment p {
+  margin-bottom: 5px;
+}

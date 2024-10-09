@@ -1,0 +1,91 @@
+<div class="container mt-5">
+  <h2>Ajouter un Trajet</h2>
+  <form [formGroup]="trajetForm" (ngSubmit)="onSubmit()">
+
+      <!-- Conducteur_id caché -->
+      <input type="hidden" formControlName="conducteur_id" />
+
+      <div>
+        <label for="point_depart">Point de départ:</label>
+        <input id="point_depart" formControlName="point_depart">
+        <div *ngIf="trajetForm.get('point_depart')?.invalid && (trajetForm.get('point_depart')?.touched || trajetForm.get('point_depart')?.dirty)">
+        </div>
+      </div>
+
+
+      <!-- Point d'arrivée -->
+      <div class="form-group">
+          <label for="point_arrivee">Point d'arrivée</label>
+          <input type="text" id="point_arrivee" class="form-control" formControlName="point_arrivee" placeholder="Entrez le point d'arrivée" />
+          <div *ngIf="trajetForm.get('point_arrivee')?.invalid && trajetForm.get('point_arrivee')?.touched" class="text-danger">
+              Ce champ est requis.
+          </div>
+      </div>
+
+      <!-- Date de départ -->
+      <div class="form-group">
+          <label for="date_depart">Date de départ</label>
+          <input type="date" id="date_depart" class="form-control" formControlName="date_depart" />
+          <div *ngIf="trajetForm.get('date_depart')?.invalid && trajetForm.get('date_depart')?.touched" class="text-danger">
+              Ce champ est requis.
+          </div>
+      </div>
+
+      <!-- Heure de départ -->
+      <div class="form-group">
+          <label for="heure_depart">Heure de départ</label>
+          <input type="time" id="heure_depart" class="form-control" formControlName="heure_depart" />
+          <div *ngIf="trajetForm.get('heure_depart')?.invalid && trajetForm.get('heure_depart')?.touched" class="text-danger">
+              Ce champ est requis.
+          </div>
+      </div>
+
+      <!-- Nombre de places -->
+      <div class="form-group">
+          <label for="nombre_places">Nombre de places</label>
+          <input type="number" id="nombre_places" class="form-control" formControlName="nombre_places" placeholder="Entrez le nombre de places disponibles" />
+          <div *ngIf="trajetForm.get('nombre_places')?.invalid && trajetForm.get('nombre_places')?.touched" class="text-danger">
+              Ce champ est requis.
+          </div>
+      </div>
+
+      <!-- Prix -->
+      <div class="form-group">
+          <label for="prix">Prix</label>
+          <input type="number" id="prix" class="form-control" formControlName="prix" placeholder="Entrez le prix du trajet" />
+          <div *ngIf="trajetForm.get('prix')?.invalid && trajetForm.get('prix')?.touched" class="text-danger">
+              Ce champ est requis.
+          </div>
+      </div>
+
+      <!-- Statut -->
+      <div class="form-group">
+          <label for="statut">Statut</label>
+          <select id="statut" class="form-control" formControlName="statut">
+              <option value="en cours">En cours</option>
+              <option value="terminer">Terminer</option>
+              <option value="annuler">Annuler</option>
+              <option value="confirmer">Confirmer</option>
+          </select>
+      </div>
+
+      <!-- Champ véhicule_id -->
+      <div class="form-group">
+          <label for="vehicule_id">Véhicule</label>
+          <select id="vehicule_id" class="form-control" formControlName="vehicule_id">
+            <option value="" disabled selected>Sélectionnez un véhicule</option>
+            <option *ngFor="let vehicule of vehicules" [value]="vehicule.id">{{ vehicule.marque }}</option>
+          </select>
+
+          <div *ngIf="trajetForm.get('vehicule_id')?.invalid && trajetForm.get('vehicule_id')?.touched" class="text-danger">
+              Ce champ est requis.
+          </div>
+      </div>
+
+      <!-- Bouton d'envoi -->
+      <div class="form-buttons">
+          <button type="submit">Ajouter Trajet</button>
+          <button type="reset" class="cancel-btn">Annuler</button>
+      </div>
+  </form>
+</div>

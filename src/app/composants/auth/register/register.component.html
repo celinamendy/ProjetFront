@@ -2,8 +2,8 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <label for="type">Type d'utilisateur :</label>
   <select formControlName="type" (change)="onTypeChange()">
-    <option value="passenger">Passager</option>
-    <option value="driver">Conducteur</option>
+    <option value="passager">Passager</option>
+    <option value="conducteur">Conducteur</option>
   </select>
 
   <div>
