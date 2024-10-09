@@ -24,7 +24,7 @@ export class VehiculeService {
    getAllVehiculesByUserConnected(idConducteur: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/getVehiculesByConducteurId/${idConducteur}`).pipe(
       catchError(this.handleError)
-    );
+      );
   }
 
   private handleError(error: any): Observable<never> {

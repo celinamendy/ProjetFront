@@ -41,10 +41,16 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
 }
 
   // Méthode pour récupérer tous les trajets disponibles (pour le passager)
-  getTrajetByConducteurId(trajetId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/trajets/trajet/${trajetId}`);
-  }
-
+  getTrajetByConducteurId(conducteur_Id: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/getTrajetByconducteurId/${conducteur_Id}`);
+   }
+  // getTrajetByConducteurId(trajetId: number): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.apiUrl}/trajets/trajet/${trajetId}`);
+  // }
+  // // Récupérer les trajets par conducteur
+  // getTrajetsByConducteur(conducteurId: number): Observable<any> {
+  //   return this.http.get<any>(`${this.apiUrl}/trajets/conducteur/${conducteurId}`);
+  // }
 
   // Méthode pour récupérer les trajets du conducteur connecté
   getUserTrajets(): Observable<any> {

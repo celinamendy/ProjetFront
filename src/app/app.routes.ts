@@ -8,7 +8,7 @@ import { AjouterTrajetComponent } from './composants/trajet/ajouter/ajouter.comp
 import { ModificationTrajetComponent } from './composants/trajet/modifier/modifier.component';
 import { Vehicule } from './Models/vehicule/vehicule.component';
 import { DetailTrajetComponent } from './composants/trajet/detail/detail.component';
-
+import { HistoriqueTrajetComponent } from './composants/trajet/historique/historique.component';
 
 export const routes: Routes = [
   { path: "", redirectTo: "accueil", pathMatch: 'full' },
@@ -16,6 +16,8 @@ export const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },
   { path: "trajet", component: TrajetComponent },
+  { path: "historique", component: HistoriqueTrajetComponent },
+
   { path: 'ajout', component: AjouterTrajetComponent } ,// Page d'ajout de trajet
   { path: 'trajet/modifier/:id', component: ModificationTrajetComponent },
   { path: 'trajet/:id', component: DetailTrajetComponent }, // Route pour afficher les détails du trajet

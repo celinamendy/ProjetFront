@@ -11,13 +11,13 @@ import { TrajetService } from '../../../services/tajet.service';
 import { Trajet } from '../../../Models/trajet/trajet.component';
 
 @Component({
-  selector: 'app-historique',
+  selector: 'app-historique-trajet',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './historique.component.html',
   styleUrls: ['./historique.component.css']
 })
-export class TrajetComponent implements OnInit {
+export class HistoriqueTrajetComponent implements OnInit {
 
   trajets: Trajet[] = []; // Initialize as an empty array for storing multiple trajets
   trajetForm: FormGroup;
@@ -47,7 +47,18 @@ export class TrajetComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchTrajets(); // Load trajets on component initialization
-  }
+    const conducteurId = 1; // L'ID du conducteur à récupérer (exemple)
+
+  this.trajetService.getTrajetByConducteurId(conducteurId).subscribe({
+    next: (data) => {
+      this.trajets = data;
+      console.log('Historique des trajets:', this.trajets);
+    },
+    error: (err) => {
+      console.error('Erreur lors de la récupération des trajets', err);
+    }
+  });
+}
 
   // Method to fetch all trajets from the service
   fetchTrajets(): void {
@@ -105,6 +116,8 @@ export class TrajetComponent implements OnInit {
       );
     }
   }
+
+
 
   // Method to navigate to the edit page
   navigateToEdit(trajetId: number): void {
