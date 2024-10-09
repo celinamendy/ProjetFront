@@ -18,7 +18,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, identifiant).pipe(
       tap((response: any) => {
         this.setToken(response.token); // Sauvegarder le token
-        
+
         this.redirectUser(response.user); // Rediriger l'utilisateur selon son rôle
       }),
       catchError(error => {

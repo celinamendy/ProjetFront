@@ -10,13 +10,13 @@
         <p><b>Email :</b> {{ trajet.data.conducteur.user.email }}</p>
     </div>
 
-     <!-- Liste des réservations -->
-     <div class="reservations">
+    <!-- Liste des réservations -->
+    <div class="reservations">
       <h4>Liste des réservations</h4>
-      <div *ngIf="trajet.reservations && trajet.reservations.length > 0; else noReservations">
-          <div *ngFor="let reservation of trajet.reservations" class="reservation">
-              <p><b>{{ reservation.nom }}</b></p>
-              <p>Tél: {{ reservation.telephone }}</p>
+      <div *ngIf="trajet.data.reservations && trajet.data.reservations.length > 0; else noReservations">
+          <div *ngFor="let reservation of passager" class="reservation">
+              <p><b>{{ reservation.user.nom }}</b></p>
+              <p>Tél: {{ reservation.user.telephone  }}</p>
               <p>Statut : ✔️</p>
           </div>
       </div>
@@ -25,6 +25,7 @@
       </ng-template>
   </div>
 </div>
+
 
   <!-- Section droite : Carte et infos du trajet -->
   <div class="right-section">
@@ -50,10 +51,10 @@
               <div class="comments-section">
                 <textarea [(ngModel)]="newComment" placeholder="Ajouter un commentaire"></textarea>
                 <button (click)="addComment()">Envoyer</button>
-                <div *ngIf="trajet.comments && trajet.comments.length > 0; else noComments">
-                    <div class="comment" *ngFor="let comment of trajet.comments">
-                        <p><b>{{ comment.nom }}</b></p>
-                        <p>{{ comment.message }}</p>
+                <div *ngIf="trajet.data.reservations && trajet.data.avis.length > 0; else noComments">
+                    <div class="comment" *ngFor="let comment of trajet.data.avis">
+                        <p><b>{{ comment.user.nom }}</b></p>
+                        <p>{{ comment.commentaire }}</p>
                         <p>{{ comment.date | date:'short' }}</p>
                     </div>
                 </div>
