@@ -19,16 +19,17 @@ registerLocaleData(localeFR, 'fr');
   styleUrls: ['./detail.component.css']
 })
 export class DetailTrajetComponent implements OnInit {
-  trajetId!: string;
+  trajetId!: string;  ;
   trajet: any = {};
   isAvailable: boolean = false;
   newComment: string = '';
   loading: boolean = true;
   trajetsConducteur: any[] = [];
-  UserId: number | null = null;
+  UserId: any | null = null;
   reservations: any[] = [];
   passager: any[] = [];
   users: any[] = []; // Ajoutez un tableau pour stocker les utilisateurs
+
 
   constructor(
     private route: ActivatedRoute,
@@ -72,34 +73,50 @@ export class DetailTrajetComponent implements OnInit {
     this.location.back();
   }
 
-  formatDate(date: Date): string {
-    return date.toISOString();
-  }
 
-  reserveTrajet(): void {
-    if (!this.UserId || !this.trajet.id) {
-      console.error('Données manquantes pour la réservation');
+  reserveTrajet(trajetId: any): void {
+    if (!this.UserId || !trajetId || !this.trajet) {
+      console.error('Données manquantes pour la réservation', this.UserId, trajetId);
       return;
     }
 
-    const reservationData = new FormData();
-    reservationData.append('user_id', this.UserId.toString());
-    reservationData.append('trajet_id', this.trajet.id.toString());
-    reservationData.append('date_heure_reservation', this.formatDate(new Date()));
-    reservationData.append('statut', 'Réservé');
+    const placesDisponibles = this.trajet.data.nombre_places; // Remplacez par le champ correct
+    const nombreReservations = this.trajet.data.reservations.length; // Supposons que `reservations` soit un tableau
 
-    this.trajetService.addreserveTrajet(reservationData).subscribe(
-      (response) => {
-        console.log('Réservation réussie:', response);
-        this.showSuccessMessage('Réservation effectuée avec succès.');
-      },
-      (error) => {
-        console.error('Erreur lors de la réservation:', error);
-        this.showErrorMessage('Une erreur est survenue lors de la réservation.');
-      }
-    );
+    // Vérifier si des places sont disponibles
+    if (nombreReservations < placesDisponibles) {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+      const day = String(today.getDate()).padStart(2, '0');
+
+      const formattedDate = `${year}-${month}-${day}`; // Format: 'YYYY-MM-DD'
+
+      const reservationData = new FormData();
+      reservationData.append('user_id', this.UserId);
+      reservationData.append('trajet_id', trajetId);
+      reservationData.append('date_heure_reservation', formattedDate);
+      reservationData.append('statut', 'confirmer');
+
+      this.trajetService.addreserveTrajet(reservationData).subscribe(
+        (response) => {
+          console.log('Réservation réussie:', response);
+          this.showSuccessMessage('Réservation effectuée avec succès.');
+          window.location.reload();
+        },
+        (error) => {
+          console.error('Erreur lors de la réservation:', error);
+          this.showErrorMessage('Une erreur est survenue lors de la réservation.');
+        }
+      );
+    } else {
+      console.error('Aucune place disponible pour cette réservation.');
+      this.showErrorMessage('Aucune place disponible pour cette réservation.');
+    }
   }
 
+
+  
   addComment(): void {
     if (this.newComment.trim()) {
       const comment = {

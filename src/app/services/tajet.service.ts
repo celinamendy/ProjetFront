@@ -93,8 +93,8 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
     );
   }
 // Méthode pour ajouter une reservation
-  addreserveTrajet(trajetData: FormData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/trajets`, trajetData).pipe(
+  addreserveTrajet(reservationData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/reservations`, reservationData).pipe(
       catchError(this.handleError) // Gérer les erreurs ici
     );
   }

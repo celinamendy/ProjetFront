@@ -45,7 +45,7 @@
           <p><b>Prix total pour un passager :</b> {{ trajet.data.prix | currency:'XOF' }}</p>
 
           <!-- Bouton réserver -->
-          <button class="reserve-btn" (click)="reserveTrajet()" [disabled]="!isAvailable">RÉSERVER</button>
+          <button class="reserve-btn" (click)="reserveTrajet(trajet.data.id)" >RÉSERVER</button>
       </div>
             <!-- Section des commentaires -->
               <div class="comments-section">
