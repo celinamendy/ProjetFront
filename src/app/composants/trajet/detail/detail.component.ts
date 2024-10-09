@@ -29,7 +29,7 @@ export class DetailTrajetComponent implements OnInit {
   reservations: any[] = [];
   passager: any[] = [];
   users: any[] = []; // Ajoutez un tableau pour stocker les utilisateurs
-
+  newNote: number = 5;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,6 +58,17 @@ export class DetailTrajetComponent implements OnInit {
         };
         this.isAvailable = this.trajet.statut?.trim().toLowerCase() === 'disponible';
         this.passager = this.trajet.data.reservations;
+
+        const placesDisponibles = this.trajet.data.nombre_places; // Nombre total de places
+        const nombreReservations = this.trajet.data.reservations.length; // Nombre de réservations existantes
+        const placesRestantes = placesDisponibles - nombreReservations; // Calcul des places restantes
+
+        // Afficher le nombre de places restantes
+        console.log(`Places restantes pour le trajet ${this.trajetId}:`, placesRestantes);
+
+        // Optionnel: vous pouvez stocker placesRestantes dans une propriété si vous souhaitez l'utiliser ailleurs
+        this.trajet.data.placesRestantes = placesRestantes;
+
         console.log('Détails du trajet:', this.trajet.data);
       },
       (error) => {
@@ -68,6 +79,7 @@ export class DetailTrajetComponent implements OnInit {
       this.loading = false;
     });
   }
+
 
   goBack(): void {
     this.location.back();
@@ -116,25 +128,38 @@ export class DetailTrajetComponent implements OnInit {
   }
 
 
-  
+
   addComment(): void {
-    if (this.newComment.trim()) {
-      const comment = {
-        nom: 'Utilisateur',
-        message: this.newComment,
-        date: new Date()
-      };
-      this.trajet.comments.push(comment);
-      this.newComment = '';
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Erreur',
-        text: 'Veuillez entrer un commentaire valide.',
-        showConfirmButton: true
-      });
+    // Vérifier si le commentaire est vide
+    if (!this.newComment.trim()) {
+      console.error('Le commentaire est vide');
+      return;
     }
+
+    // Créer un objet FormData pour les données de l'avis
+    const avisData = new FormData();
+    avisData.append('user_id', this.UserId);  // ID de l'utilisateur
+    avisData.append('trajet_id', this.trajetId);  // ID du trajet
+    avisData.append('commentaire', this.newComment);  // Commentaire
+    avisData.append('note', this.newNote ? this.newNote.toString() : '5');  // Note (par défaut 5)
+
+    // Envoyer la requête pour ajouter l'avis
+    this.reservationService.addAvis(avisData).subscribe(
+      (response) => {
+        console.log('Commentaire ajouté avec succès:', response);
+        // Ajouter le nouveau commentaire localement à la liste des avis
+        this.trajet.data.avis.push(response.data);
+        // Réinitialiser les champs après l'ajout
+        this.newComment = '';
+        this.newNote = 5;  // Réinitialiser la note à 5 par défaut
+      },
+      (error) => {
+        console.error('Erreur lors de l\'ajout du commentaire:', error);
+      }
+    );
   }
+
+
 
   showSuccessMessage(message: string): void {
     Swal.fire({

@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TrajetService } from '../../services/tajet.service';
-import { Trajet } from '../../Models/trajet/trajet.component';
+
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import FormsModule and ReactiveFormsModule
 import Swal from 'sweetalert2';  // Import SweetAlert
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { TrajetService } from '../../../services/tajet.service';
+import { Trajet } from '../../../Models/trajet/trajet.component';
 
 @Component({
-  selector: 'app-trajet',
+  selector: 'app-historique',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './trajet.component.html',
-  styleUrls: ['./trajet.component.css']
+  templateUrl: './historique.component.html',
+  styleUrls: ['./historique.component.css']
 })
 export class TrajetComponent implements OnInit {
 
@@ -105,10 +106,10 @@ export class TrajetComponent implements OnInit {
     }
   }
 
-  // // Method to navigate to the edit page
-  // navigateToEdit(trajetId: number): void {
-  //   this.router.navigate(['/trajet/edit', trajetId]);  // Adjust the route as needed
-  // }
+  // Method to navigate to the edit page
+  navigateToEdit(trajetId: number): void {
+    this.router.navigate(['/trajet/edit', trajetId]);  // Adjust the route as needed
+  }
 
   // Method to navigate to the detail page
   navigateToDetail(trajetId: number): void {
@@ -116,37 +117,37 @@ export class TrajetComponent implements OnInit {
   }
 
   // Method to delete a trajet
-  // deleteTrajet(trajetId: number): void {
-  //   Swal.fire({
-  //     title: 'Êtes-vous sûr?',
-  //     text: 'Vous ne pourrez pas annuler cette action!',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Oui, supprimer',
-  //     cancelButtonText: 'Annuler'
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       this.trajetService.deleteTrajets(trajetId).subscribe(
-  //         () => {
-  //           Swal.fire(
-  //             'Supprimé!',
-  //             'Le trajet a été supprimé.',
-  //             'success'
-  //           );
-  //           this.fetchTrajets();  // Refresh the list of trajets
-  //         },
-  //         (error) => {
-  //           Swal.fire(
-  //             'Erreur!',
-  //             'Une erreur est survenue lors de la suppression du trajet.',
-  //             'error'
-  //           );
-  //           console.error('Error deleting trajet:', error);
-  //         }
-  //       );
-  //     }
-  //   });
-  // }
+  deleteTrajet(trajetId: number): void {
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Vous ne pourrez pas annuler cette action!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Oui, supprimer',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.trajetService.deleteTrajets(trajetId).subscribe(
+          () => {
+            Swal.fire(
+              'Supprimé!',
+              'Le trajet a été supprimé.',
+              'success'
+            );
+            this.fetchTrajets();  // Refresh the list of trajets
+          },
+          (error) => {
+            Swal.fire(
+              'Erreur!',
+              'Une erreur est survenue lors de la suppression du trajet.',
+              'error'
+            );
+            console.error('Error deleting trajet:', error);
+          }
+        );
+      }
+    });
+  }
 
   // Handle any HTTP errors
   private handleError(error: HttpErrorResponse) {

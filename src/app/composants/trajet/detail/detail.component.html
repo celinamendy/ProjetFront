@@ -12,17 +12,10 @@
 
     <!-- Liste des réservations -->
     <div class="reservations">
-      <h4>Liste des réservations</h4>
-      <div *ngIf="trajet.data.reservations && trajet.data.reservations.length > 0; else noReservations">
-          <div *ngFor="let reservation of passager" class="reservation">
-              <p><b>{{ reservation.user.nom }}</b></p>
-              <p>Tél: {{ reservation.user.telephone  }}</p>
-              <p>Statut : ✔️</p>
-          </div>
+      <h4>Nombre de places restantes</h4>
+      <div *ngIf="trajet.data.nombre_places !== undefined && trajet.data.placesRestantes !== undefined">
+        <p><b>Places restantes : {{ trajet.data.placesRestantes }}</b></p>
       </div>
-      <ng-template #noReservations>
-          <div>Aucune réservation pour ce trajet.</div>
-      </ng-template>
   </div>
 </div>
 
@@ -51,11 +44,12 @@
               <div class="comments-section">
                 <textarea [(ngModel)]="newComment" placeholder="Ajouter un commentaire"></textarea>
                 <button (click)="addComment()">Envoyer</button>
+
                 <div *ngIf="trajet.data.reservations && trajet.data.avis.length > 0; else noComments">
                     <div class="comment" *ngFor="let comment of trajet.data.avis">
                         <p><b>{{ comment.user.nom }}</b></p>
                         <p>{{ comment.commentaire }}</p>
-                        <p>{{ comment.date | date:'short' }}</p>
+                        <p>{{ comment.note }}</p>
                     </div>
                 </div>
                 <ng-template #noComments>

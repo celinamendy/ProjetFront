@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {  ErrorHandler, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders ,HttpInterceptor} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ReservationService {
-  private apiUrl = 'http://127.0.0.1:8000/api/reservations';
+  private apiUrl = 'http://127.0.0.1:8000/api';
 
   constructor(private http: HttpClient) {}
 
@@ -37,5 +37,24 @@ export class ReservationService {
   // Méthode pour obtenir le token (à définir si ce n'est pas déjà fait)
   private getToken(): string | null {
     return localStorage.getItem('access_token'); // Adaptez cela si nécessaire
+  }
+
+  // Gestion des erreurs
+  private handleError(error: any): Observable<never> {
+    // Log ou gérer l'erreur ici
+    console.error('Une erreur est survenue:', error);
+    return throwError(error);
+  }
+
+
+  addAvis(avisData: FormData): Observable<any> {
+    const token = this.getToken(); //  méthode est bien définie
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    return this.http.post<any>(`${this.apiUrl}/avis`, avisData ,{ headers }).pipe(
+      catchError(this.handleError) // Gérer les erreurs ici
+    );
   }
 }
