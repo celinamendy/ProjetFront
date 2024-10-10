@@ -9,6 +9,7 @@ import { ModificationTrajetComponent } from './composants/trajet/modifier/modifi
 import { Vehicule } from './Models/vehicule/vehicule.component';
 import { DetailTrajetComponent } from './composants/trajet/detail/detail.component';
 import { HistoriqueTrajetComponent } from './composants/trajet/historique/historique.component';
+import { AjouterComponent } from './composants/vehicule/ajouter/ajouter.component';
 
 export const routes: Routes = [
   { path: "", redirectTo: "accueil", pathMatch: 'full' },
@@ -22,6 +23,10 @@ export const routes: Routes = [
   { path: 'trajet/modifier/:id', component: ModificationTrajetComponent },
   { path: 'trajet/:id', component: DetailTrajetComponent }, // Route pour afficher les détails du trajet
 
+
+  { path: 'ajouter-vehicule', component: AjouterComponent }, // Route pour ajouter un véhicule
+  { path: 'liste-vehicules', component: AjouterComponent}, // Route pour la liste des véhicules
+  { path: 'vehicule/:id', component: AjouterComponent },
 ];
 
 

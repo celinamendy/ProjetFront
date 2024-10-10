@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import FormsModule and ReactiveFormsModule
 import Swal from 'sweetalert2';  // Import SweetAlert
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { switchMap, throwError } from 'rxjs';
 import { TrajetService } from '../../../services/tajet.service';
 import { Trajet } from '../../../Models/trajet/trajet.component';
+import { ConducteurService } from '../../../services/conducteur.service';
 
 @Component({
   selector: 'app-historique-trajet',
@@ -24,11 +25,13 @@ export class HistoriqueTrajetComponent implements OnInit {
   searchTerm: string = '';  // Variable pour les recherches
   trajetsToday: Trajet[] = []; // tableau pour les trajets du jour
   upcomingTrajets: Trajet[] = []; // tableau pour les trajets a venir
+  conducteur: any; // Conducteur connecté
 
 
   constructor(
     private trajetService: TrajetService,
     private fb: FormBuilder,
+    private conducteurService: ConducteurService,
     private router: Router
   ) {
     // Initializing the form group with controls and validation
@@ -46,33 +49,39 @@ export class HistoriqueTrajetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetchTrajets(); // Load trajets on component initialization
-    const conducteurId = 1; // L'ID du conducteur à récupérer (exemple)
+this.fetchTrajets(); // Load trajets on component initialization
 
-  this.trajetService.getTrajetByConducteurId(conducteurId).subscribe({
-    next: (data) => {
-      this.trajets = data;
-      console.log('Historique des trajets:', this.trajets);
+}
+
+fetchTrajets(): void {
+  this.conducteurService.getConducteurByUserId().pipe(
+    switchMap((response: any) => {
+      if (response.data && response.data.length > 0) {
+        this.conducteur = response.data[0];
+        console.log('Conducteur:', this.conducteur);
+        return this.trajetService.getTrajetByConducteurId(this.conducteur.id);
+      } else {
+        throw new Error('Aucun conducteur trouvé');
+      }
+    })
+  ).subscribe({
+    next: (trajets: any) => {
+      // Vérification si `trajets` est un objet unique
+      if (!Array.isArray(trajets)) {
+        this.trajets = [trajets]; // Enveloppe l'objet dans un tableau
+      } else {
+        this.trajets = trajets; // Si c'est déjà un tableau, l'utiliser directement
+      }
+
+      console.log('Historique des trajets:', this.trajets); // Vérification
     },
     error: (err) => {
-      console.error('Erreur lors de la récupération des trajets', err);
+      console.error('Erreur lors de la récupération des trajets ou du conducteur', err);
     }
   });
 }
 
-  // Method to fetch all trajets from the service
-  fetchTrajets(): void {
-    this.trajetService.getAllTrajets().subscribe({
-      next: (data) => {
-        this.trajets = data.data;
-        console.log('Trajets loaded successfully:', this.trajets);
-      },
-      error: (error) => {
-        console.error('Error fetching trajets:', error);
-        this.handleError(error);
-      }
-    });
-  }
+
 
   // Method to filter trajets based on search term
   applyFilter(): void {

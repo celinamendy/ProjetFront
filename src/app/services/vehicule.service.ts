@@ -1,65 +1,78 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Vehicule } from '../Models/vehicule/vehicule.component'; // Correction du nom du type de la variable
-import { catchError } from 'rxjs/operators'; // Importation de catchError
-
+import { Vehicule } from '../Models/vehicule/vehicule.component';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VehiculeService {
-  private apiUrl = 'http://127.0.0.1:8000/api'; // URL de votre backend Laravel
+  private apiUrl = 'http://127.0.0.1:8000/api';  // URL de l'API
 
 
-  constructor(private http: HttpClient) { }
 
-  // Méthode pour récupérer tous les Vehicule
-  // Modifiez la signature de la méthode pour accepter des en-têtes
-  getAllVehicules(headers?: HttpHeaders): Observable<Vehicule[]> {
-    return this.http.get<Vehicule[]>(this.apiUrl, { headers });
+    constructor(private http: HttpClient) { }
+
+
+
+
+  // Récupérer tous les véhicules
+  // getAllVehicules(): Observable<Vehicule[]> {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({
+  //       'Authorization': `Bearer ${this.getToken()}`,
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json',
+  //     }),
+  //   };
+
+  //   return this.http.get<Vehicule[]>(`${this.apiUrl}/vehicules`, httpOptions).pipe(
+  //     catchError(this.handleError)  // Gérer les erreurs
+  //   );
+  // }
+ getAllVehicules(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/vehicules`).pipe(
+      catchError(this.handleError)
+    );
   }
 
-   // Méthode pour récupérer les véhicules du conducteur connecté
-   getAllVehiculesByUserConnected(idConducteur: number): Observable<any> {
+  // Méthode pour récupérer les véhicules du conducteur connecté
+  getAllVehiculesByUserConnected(idConducteur: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/getVehiculesByConducteurId/${idConducteur}`).pipe(
       catchError(this.handleError)
-      );
+    );
   }
 
+  // Méthode pour gérer les erreurs
   private handleError(error: any): Observable<never> {
-    // Log ou gérer l'erreur ici
     console.error('Une erreur est survenue:', error);
     return throwError(error);
   }
 
-
+  // Récupérer un véhicule par son ID
   getVehiculeById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/vehicules/${id}`);
   }
 
-  // Méthode pour ajouter un Vehicule
-  addVehicule(vehicule: any) {
-    return this.http.post(`${this.apiUrl}/vehicules`, vehicule);
+  // Ajouter un véhicule
+  addVehicule(vehicule: FormData): Observable<Vehicule> {
+    return this.http.post<Vehicule>(`${this.apiUrl}/vehicules`, vehicule);
+}
+
+
+  // Mettre à jour un véhicule
+  updateVehicule(id: any, vehicule: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/vehicules/${id}`, vehicule);
   }
 
-  // Méthode pour mettre à jour un Vehicule
-  updateVehicule(id: any, vehicule: any) {
-    return this.http.put(`${this.apiUrl}/vehicules/${id}`, vehicule); // Utiliser PUT pour les mises à jour
-  }
-
-  // Méthode pour archiver un Vehicule
-  archiveVehicule(id: any) {
-    return this.http.delete(`${this.apiUrl}/vehicules/${id}`);
-  }
-
-  // Méthode pour restaurer un Vehicul earchivé
-  restoreVehicule(id: any) {
-    return this.http.post(`${this.apiUrl}/vehicules/${id}/restore`, {});
-  }
-
-  // Méthode pour supprimer définitivement un Vehicule
-  deleteVehicule(id: any) {
+  // Supprimer définitivement un véhicule
+  deleteVehicule(id: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/vehicules/${id}/force-delete`);
+  }
+
+  // Fonction pour récupérer le token
+  private getToken(): string {
+    return localStorage.getItem('token') || '';  // Supposons que le token est stocké dans localStorage
   }
 }
