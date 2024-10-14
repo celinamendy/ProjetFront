@@ -20,10 +20,12 @@ export class TrajetComponent implements OnInit {
 
   trajets: Trajet[] = []; // Initialize as an empty array for storing multiple trajets
   trajetForm: FormGroup;
-  searchTerm: string = '';  // Variable pour les recherches
-  trajetsToday: Trajet[] = []; // tableau pour les trajets du jour
-  upcomingTrajets: Trajet[] = []; // tableau pour les trajets a venir
-
+  searchTerm: string = '';  // Variable for search functionality
+  trajetsToday: Trajet[] = []; // Array for today's trips
+  upcomingTrajets: Trajet[] = []; // Array for upcoming trips
+  sortKey: string = '';  // Property to hold the current sort key
+  sortDirection: string = 'asc';  // Property to hold the sorting direction
+  filteredTrajets: Trajet[] = []; // Array to hold sorted/filter trajectories
 
   constructor(
     private trajetService: TrajetService,
@@ -53,6 +55,8 @@ export class TrajetComponent implements OnInit {
     this.trajetService.getAllTrajets().subscribe({
       next: (data) => {
         this.trajets = data.data;
+        this.filteredTrajets = this.trajets; // Initialize filteredTrajets
+        this.filterTrajets(); // Filter trips for today and upcoming
         console.log('Trajets loaded successfully:', this.trajets);
       },
       error: (error) => {
@@ -65,15 +69,52 @@ export class TrajetComponent implements OnInit {
   // Method to filter trajets based on search term
   applyFilter(): void {
     if (this.searchTerm) {
-      this.trajets = this.trajets.filter((trajet) =>
+      this.filteredTrajets = this.trajets.filter((trajet) =>
         trajet.point_depart.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         trajet.point_arrivee.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         trajet.prix.toString().includes(this.searchTerm)
       );
     } else {
-      this.fetchTrajets(); // Reload all trajets if search term is cleared
+      this.filteredTrajets = this.trajets; // Reset to original list if search term is cleared
     }
   }
+
+  // Sort the trajets based on the provided key
+  sortBy(key: string): void {
+    if (this.sortKey === key) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc'; // Toggle sort direction
+    } else {
+      this.sortKey = key;
+      this.sortDirection = 'asc'; // Default to ascending
+    }
+
+    this.filteredTrajets = this.filteredTrajets.sort((a, b) => {
+      let compareA = a[key as keyof Trajet];
+      let compareB = b[key as keyof Trajet];
+
+      // If values are numbers, we can directly compare
+      if (typeof compareA === 'number' && typeof compareB === 'number') {
+        return this.sortDirection === 'asc' ? compareA - compareB : compareB - compareA;
+      }
+
+      // Otherwise, we convert to lowercase for string comparison
+      compareA = (compareA as string).toLowerCase();
+      compareB = (compareB as string).toLowerCase();
+
+      return this.sortDirection === 'asc'
+        ? compareA.localeCompare(compareB)
+        : compareB.localeCompare(compareA);
+    });
+  }
+
+  // Reset the filters to show all trajets
+  resetFilters(): void {
+    this.filteredTrajets = this.trajets; // Reset to original list
+    this.searchTerm = ''; // Clear search term
+    this.sortKey = ''; // Reset sort key
+    this.sortDirection = 'asc'; // Reset sort direction
+  }
+
   // Filter trajets into today's and upcoming
   filterTrajets(): void {
     const today = new Date().setHours(0, 0, 0, 0); // Get today's date with time set to midnight
@@ -100,15 +141,13 @@ export class TrajetComponent implements OnInit {
         },
         (error) => {
           console.error('Error adding trajet:', error);
+          this.handleError(error); // Handle the error properly
         }
       );
+    } else {
+      Swal.fire('Error', 'Please fill in all required fields.', 'error'); // Show error if form is invalid
     }
   }
-
-  // // Method to navigate to the edit page
-  // navigateToEdit(trajetId: number): void {
-  //   this.router.navigate(['/trajet/edit', trajetId]);  // Adjust the route as needed
-  // }
 
   // Method to navigate to the detail page
   navigateToDetail(trajetId: number): void {
@@ -116,41 +155,34 @@ export class TrajetComponent implements OnInit {
   }
 
   // Method to delete a trajet
-  // deleteTrajet(trajetId: number): void {
-  //   Swal.fire({
-  //     title: 'Êtes-vous sûr?',
-  //     text: 'Vous ne pourrez pas annuler cette action!',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Oui, supprimer',
-  //     cancelButtonText: 'Annuler'
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       this.trajetService.deleteTrajets(trajetId).subscribe(
-  //         () => {
-  //           Swal.fire(
-  //             'Supprimé!',
-  //             'Le trajet a été supprimé.',
-  //             'success'
-  //           );
-  //           this.fetchTrajets();  // Refresh the list of trajets
-  //         },
-  //         (error) => {
-  //           Swal.fire(
-  //             'Erreur!',
-  //             'Une erreur est survenue lors de la suppression du trajet.',
-  //             'error'
-  //           );
-  //           console.error('Error deleting trajet:', error);
-  //         }
-  //       );
-  //     }
-  //   });
-  // }
+  deleteTrajet(trajetId: number): void {
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Vous ne pourrez pas annuler cette action!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Oui, supprimer',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.trajetService.deleteTrajets(trajetId).subscribe(
+          () => {
+            Swal.fire('Supprimé!', 'Le trajet a été supprimé.', 'success');
+            this.fetchTrajets();  // Refresh the list of trajets
+          },
+          (error) => {
+            Swal.fire('Erreur!', 'Une erreur est survenue lors de la suppression du trajet.', 'error');
+            console.error('Error deleting trajet:', error);
+          }
+        );
+      }
+    });
+  }
 
   // Handle any HTTP errors
   private handleError(error: HttpErrorResponse) {
     console.error('An error occurred:', error);
+    Swal.fire('Erreur', 'Une erreur est survenue, veuillez réessayer plus tard.', 'error'); // Display error alert
     return throwError(() => new Error('Something went wrong. Please try again later.'));
   }
 }

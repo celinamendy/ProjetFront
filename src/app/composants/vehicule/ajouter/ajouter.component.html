@@ -5,7 +5,7 @@
       Ajouter un véhicule
     </div>
     <div class="card-body">
-      <form (ngSubmit)="addVehicule()" #vehiculeForm="ngForm">
+      <form (ngSubmit)="addVehicule()" #vehiculeForm="ngForm" enctype="multipart/form-data">
         <div class="form-group">
           <label for="marque">Marque</label>
           <input type="text" id="marque" [(ngModel)]="vehicule.marque" name="marque" class="form-control" required>
@@ -25,13 +25,15 @@
 
         <div class="form-group">
           <label for="photo">Photo</label>
-          <input type="text" id="photo" [(ngModel)]="vehicule.photo" name="photo" class="form-control" required>
+          <!-- Champ de type file pour l'upload d'image -->
+          <input type="file" (change)="onFileSelected($event)">
         </div>
 
         <button type="submit" class="btn btn-primary" [disabled]="!vehiculeForm.valid">Ajouter</button>
       </form>
     </div>
   </div>
+</div>
 
   <table>
     <thead>

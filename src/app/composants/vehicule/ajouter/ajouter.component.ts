@@ -26,6 +26,7 @@ export class AjouterComponent implements OnInit {
   conducteur: any; // Conducteur connecté
   vehicules: any[] = []; // Liste des véhicules
   selectedVehicule:any[] = []; // Véhicule sélectionné pour afficher les détails
+  selectedFile: File | null = null;
 
   constructor(private vehiculeService: VehiculeService,
     private conducteurService: ConducteurService,
@@ -47,6 +48,17 @@ export class AjouterComponent implements OnInit {
       }
     );
   }
+
+
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];  // Select the first file if multiple files are selected
+    if (file) {
+      this.selectedFile = file;
+      console.log('Fichier sélectionné :', this.selectedFile);
+    }
+  }
+
 
   // Méthode pour ajouter un véhicule
   // addVehicule() {
@@ -111,9 +123,13 @@ export class AjouterComponent implements OnInit {
     formData.append('modele', this.vehicule.modele);
     formData.append('couleur', this.vehicule.couleur);
     formData.append('immatriculation', this.vehicule.immatriculation);
-    if (this.vehicule.photo) {
-        formData.append('photo', this.vehicule.photo); // Assurez-vous que `photo` est un fichier
+    if (this.selectedFile) {
+      formData.append('photo', this.selectedFile);
     }
+// Ajouter l'image sélectionnée si elle existe
+// if (form.photo) {
+//   formData.append('photo', form.photo);
+// }
 
 
     const conducteur_ID =this.conducteur.id;

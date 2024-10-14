@@ -194,15 +194,22 @@ private getAuthHeaders() {
     return !!this.getToken(); // Vérifie si un token est présent
   }
    // Méthode pour récupérer les détails de l'utilisateur connecté
-   getUserDetails(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/details`, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.getToken()}`
-      })
-    });
-  }
- // Méthode pour récupérer les informations spécifiques du conducteur
+
+    getUserDetails(): Observable<any> {
+      const userId = this.getUserId(); // Get the user ID
+      if (userId) {
+        return this.http.get<any>(`${this.apiUrl}/user/${userId}`, {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.getToken()}`
+          })
+        });
+      } else {
+        console.error('User ID not found');
+        return throwError(() => new Error('User ID not found'));
+      }
+    }
+
  getConducteurDetails(): Observable<any> {
   return this.http.get<any>(`${this.apiUrl}/conducteur`, {
     headers: new HttpHeaders({
