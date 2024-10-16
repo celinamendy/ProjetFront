@@ -28,6 +28,10 @@
     <label for="password">Mot de passe :</label>
     <input formControlName="password" type="password" required>
   </div>
+  <div>
+    <label for="age">Age :</label>
+    <input formControlName="age" type="age" required>
+  </div>
 
   <div>
     <label for="adresse">Adresse :</label>
@@ -36,8 +40,8 @@
 
   <div *ngIf="isDriver">
     <div>
-      <label for="permisDeConduire">Permis de conduire :</label>
-      <input formControlName="permisDeConduire" required>
+      <label for="permis_conduire">Permis de conduire :</label>
+      <input formControlName="permis_conduire" required>
     </div>
 
     <div>
@@ -49,10 +53,10 @@
       <label for="carte_gris">Carte gris:</label>
       <input formControlName="carte_gris" required>
     </div>
-    <div>
+    <!-- <div>
       <label for="age">AGE :</label>
       <input formControlName="age" required>
-    </div>
+    </div> -->
   </div>
 
   <button type="submit">S'inscrire</button>

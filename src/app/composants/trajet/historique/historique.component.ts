@@ -191,12 +191,12 @@ export class HistoriqueTrajetComponent implements OnInit {
 
   // Method to navigate to the edit page
   navigateToEdit(trajetId: number): void {
-    this.router.navigate(['/trajet/edit', trajetId]);  // Adjust the route as needed
+    this.router.navigate(['/modifier', trajetId]);  // Adjust the route as needed
   }
 
   // Method to navigate to the detail page
   navigateToDetail(trajetId: number): void {
-    this.router.navigate(['/trajet', trajetId]);
+    this.router.navigate(['/trajet/conducteur', trajetId]);
   }
 
   // Method to delete a trajet

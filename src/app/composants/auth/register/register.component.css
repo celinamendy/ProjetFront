@@ -1,19 +1,87 @@
-/* register.component.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-image: url('/assets/images/connexion.png'); /* Remplacez par le chemin de votre image d'arrière-plan */
+  background-size: cover; /* Couvre tout l'arrière-plan */
+  background-position: center; /* Centre l'image */
+  height: 100vh; /* Hauteur de la vue */
+  display: flex; /* Utilisation de Flexbox pour disposer les éléments */
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center; /* Centrer verticalement */
+}
+
 .container {
-  max-width: 500px;
-  margin: auto;
+  display: flex; /* Disposition en Flexbox */
+  max-width: 800px; /* Largeur maximale du conteneur */
+  width: 100%; /* Prendre toute la largeur disponible */
+}
+
+.img-connexion {
+  flex: 1; /* Prendre un espace proportionnel */
+  display: flex;
+  justify-content: center; /* Centrer l'image */
+  align-items: center; /* Centrer verticalement */
+}
+
+.img-connexion img {
+  max-width: 100%; /* Image responsive */
+  height: auto; /* Garder le ratio d'aspect */
+}
+
+form {
+  background-color: rgba(255, 255, 255, 0.8); /* Fond blanc avec transparence */
+  border-radius: 8px;
   padding: 20px;
+  max-width: 400px; /* Largeur maximale du formulaire */
+  width: 100%; /* Prendre toute la largeur disponible */
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1); /* Ombre du formulaire */
 }
 
 h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: #FF681A; /* Couleur du titre */
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-.invalid-feedback {
+label {
   display: block;
+  margin: 10px 0 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input, select {
+  width: 100%; /* Largeur complète */
+  padding: 10px; /* Espacement intérieur */
+  margin-bottom: 15px; /* Espacement entre les champs */
+  border: 1px solid #FF681A; /* Bordure */
+  border-radius: 4px; /* Coins arrondis */
+  box-sizing: border-box; /* Inclut padding et bordure dans la largeur totale */
+}
+
+button {
+  width: 100%; /* Largeur complète */
+  padding: 10px; /* Espacement intérieur */
+  background-color: #002060; /* Couleur du bouton */
+  color: white; /* Couleur du texte */
+  border: none; /* Pas de bordure */
+  border-radius: 4px; /* Coins arrondis */
+  cursor: pointer; /* Curseur en main */
+}
+
+button:hover {
+  background-color: #002060; /* Couleur au survol */
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: red;
 }

@@ -136,7 +136,7 @@ export class AjouterTrajetComponent implements OnInit {
           });
 
           setTimeout(() => {
-            this.router.navigate(['/trajets']);
+            this.router.navigate(['/historique']);
           }, 2000);
         },
         error: (error) => {

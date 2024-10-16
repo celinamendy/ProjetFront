@@ -1,71 +1,34 @@
-<!-- <div class="login-container">
-  <h2>Connexion</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"> -->
-    <!-- Email input avec message d'erreur -->
-     <!-- <div>
-      <label for="email">Email</label>
-      <input id="email" formControlName="email" type="email">
-      <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
-        Email est requis.
-      </div>
-    </div> -->
-
-    <!-- Password input avec message d'erreur -->
-    <!-- <div>
-      <label for="password">Mot de passe</label>
-      <input id="password" formControlName="password" type="password">
-      <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-        Mot de passe est requis.
-      </div>
-    </div> -->
-
-    <!-- <button type="submit" [disabled]="loginForm.invalid">Connexion</button>
-  </form>
-</div> -->
-
-
-
 <body>
   <div class="form-container">
-    <h2>Connexion</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <label for="email">Email:</label>
-      <input type="email" id="email" formControlName="email" required>
-      <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
-        Email est requis.
-      </div>
+    <div class="img-connexion">
+      <img src="/assets/images/image 21.png" alt="Description de l'image" />
+    </div>
+    <div class="form-section">
+      <h2>Connexion</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-      <label for="motdepasse">Mot de passe:</label>
-      <input type="password" id="motdepasse" formControlName="password" required>
-      <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-        Mot de passe est requis.
-      </div>
+        <!-- Champ Email -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" required (input)="loginForm.controls['email'].markAsTouched()">
+        <div class="error-message" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
+          <div *ngIf="loginForm.controls['email'].errors?.['required']">Email est requis.</div>
+          <div *ngIf="loginForm.controls['email'].errors?.['email']">Adresse email invalide.</div>
+        </div>
 
-      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
-    </form>
+        <!-- Champ Mot de passe -->
+        <label for="motdepasse">Mot de passe:</label>
+        <input type="password" id="motdepasse" formControlName="password" required (input)="loginForm.controls['password'].markAsTouched()">
+        <div class="error-message" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+          <div *ngIf="loginForm.controls['password'].errors?.['required']">Mot de passe est requis.</div>
+          <div *ngIf="loginForm.controls['password'].errors?.['minlength']">Mot de passe doit contenir au moins 8 caractères.</div>
+          <div *ngIf="loginForm.controls['password'].errors?.['strongPassword']">
+            Mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre, et un caractère spécial.
+          </div>
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+      </form>
+    </div>
   </div>
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <!-- Email input avec message d'erreur -->
-
-<div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
-  Email est requis.
-
-
-  <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-    Mot de passe est requis.

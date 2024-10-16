@@ -155,6 +155,7 @@ export class TrajetComponent implements OnInit {
   }
 
   // Method to delete a trajet
+  // Method to delete a trajet
   deleteTrajet(trajetId: number): void {
     Swal.fire({
       title: 'Êtes-vous sûr?',
@@ -166,13 +167,12 @@ export class TrajetComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.trajetService.deleteTrajets(trajetId).subscribe(
-          () => {
+          (response) => { // Handle success response
             Swal.fire('Supprimé!', 'Le trajet a été supprimé.', 'success');
             this.fetchTrajets();  // Refresh the list of trajets
           },
-          (error) => {
-            Swal.fire('Erreur!', 'Une erreur est survenue lors de la suppression du trajet.', 'error');
-            console.error('Error deleting trajet:', error);
+          (error) => { // Handle error response
+            this.handleError(error);
           }
         );
       }

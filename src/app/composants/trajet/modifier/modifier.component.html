@@ -1,58 +1,54 @@
-
-
-<div class="form-container">
-  <form action="#" method="POST" enctype="multipart/form-data" class="two-column-form">
-      <h2>Formulaire de modification Trajet</h2>
-
-      <div class="form-row">
-          <div class="form-group">
-              <label for="depart">Départ</label>
-              <input type="text" id="depart" name="depart" placeholder="Lieu de départ" required>
-          </div>
-
-          <div class="form-group">
-              <label for="destination">Destination</label>
-              <input type="text" id="destination" name="destination" placeholder="Lieu de destination" required>
-          </div>
+<div class="container">
+  <h2>Modifier le Trajet</h2>
+  <form [formGroup]="trajetForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="point_depart">Point de départ</label>
+      <input type="text" id="point_depart" formControlName="point_depart" class="form-control" />
+      <div *ngIf="trajetForm.get('point_depart')?.invalid && (trajetForm.get('point_depart')?.touched || trajetForm.get('point_depart')?.dirty)" class="text-danger">
+        Le point de départ est requis.
       </div>
+    </div>
 
-      <div class="form-row">
-          <div class="form-group">
-              <label for="date">Date de Départ</label>
-              <input type="date" id="date" name="date" required>
-          </div>
-
-          <div class="form-group">
-              <label for="places">Nombre de Places Disponibles</label>
-              <input type="number" id="places" name="places" placeholder="Nombre de places" required>
-          </div>
+    <div class="form-group">
+      <label for="point_arrivee">Point d'arrivée</label>
+      <input type="text" id="point_arrivee" formControlName="point_arrivee" class="form-control" />
+      <div *ngIf="trajetForm.get('point_arrivee')?.invalid && (trajetForm.get('point_arrivee')?.touched || trajetForm.get('point_arrivee')?.dirty)" class="text-danger">
+        Le point d'arrivée est requis.
       </div>
+    </div>
 
-      <div class="form-row">
-          <div class="form-group">
-              <label for="budget">Prix</label>
-              <input type="number" id="Prix" name="Prix" placeholder="Prix" required>
-          </div>
-
-          <div class="form-group">
-              <label for="photo">Photo</label>
-              <input type="file" id="photo" name="photo" accept="image/*" required>
-          </div>
+    <div class="form-group">
+      <label for="date_depart">Date de départ</label>
+      <input type="date" id="date_depart" formControlName="date_depart" class="form-control" />
+      <div *ngIf="trajetForm.get('date_depart')?.invalid && (trajetForm.get('date_depart')?.touched || trajetForm.get('date_depart')?.dirty)" class="text-danger">
+        La date est requise.
       </div>
+    </div>
 
-      <div class="form-row">
-          <div class="form-group">
-              <label for="heure">Heure de Départ</label>
-              <input type="time" id="heure" name="heure" required>
-          </div>
+    <div class="form-group">
+      <label for="heure_depart">Heure de départ</label>
+      <input type="time" id="heure_depart" formControlName="heure_depart" class="form-control" />
+      <div *ngIf="trajetForm.get('heure_depart')?.invalid && (trajetForm.get('heure_depart')?.touched || trajetForm.get('heure_depart')?.dirty)" class="text-danger">
+        L'heure est requise.
       </div>
+    </div>
 
-      <div class="form-buttons">
-          <button type="submit" class="submit-btn">Modification du Trajet</button>
-          <button type="reset" class="cancel-btn">Annuler</button>
+    <div class="form-group">
+      <label for="nombre_places">Places disponibles</label>
+      <input type="number" id="nombre_places" formControlName="nombre_places" class="form-control" />
+      <div *ngIf="trajetForm.get('nombre_places')?.invalid && (trajetForm.get('nombre_places')?.touched || trajetForm.get('nombre_places')?.dirty)" class="text-danger">
+        Le nombre de places est requis.
       </div>
+    </div>
+
+    <div class="form-group">
+      <label for="prix">Prix</label>
+      <input type="number" id="prix" formControlName="prix" class="form-control" />
+      <div *ngIf="trajetForm.get('prix')?.invalid && (trajetForm.get('prix')?.touched || trajetForm.get('prix')?.dirty)" class="text-danger">
+        Le prix est requis.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="trajetForm.invalid">Mettre à jour le Trajet</button>
   </form>
 </div>
-
-
-
