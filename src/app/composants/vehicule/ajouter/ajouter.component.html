@@ -1,0 +1,65 @@
+<div class="container">
+  <!-- Formulaire pour ajouter un véhicule -->
+  <div class="card">
+    <div class="card-header">
+      Ajouter un véhicule
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="addVehicule()" #vehiculeForm="ngForm" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="marque">Marque</label>
+          <input type="text" id="marque" [(ngModel)]="vehicule.marque" name="marque" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="modele">Modèle</label>
+          <input type="text" id="modele" [(ngModel)]="vehicule.modele" name="modele" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="couleur">Couleur</label>
+          <input type="text" id="couleur" [(ngModel)]="vehicule.couleur" name="couleur" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="immatriculation">Immatriculation</label>
+          <input type="text" id="immatriculation" [(ngModel)]="vehicule.immatriculation" name="immatriculation" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="photo">Photo</label>
+          <!-- Champ de type file pour l'upload d'image -->
+          <input type="file" (change)="onFileSelected($event)">
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!vehiculeForm.valid">Ajouter</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+  <table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Marque</th>
+            <th>Modèle</th>
+            <th>Couleur</th>
+            <th>Immatriculation</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let vehicule of vehicules">
+            <td>{{ vehicule.id }}</td>
+            <td>{{ vehicule.marque }}</td>
+            <td>{{ vehicule.modele }}</td>
+            <td>{{ vehicule.couleur }}</td>
+            <td>{{ vehicule.immatriculation }}</td>
+            <td>
+                <button (click)="showVehiculeDetails(vehicule.id)">Détails</button>
+                <button (click)="deleteVehicule(vehicule.id)">Supprimer</button>
+            </td>
+        </tr>
+        <tr *ngIf="vehicules.length === 0">
+            <td colspan="6" class="text-center">Aucun véhicule trouvé.</td>
+        </tr>
+    </tbody>
+</table>

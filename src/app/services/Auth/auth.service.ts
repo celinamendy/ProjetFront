@@ -167,9 +167,6 @@ private getAuthHeaders() {
     return null; // Retourne null si localStorage n'est pas disponible
 }
 
-
-
-
   // Rafraîchissement du token
   refreshToken(): Observable<any> {
     return this.http.get(`${this.apiUrl}/refresh`).pipe(
@@ -187,11 +184,48 @@ private getAuthHeaders() {
   logout(): void {
     this.token = null;
     localStorage.removeItem('access_token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('conducteur');
     this.router.navigate(['/login']); // Redirection vers la page de connexion
   }
 
   // Vérifier si l'utilisateur est connecté
   isLoggedIn(): boolean {
     return !!this.getToken(); // Vérifie si un token est présent
+  }
+   // Méthode pour récupérer les détails de l'utilisateur connecté
+
+    getUserDetails(): Observable<any> {
+      const userId = this.getUserId(); // Get the user ID
+      if (userId) {
+        return this.http.get<any>(`${this.apiUrl}/user/${userId}`, {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.getToken()}`
+          })
+        });
+      } else {
+        console.error('User ID not found');
+        return throwError(() => new Error('User ID not found'));
+      }
+    }
+
+ getConducteurDetails(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/conducteur`, {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.getToken()}`
+    })
+  });
+}
+
+  // Méthode pour récupérer les informations spécifiques du passager
+  getPassagerDetails(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/passager`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.getToken()}`
+      })
+    });
   }
 }

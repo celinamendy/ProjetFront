@@ -20,7 +20,7 @@ header {
 .logo {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #ff6600;
+  color: #FF681A;
 }
 
 nav ul {
@@ -38,7 +38,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #ff6600;
+  color: #FF681A;
 }
 
 .actions {
@@ -47,7 +47,7 @@ nav ul li a:hover {
 }
 
 .actions .action-btn {
-  background-color: #ff6600;
+  background-color: #FF681A;
   color: white;
   padding: 0.6rem 1.2rem;
   border-radius: 5px;
@@ -57,7 +57,7 @@ nav ul li a:hover {
 }
 
 .actions .action-btn:hover {
-  background-color: #ff6600;
+  background-color: #FF681A;
 }
 
 
@@ -150,12 +150,12 @@ nav ul li a:hover {
 
 /* Couleurs des boutons */
 .orange-btn {
-  background-color: #ff6600;
+  background-color: #FF681A;
   color: white;
 }
 
 .orange-btn:hover {
-  background-color: #ff6600;
+  background-color: #FF681A;
 }
 
 .blue-btn {
@@ -265,7 +265,7 @@ nav ul li a:hover {
 }
 
 .about-us .btn {
-  background-color: #ff6600;
+  background-color: #FF681A;
   color: white;
   padding: 0.8rem 1.5rem;
   border-radius: 5px;
@@ -275,7 +275,7 @@ nav ul li a:hover {
 }
 
 .about-us .btn:hover {
-  background-color: #ff6600;
+  background-color: #FF681A;
 }
 
 
@@ -404,7 +404,7 @@ nav ul li a:hover {
 }
 
 .text-wrapper h3 {
-  color: #ff6600; /* Orange color */
+  color: #FF681A; /* Orange color */
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
 }
@@ -447,7 +447,7 @@ nav ul li a:hover {
 /* Style for trip buttons */
 .trip-button {
   background-color: #fff; /* Orange background */
-  color: #ff6600;
+  color: #FF681A;
   border: none;
   padding: 1rem 2rem;
   font-size: 1.2rem;
@@ -461,7 +461,7 @@ nav ul li a:hover {
 }
 
 .trip-button:hover {
-  background-color: #ff6600;
+  background-color: #FF681A;
 }
 
 /* Style for the 'Nos trajets' text, aligned to the right */
@@ -707,7 +707,7 @@ nav ul li a:hover {
 
 /* Style pour la boîte Conducteur */
 .driver {
-  background-color: #ff6600;
+  background-color: #FF681A;
 }
 
 .driver .cta-btn {
@@ -720,7 +720,7 @@ nav ul li a:hover {
 }
 
 .passenger .cta-btn {
-  background-color: #ff6600; /* Bouton orange */
+  background-color: #FF681A; /* Bouton orange */
 }
 
 
@@ -751,7 +751,7 @@ nav ul li a:hover {
 
 /* Section de contact */
 .contact-section {
-  background-color: #ff6600;
+  background-color: #FF681A;
   padding: 2rem 0;
   position: relative;
 }
@@ -817,7 +817,7 @@ nav ul li a:hover {
 }
 
 .contact-form button:hover {
-  background-color: #ff6600;
+  background-color: #FF681A;
   color: white;
 }
 

@@ -66,6 +66,8 @@ import { AuthService } from '../../../services/Auth/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AbstractControl } from '@angular/forms';
+
 
 // Interface pour la réponse d'authentification
 interface AuthResponse {
@@ -91,6 +93,7 @@ interface AuthResponse {
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string = '';
+  strongPassword: string = '';
 
 //   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
 //     this.loginForm = this.fb.group({
@@ -101,9 +104,9 @@ export class LoginComponent {
 
 constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
   this.loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]]
-  });
+    email: ['', [Validators.required, Validators.email]], // Validation de l'email
+      password: ['', [Validators.required, Validators.minLength(8), this.strongPasswordValidator]] // Validation forte du mot de passe
+    });
 
   // Vérifier si l'utilisateur est déjà connecté
   if (localStorage.getItem('access_token')) {
@@ -140,4 +143,31 @@ constructor(private fb: FormBuilder, private authService: AuthService, private r
       );
     }
   }
+  // Validateur personnalisé pour la force du mot de passe
+  strongPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.value;
+    if (!password) return null;
+
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumeric = /[0-9]/.test(password);
+    const hasSpecialChar = /[!@#\$%\^\&*\)\(+=._-]/.test(password);
+
+    const passwordValid = hasUpperCase && hasLowerCase && hasNumeric && hasSpecialChar;
+
+    if (!passwordValid) {
+      return { strongPassword: true };
+    }
+    return null;
+  }
+
+  // Accesseurs pour accéder facilement aux champs
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
 }

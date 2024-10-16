@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import FormsModule and ReactiveFormsModule
 import Swal from 'sweetalert2';  // Import SweetAlert
 import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { switchMap, throwError } from 'rxjs';
+import { ConducteurService } from '../../../services/conducteur.service';
 import { TrajetService } from '../../../services/tajet.service';
 import { Trajet } from '../../../Models/trajet/trajet.component';
 
@@ -18,17 +18,20 @@ import { Trajet } from '../../../Models/trajet/trajet.component';
   styleUrls: ['./historique.component.css']
 })
 export class HistoriqueTrajetComponent implements OnInit {
-
   trajets: Trajet[] = []; // Initialize as an empty array for storing multiple trajets
   trajetForm: FormGroup;
   searchTerm: string = '';  // Variable pour les recherches
   trajetsToday: Trajet[] = []; // tableau pour les trajets du jour
-  upcomingTrajets: Trajet[] = []; // tableau pour les trajets a venir
-
+  upcomingTrajets: Trajet[] = []; // tableau pour les trajets à venir
+  conducteur: any; // Conducteur connecté
+  sortKey: string = '';  // Property to hold the current sort key
+  sortDirection: string = 'asc';  // Property to hold the sorting direction
+  filteredTrajets: Trajet[] = []; // Array to hold sorted/filter trajectories
 
   constructor(
     private trajetService: TrajetService,
     private fb: FormBuilder,
+    private conducteurService: ConducteurService,
     private router: Router
   ) {
     // Initializing the form group with controls and validation
@@ -47,45 +50,78 @@ export class HistoriqueTrajetComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchTrajets(); // Load trajets on component initialization
-    const conducteurId = 1; // L'ID du conducteur à récupérer (exemple)
-
-  this.trajetService.getTrajetByConducteurId(conducteurId).subscribe({
-    next: (data) => {
-      this.trajets = data;
-      console.log('Historique des trajets:', this.trajets);
-    },
-    error: (err) => {
-      console.error('Erreur lors de la récupération des trajets', err);
-    }
-  });
-}
-
-  // Method to fetch all trajets from the service
+  }
   fetchTrajets(): void {
-    this.trajetService.getAllTrajets().subscribe({
-      next: (data) => {
-        this.trajets = data.data;
-        console.log('Trajets loaded successfully:', this.trajets);
+    this.conducteurService.getConducteurByUserId().pipe(
+      switchMap((response: any) => {
+        console.log('Réponse Conducteur:', response);
+        if (response.data && response.data.length > 0) {
+          this.conducteur = response.data[0];
+          console.log('Conducteur:', this.conducteur);
+          return this.trajetService.getTrajetByConducteurId(this.conducteur.id);
+        } else {
+          throw new Error('Aucun conducteur trouvé');
+        }
+      })
+    ).subscribe({
+      next: (response: any) => {
+        console.log('Réponse Trajets:', response);
+        if (response.data && Array.isArray(response.data)) {
+          this.trajets = response.data;
+        } else {
+          console.error('Données de trajet inattendues:', response);
+        }
+        console.log('Historique des trajets:', this.trajets);
+        this.filterTrajets();
       },
-      error: (error) => {
-        console.error('Error fetching trajets:', error);
-        this.handleError(error);
+      error: (err) => {
+        console.error('Erreur lors de la récupération des trajets ou du conducteur', err);
       }
     });
   }
 
+  // fetchTrajets(): void {
+  //   this.conducteurService.getConducteurByUserId().pipe(
+  //     switchMap((response: any) => {
+  //       if (response.data && response.data.length > 0) {
+  //         this.conducteur = response.data[0];
+  //         console.log('Conducteur:', this.conducteur);
+  //         return this.trajetService.getTrajetByConducteurId(this.conducteur.id);
+  //       } else {
+  //         throw new Error('Aucun conducteur trouvé');
+  //       }
+  //     })
+  //   ).subscribe({
+  //     next: (response: any) => {
+  //       if (response.data && Array.isArray(response.data)) {
+  //         this.trajets = response.data; // Accéder au tableau dans 'data'
+  //       } else {
+  //         console.error('Données de trajet inattendues:', response);
+  //       }
+  //       console.log('Historique des trajets:', this.trajets);
+  //       this.filterTrajets(); // Appel de filtrage après récupération des trajets
+  //     },
+  //     error: (err) => {
+  //       console.error('Erreur lors de la récupération des trajets ou du conducteur', err);
+  //     }
+  //   });
+  // }
+
   // Method to filter trajets based on search term
   applyFilter(): void {
     if (this.searchTerm) {
-      this.trajets = this.trajets.filter((trajet) =>
+      this.filteredTrajets = this.trajets.filter((trajet) =>
         trajet.point_depart.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         trajet.point_arrivee.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         trajet.prix.toString().includes(this.searchTerm)
       );
     } else {
-      this.fetchTrajets(); // Reload all trajets if search term is cleared
+      this.filteredTrajets = [...this.trajets]; // Réaffecter la liste complète
     }
+
+    this.filterTrajets(); // Mise à jour des trajets du jour et à venir après le filtrage
   }
+
   // Filter trajets into today's and upcoming
   filterTrajets(): void {
     const today = new Date().setHours(0, 0, 0, 0); // Get today's date with time set to midnight
@@ -99,6 +135,42 @@ export class HistoriqueTrajetComponent implements OnInit {
       const trajetDate = new Date(trajet.date_depart).setHours(0, 0, 0, 0);
       return trajetDate > today; // Check if the trip is in the future
     });
+  }
+
+  // Sort the trajets based on the provided key
+  sortBy(key: string): void {
+    if (this.sortKey === key) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc'; // Toggle sort direction
+    } else {
+      this.sortKey = key;
+      this.sortDirection = 'asc'; // Default to ascending
+    }
+
+    this.filteredTrajets = this.filteredTrajets.sort((a, b) => {
+      let compareA = a[key as keyof Trajet];
+      let compareB = b[key as keyof Trajet];
+
+      // If values are numbers, we can directly compare
+      if (typeof compareA === 'number' && typeof compareB === 'number') {
+        return this.sortDirection === 'asc' ? compareA - compareB : compareB - compareA;
+      }
+
+      // Otherwise, we convert to lowercase for string comparison
+      compareA = (compareA as string).toLowerCase();
+      compareB = (compareB as string).toLowerCase();
+
+      return this.sortDirection === 'asc'
+        ? compareA.localeCompare(compareB)
+        : compareB.localeCompare(compareA);
+    });
+  }
+
+  // Reset the filters to show all trajets
+  resetFilters(): void {
+    this.filteredTrajets = this.trajets; // Reset to original list
+    this.searchTerm = ''; // Clear search term
+    this.sortKey = ''; // Reset sort key
+    this.sortDirection = 'asc'; // Reset sort direction
   }
 
   // Method to handle form submission
@@ -117,16 +189,14 @@ export class HistoriqueTrajetComponent implements OnInit {
     }
   }
 
-
-
   // Method to navigate to the edit page
   navigateToEdit(trajetId: number): void {
-    this.router.navigate(['/trajet/edit', trajetId]);  // Adjust the route as needed
+    this.router.navigate(['/modifier', trajetId]);  // Adjust the route as needed
   }
 
   // Method to navigate to the detail page
   navigateToDetail(trajetId: number): void {
-    this.router.navigate(['/trajet', trajetId]);
+    this.router.navigate(['/trajet/conducteur', trajetId]);
   }
 
   // Method to delete a trajet

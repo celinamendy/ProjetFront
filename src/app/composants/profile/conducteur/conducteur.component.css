@@ -1,0 +1,57 @@
+  /* Custom styling */
+  .header-section {
+    background-color: #FF681A;
+    color: white;
+    padding: 50px;
+    text-align: left;
+}
+
+
+.profile-section {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: -50px auto 0; /* Décalage vers le haut avec une marge négative */
+  width: 900px; /* Limite la largeur */
+  position: relative;
+  z-index: 1; /* Pour que la section soit au-dessus */
+}
+.profile-info-section {
+  border: 1px solid #ddd; /* Couleur et épaisseur de la bordure */
+  border-radius: 10px; /* Bordure arrondie */
+  padding: 20px; /* Espacement à l'intérieur */
+  margin-top: 20px; /* Espace au-dessus de la section */
+}
+
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.edit-button {
+    float: right;
+    margin-top: 20px;
+}
+
+.info-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+
+}
+
+.vehicle-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.vehicle-section {
+    padding: 20px;
+}

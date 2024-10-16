@@ -28,9 +28,11 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
       adresse: ['', Validators.required],
       telephone: [''], // Ajouté pour le passager
-      permisDeConduire: [''], // Champ spécifique au conducteur
-      cni: [''], // Champ spécifique au conducteur
-      carteAssurance: [''] // Champ spécifique au conducteur
+      permis_conduire: [''], // Champ spécifique au conducteur
+      CIN: [''], // Champ spécifique au conducteur
+      carte_gris: [''], // Champ spécifique au conducteur
+      age : [''], // Ajout
+
     });
   }
 
@@ -46,9 +48,9 @@ export class RegisterComponent implements OnInit {
     // Réinitialiser les champs spécifiques au conducteur si le type change
     if (this.isDriver) {
       this.registerForm.patchValue({
-        permisDeConduire: '',
-        cni: '',
-        carteAssurance: ''
+        permis_conduire: '',
+        CIN: '',
+        carte_gris: ''
       });
     } else {
       // Réinitialiser les champs spécifiques au passager si le type est changé
@@ -71,17 +73,24 @@ export class RegisterComponent implements OnInit {
         email: userData.email,
         password: userData.password,
         adresse: userData.adresse,
+        carte_gris: userData.carte_gris,
+        permis_conduire: userData.permis_conduire,
+        CIN: userData.CIN,
+        age: userData.age, // Ajouté pour le passager
+        telephone: userData.telephone, // Ajouté pour le passager
+
         type: userData.type, // Assurez-vous d'inclure le type ici
       };
 
       // Inclure des champs spécifiques au conducteur si le type est 'conducteur'
-      // if (userData.type === 'conducteur') {
-      //   userToRegister.permisDeConduire = userData.permisDeConduire;
-      //   userToRegister.cni = userData.cni;
-      //   userToRegister.carteAssurance = userData.carteAssurance;
-      // } else {
-      //   userToRegister.telephone = userData.telephone;
-      // }
+      if (userData.type === 'conducteur') {
+        userToRegister.permis_conduire = userData.permis_conduire;
+        userToRegister.CIN = userData.CIN;
+        userToRegister.carte_gris = userData.carte_gris;
+      } else {
+        userToRegister.telephone = userData.telephone;
+      }
+
 
       this.authService.register(userToRegister).subscribe({
         next: (response) => {

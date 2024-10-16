@@ -34,7 +34,7 @@ export class AjouterTrajetComponent implements OnInit {
     // Initialisation du formulaire avec les champs nécessaires
  // Dans le constructeur, ajouter Validators pour chaque champ requis
  this.trajetForm = this.formBuilder.group({
-  conducteur_id: [null, Validators.required], // Assurez-vous qu'il est requis
+  // conducteur_id: [null, Validators.required], // Assurez-vous qu'il est requis
   point_depart: ['', [Validators.required, Validators.minLength(3)]],
   point_arrivee: ['', [Validators.required, Validators.minLength(3)]],
   date_depart: ['', Validators.required], // Assurez-vous que ce contrôle existe
@@ -50,6 +50,7 @@ export class AjouterTrajetComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserData(); // Charger les données depuis le localStorage ou via API
+    this.getConducteurByUserId(); // Récupérer les données s'il n'y a rien dans le localStorage
   }
 
   loadUserData() {
@@ -105,7 +106,6 @@ export class AjouterTrajetComponent implements OnInit {
     this.conducteurService.getConducteurByUserId().subscribe(
       (response) => {
         this.conducteur = response.data[0];
-        localStorage.setItem('conducteur', JSON.stringify(this.conducteur));
         this.getVehiculeByConducteurConnected(this.conducteur.id);
         console.log('Conducteur récupéré:', this.conducteur);
       },
@@ -118,9 +118,10 @@ export class AjouterTrajetComponent implements OnInit {
   // Soumission du formulaire
   onSubmit() {
     if (this.trajetForm.valid) {
+      const CONDUCTEURID = this.conducteur.id;
       const formData = this.trajetForm.value;
-      formData.conducteur_id = this.authService.getUserId(); // Assurez-vous que cette méthode est disponible dans AuthService
-      console.log('conducteur_id:', this.authService.getUserId());
+      formData.conducteur_id = CONDUCTEURID; // Assurez-vous que cette méthode est disponible dans AuthService
+      console.log('conducteur_id:', CONDUCTEURID);
       console.log('Formulaire envoyé avec les données:', formData);
 
       this.trajetService.addTrajets(formData).subscribe({
@@ -135,7 +136,7 @@ export class AjouterTrajetComponent implements OnInit {
           });
 
           setTimeout(() => {
-            this.router.navigate(['/trajets']);
+            this.router.navigate(['/historique']);
           }, 2000);
         },
         error: (error) => {
@@ -149,7 +150,7 @@ export class AjouterTrajetComponent implements OnInit {
         }
       });
     } else {
-      console.warn('Formulaire non valide.');// Arrêtez l'exécution si le formulaire est invalide
+      console.log('Formulaire non valide.', this.trajetForm);// Arrêtez l'exécution si le formulaire est invalide
     }
   }
 

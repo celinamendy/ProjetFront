@@ -1,0 +1,75 @@
+<div *ngIf="!loading; else loadingTemplate">
+  <div class="container">
+    <!-- Section gauche : Infos conducteur et réservations -->
+    <div class="left-section">
+
+      <!-- Infos du conducteur -->
+      <div *ngIf="trajet.data?.conducteur" class="driver-info">
+        <img src="assets/images/Ellipse 255.png" alt="Driver Avatar" class="avatar">
+        <p><b>Conducteur :</b> {{ trajet.data.conducteur.nom }}</p>
+        <p><b>Âge :</b> {{ trajet.data.conducteur.age }} ans</p>
+        <p><b>Tél :</b> {{ trajet.data.conducteur.telephone }}</p>
+        <p><b>Email :</b> {{ trajet.data.conducteur.email }}</p>
+      </div>
+
+      <!-- Liste des réservations -->
+      <div class="reservations">
+        <h4>Réservations des passagers</h4>
+        <div *ngIf="reservations.length > 0; else noReservations">
+          <ul>
+            <li *ngFor="let reservation of reservations">
+              <p><b>Nom du passager :</b> {{ reservation.user.nom }}</p>
+              <p><b>Email :</b> {{ reservation.user.email }}</p>
+              <p><b>Téléphone :</b> {{ reservation.user.telephone }}</p>
+              <hr>
+            </li>
+          </ul>
+        </div>
+        <ng-template #noReservations>
+          <p>Aucune réservation pour ce trajet.</p>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Section droite : Infos trajet et carte -->
+    <div class="right-section">
+      <div class="map-section">
+        <img src="assets/images/Rectangle 76.png" alt="Map" class="map-image">
+      </div>
+
+      <!-- Informations sur le trajet -->
+      <div class="trip-info">
+        <div class="container-trajet">
+          <div class="header"></div>
+          <br>
+          <div class="d-flex justify-content-between mb-3 ps-5 pe-5">
+            <div>
+              <p><b>Point de départ :</b> {{ trajet.data.point_depart }}</p>
+              <p><b>Point d'arrivée :</b> {{ trajet.data.point_arrivee }}</p>
+              <p><b>Heure de départ :</b> {{ trajet.data.heure_depart }}</p>
+              <p><b>Date de départ :</b> {{ trajet.data.date_depart | date:'dd/MM/yyyy' }}</p>
+              <p><b>Nombre de places :</b> {{ trajet.data.nombre_places }}</p>
+            </div>
+            <div class="separateur d-flex flex-column align-items-center">
+              <div class="rond"></div>
+              <div class="trait"></div>
+              <div class="rond"></div>
+            </div>
+          </div>
+          <div class="header"></div>
+          <br>
+          <p><b>Prix total pour un passager :</b> {{ trajet.data.prix | currency:'XOF' }}</p>
+          <br>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Template de chargement -->
+<ng-template #loadingTemplate>
+  <div class="loading">
+    <p>Chargement des détails du trajet...</p>
+  </div>
+</ng-template>

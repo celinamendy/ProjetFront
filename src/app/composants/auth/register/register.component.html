@@ -10,7 +10,10 @@
     <label for="nom">Nom :</label>
     <input formControlName="nom" required>
   </div>
-
+  <div>
+    <label for="telephone">telephone:</label>
+    <input formControlName="telephone" required>
+  </div>
   <div>
     <label for="prenom">Prénom :</label>
     <input formControlName="prenom" required>
@@ -25,6 +28,10 @@
     <label for="password">Mot de passe :</label>
     <input formControlName="password" type="password" required>
   </div>
+  <div>
+    <label for="age">Age :</label>
+    <input formControlName="age" type="age" required>
+  </div>
 
   <div>
     <label for="adresse">Adresse :</label>
@@ -33,19 +40,23 @@
 
   <div *ngIf="isDriver">
     <div>
-      <label for="permisDeConduire">Permis de conduire :</label>
-      <input formControlName="permisDeConduire" required>
+      <label for="permis_conduire">Permis de conduire :</label>
+      <input formControlName="permis_conduire" required>
     </div>
 
     <div>
-      <label for="cni">CNI :</label>
-      <input formControlName="cni" required>
+      <label for="cni">CIN :</label>
+      <input formControlName="CIN" required>
     </div>
 
     <div>
-      <label for="carteAssurance">Carte d'assurance :</label>
-      <input formControlName="carteAssurance" required>
+      <label for="carte_gris">Carte gris:</label>
+      <input formControlName="carte_gris" required>
     </div>
+    <!-- <div>
+      <label for="age">AGE :</label>
+      <input formControlName="age" required>
+    </div> -->
   </div>
 
   <button type="submit">S'inscrire</button>

@@ -79,18 +79,20 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
   }
 
   // Méthode pour mettre à jour un trajet (réservée au conducteur connecté)
-  updateTrajets(id: any, trajet: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/trajets/${id}`, trajet, this.getAuthHeaders()).pipe(
+  updateTrajets(id: number, formData: any): Observable<any> {
+    console.log('service',id);
+
+    return this.http.put(`${this.apiUrl}/trajets/${id}`, formData, this.getAuthHeaders()).pipe(
       catchError(this.handleError)
     );
   }
 
-  // Méthode pour supprimer définitivement un trajet (réservée au conducteur connecté)
-  deleteTrajets(id: any): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/trajets/${id}/force-delete`, this.getAuthHeaders()).pipe(
+ // Méthode pour supprimer définitivement un trajet (réservée au conducteur connecté)
+deleteTrajets(id: any): Observable<any> {
+  return this.http.delete(`${this.apiUrl}/trajets/${id}`, this.getAuthHeaders()).pipe(
       catchError(this.handleError)
-    );
-  }
+  );
+}
 
   // Méthode pour voir les détails d'un trajet (accessible à tout utilisateur)
   getTrajetsDetails(id: any): Observable<any> {

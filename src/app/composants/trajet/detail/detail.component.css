@@ -17,7 +17,8 @@ body {
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-image: url('/assets/images/Détail_Trajet_passager(2).png'); /* Remplacez par le chemin de votre image d'arrière-plan */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 .left-section {
@@ -26,8 +27,8 @@ body {
 }
 
 .right-section {
-  width: 75%;
-  padding: 20px;
+  width: 100%;
+  padding: 10px;
 }
 
 .map-section {
@@ -43,12 +44,14 @@ body {
   border-radius: 10px;
 }
 
-.driver-info, .reservations, .trip-info, .comments-section {
+.driver-info, .reservations, .trip-info {
   background-color: #fff;
-  border: 1px solid #eee;
+  border: 1px solid #FF681A;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
 }
 
 .avatar {
@@ -72,58 +75,112 @@ body {
 }
 
 .trip-info h3 {
-  color: #ff7f50;
+  color: #FF681A;
   margin-bottom: 10px;
 }
 
+.trip-info .separateur .rond {
+  width: 20px;
+  height: 20px;
+  background: none;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.trip-info .separateur .trait {
+  width: 3px;
+  height: 90px;
+  background-color: black;
+}
+
+
 .reserve-btn {
   display: block;
-  width: 100%;
-  background-color: #ff7f50;
+  width: 25%;
+  background-color: #FF681A;
   color: #fff;
   border: none;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  margin-left: 75%;
 }
 
 .reserve-btn:hover {
-  background-color: #ff5f30;
+  background-color: #FF681A;
+
 }
 
 .comments-section {
-  background-color: #fff;
-  border: 1px solid #eee;
-  padding: 50px;
-  border-radius: 8px;
+  /* background-color: #fff; */
+  /* border: 1px solid #eee; */
+  padding: 10px;
+  /* border-radius: 25px; */
 }
 
+.comments-section .comment-champs {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 35px;
+}
 .comments-section input {
-  width: 80%;
+  width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: none;
+  border-radius: 35px;
+
 }
 
 .comments-section button {
+  border-top-right-radius: 35px;
+  border-bottom-right-radius: 35px;
   width: 18%;
+  height: 100%;
   padding: 10px;
-  background-color: #ff7f50;
+  background-color: #00214A;
   color: #fff;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
 }
 
-.comments-section .comment {
+.comments-section input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  /* border: 1px solid #ddd; */
+  /* border-radius: 5px; */
+}
+
+
+/* .comments-section .comment {
   background-color: #f7f7f7;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-}
+} */
 
 .comment p {
   margin-bottom: 5px;
+
+}
+.comment  {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  border: 0px solid #cac9c9;
+  border-radius: 10px;
+  box-shadow: 0 2px 0px rgba(0, 0, 0, 0.1);
+
+}
+.header {
+  padding: 10px;
+  width: 100%;
+  height: 1px;
+  background-color: #FF681A;
+  border-radius: 25px;
+
 }
