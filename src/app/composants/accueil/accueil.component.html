@@ -1,24 +1,25 @@
 <!-- Header Section -->
 <header>
     <div class="container">
-        <div class="logo">LOGO</div>
+        <div class="logo">
+          <img src="/assets/images/White_and_Blue_Illustrated_Car_Wash_Logo_1_-removebg-preview 2(1).png" alt="Logo">
+        </div>
         <nav>
             <ul>
                 <li><a routerLink="/accueil">Accueil</a></li>
                 <li><a routerLink="/trajet">Trajets</a></li>
                 <li><a routerLink="/historique">Historique</a></li>
-                <li><a routerLink="/comment-ca-marche">Comment ça Marche</a></li>
-                <li><a routerLink="/a-propos">À propos</a></li>
                 <li><a routerLink="/contact">Contact</a></li>
-                <button (click)="logout()">Déconnexion</button>
 
             </ul>
         </nav>
 
 
         <div class="actions">
-            <a href="#" class="action-btn">Rechercher</a>
-            <a href="Proposer%20Trajet" class="action-btn">Proposer Trajet</a>
+            <!-- <a href="#" class="action-btn">Rechercher</a> -->
+            <!-- <a href="Proposer%20Trajet" class="action-btn">Proposer Trajet</a> -->
+            <button class="action-btn"(click)="logout()">Déconnexion</button>
+
         </div>
     </div>
 </header>
@@ -30,8 +31,8 @@
         <p>Votre solution de covoiturage simple, rapide et <br>écoresponsable.
         Rejoignez une communauté engagée <br>pour des déplacements plus économiques et <br>respectueux de l'environnement.</p>
         <div class="hero-buttons">
-            <a href="connexion" class="btn orange-btn">Connexion</a>
-            <a href="inscription" class="btn blue-btn">Inscription</a>
+            <a href="login" class="btn orange-btn">Connexion</a>
+            <a href="register" class="btn blue-btn">Inscription</a>
         </div>
     </div>
 
@@ -57,7 +58,7 @@
         </div>
         <div class="search-actions">
             <a href="#" class="btn orange-btn">Rechercher</a>
-            <a href="Proposer%20Trajet" class="btn blue-btn">Proposer Trajet</a>
+            <a href="ajout" class="btn blue-btn">Proposer Trajet</a>
         </div>
     </div>
 </section>

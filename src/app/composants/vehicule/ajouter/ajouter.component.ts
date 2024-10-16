@@ -42,6 +42,7 @@ export class AjouterComponent implements OnInit {
     this.conducteurService.getConducteurByUserId().subscribe(
       (response) => {
         this.conducteur = response.data[0];
+
       },
       error => {
         console.error('Erreur lors de la récupération du conducteur', error);
@@ -163,6 +164,8 @@ getVehicules() {
           console.log('Réponse de l\'API:', response); // Gardez ceci pour déboguer
           if (response.status && Array.isArray(response.data)) {
               this.vehicules = response.data; // Utilisez le tableau dans 'data'
+              console.log(this.vehicules);
+
           } else {
               console.error('La réponse n\'est pas au format attendu:', response);
           }

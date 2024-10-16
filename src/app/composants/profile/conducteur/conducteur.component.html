@@ -48,9 +48,9 @@
       </div>
 
        <!-- Vehicle Section Dynamisée -->
-    <div class="row mt-5 vehicle-section" *ngIf="vehicules.length > 0">
+    <div class="row mt-5 " *ngIf="vehicules.length > 0">
       <div *ngFor="let vehicule of vehicules" class="col-lg-6 mb-4">
-        <img [src]="vehicule.imageUrl || 'https://via.placeholder.com/500x300'" class="vehicle-image" alt="Vehicle Image">
+        <img [src]="vehicule.photo ? imageUrl + vehicule.photo : 'https://via.placeholder.com/500x300'" class="vehicle-image" alt="Vehicle Image">
         <div class="info-card">
           <h5>Informations du Véhicule</h5>
           <hr>

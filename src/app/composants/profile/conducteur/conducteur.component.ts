@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/Auth/auth.service'; // Service d'authentification
 import { VehiculeService } from '../../../services/vehicule.service';
 import { NgFor, NgIf } from '@angular/common';
+import { imageUrl } from '../../../services/image';
 
 @Component({
   selector: 'app-conducteur',
@@ -13,7 +14,7 @@ import { NgFor, NgIf } from '@angular/common';
 export class ConducteurComponent implements OnInit {
   conducteurDetails: any;  // Détails du conducteur
   vehicules: any[] = [];   // Liste des véhicules du conducteur
-
+  imageUrl: string = imageUrl;
   constructor(private authService: AuthService, private vehiculeService: VehiculeService) {}
 
   ngOnInit(): void {
@@ -54,10 +55,10 @@ export class ConducteurComponent implements OnInit {
   fetchVehicules(idConducteur: number): void {
     this.vehiculeService.getAllVehiculesByUserConnected(idConducteur).subscribe(
       response => {
-        console.log('Réponse API:', response);  // Vérifiez ici la réponse API brute
 
         if (response && response.data) {
           this.vehicules = response.data;  // Stocker la liste des véhicules
+
           console.log('Véhicules du conducteur:', this.vehicules);
         } else {
           console.log('Pas de véhicules trouvés pour ce conducteur.');

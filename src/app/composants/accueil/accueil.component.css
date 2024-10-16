@@ -17,10 +17,11 @@ header {
   padding: 0 1rem;
 }
 
-.logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #FF681A;
+.logo img{
+  width: 100px;
+  height: 80px;
+
+
 }
 
 nav ul {
