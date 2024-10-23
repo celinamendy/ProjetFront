@@ -1,0 +1,39 @@
+<header>
+  <div class="container">
+    <div class="logo">
+      <img src="/assets/images/White_and_Blue_Illustrated_Car_Wash_Logo_1_-removebg-preview 2(1).png" alt="Logo">
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="trajet">Trajets</a></li>
+        <li><a href="historique">Historique</a></li>
+        <li><a href="historique-reservation">Mes Reservation</a></li>
+        <li><a href="contact">Contact</a></li>
+          
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <div *ngIf="!isLoggedIn()">
+        <!-- Si l'utilisateur n'est pas connecté -->
+        <div class="dropdown">
+          <button class="dropbtn">
+            <img src="/assets/images/iconp.jpeg" alt="User Icon" class="user-icon">
+          </button>
+          <div class="dropdown-content">
+            <a href="register" class="btn blue-btn">Inscription</a>
+            <a href="login" class="btn orange-btn">Connexion</a>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isLoggedIn()">
+        <!-- Si l'utilisateur est connecté -->
+        <button class="action-btn" (click)="logout()">Déconnexion</button>
+      </div>
+    </div>
+  </div>
+
+</header>

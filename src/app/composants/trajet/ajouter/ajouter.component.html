@@ -4,7 +4,6 @@
 
       <!-- Conducteur_id caché -->
       <input type="hidden" formControlName="conducteur_id" />
-
       <div>
         <label for="point_depart">Point de départ:</label>
         <input id="point_depart" formControlName="point_depart">
@@ -39,8 +38,8 @@
               Ce champ est requis.
           </div>
       </div>
-
       <!-- Nombre de places -->
+      <div class="d-flex gap-2">
       <div class="form-group">
           <label for="nombre_places">Nombre de places</label>
           <input type="number" id="nombre_places" class="form-control" formControlName="nombre_places" placeholder="Entrez le nombre de places disponibles" />
@@ -56,6 +55,7 @@
           <div *ngIf="trajetForm.get('prix')?.invalid && trajetForm.get('prix')?.touched" class="text-danger">
               Ce champ est requis.
           </div>
+      </div>
       </div>
 
       <!-- Statut -->

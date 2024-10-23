@@ -1,96 +1,85 @@
-* Styles pour le corps */
+/* Style pour le body avec une image de fond */
 body {
-    font-family: Arial, sans-serif;
-    background: url('/assets/images/Desktop2.png') no-repeat center center fixed;
-    background-size: cover;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-image: url('/assets/images/connexion.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Conteneur du formulaire */
-.form-container {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    width: 800px; /* Ajustez selon vos besoins */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+/* Style pour centrer le formulaire */
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* Transparence pour rendre visible l'image de fond */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Styles pour les lignes du formulaire */
-.form-row {
-    display: flex;
-    justify-content: space-between; /* Espace entre les colonnes */
-    margin-bottom: 15px; /* Espace entre les lignes */
-}
-
-/* Styles pour les champs du formulaire */
+/* Style pour les titres */
 h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-.form-group {
-    flex: 1; /* Chaque groupe occupe une largeur égale */
-    margin-right: 10px; /* Espace entre les colonnes */
-}
-
-.form-group:last-child {
-    margin-right: 0; /* Pas d'espace à droite pour le dernier élément */
-}
-
+/* Style pour les formulaires et les labels */
 label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #333;
+  font-weight: bold;
+  color: #333;
 }
 
 input[type="text"],
-input[type="number"],
 input[type="date"],
-input[type="file"],
-input[type="time"] {
-    width: 90%; /* Ajustez la largeur pour un meilleur alignement */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+input[type="time"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #FF681A;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
-input[type="file"] {
-    padding: 5px;
+input[type="hidden"] {
+  display: none;
 }
 
-input[type="submit"],
-button {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Styles pour les boutons */
-.submit-btn {
-    background-color: #002060;
-    color: white;
-    margin-top: 10px;
-    grid-column: span 2; /* Le bouton s'étend sur les deux colonnes */
-}
-
-.cancel-btn {
-    background-color: white;
-    color: #002060;
-    border: 2px solid #002060; /* Ajouter une bordure */
-    margin-top: 10px;
-    grid-column: span 2; /* Le bouton s'étend sur les deux colonnes */
-}
-
+/* Ajout de l'espacement pour les boutons */
 .form-buttons {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
+button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="reset"] {
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Style pour les messages d'erreur */
+.text-danger {
+  color: red;
+  font-size: 0.9rem;
+}

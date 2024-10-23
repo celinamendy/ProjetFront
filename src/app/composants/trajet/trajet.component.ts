@@ -8,11 +8,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import For
 import Swal from 'sweetalert2';  // Import SweetAlert
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { NotificationsService } from '../../services/notifications.service'; // Assurez-vous que le chemin est correct
+import { AuthService } from '../../services/Auth/auth.service';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-trajet',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule , HeaderComponent],
   templateUrl: './trajet.component.html',
   styleUrls: ['./trajet.component.css']
 })
@@ -26,11 +29,14 @@ export class TrajetComponent implements OnInit {
   sortKey: string = '';  // Property to hold the current sort key
   sortDirection: string = 'asc';  // Property to hold the sorting direction
   filteredTrajets: Trajet[] = []; // Array to hold sorted/filter trajectories
-
+  notifications: any[] = [];
+  notificationCount: number = 0;
   constructor(
     private trajetService: TrajetService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private notificationsService: NotificationsService,
+    private authService: AuthService
   ) {
     // Initializing the form group with controls and validation
     this.trajetForm = this.fb.group({
@@ -43,11 +49,32 @@ export class TrajetComponent implements OnInit {
       statut: ['', Validators.required],
       prix: [0, [Validators.required, Validators.min(0)]],
       nombre_places: [1, [Validators.required, Validators.min(1)]], // Field for number of places
+
     });
   }
 
   ngOnInit(): void {
     this.fetchTrajets(); // Load trajets on component initialization
+    this.loadNotifications();
+  }
+
+
+  // Méthode pour charger les notifications
+  loadNotifications() {
+    this.notificationsService.getNotifications().subscribe(
+      (data) => {
+        this.notifications = data; // Adaptez cela selon la structure de votre réponse
+        this.notificationCount = this.notifications.length; // Comptez le nombre de notifications
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des notifications', error);
+      }
+    );
+  }
+
+  // Méthode de déconnexion
+  logout() {
+    this.authService.logout();
   }
 
   // Method to fetch all trajets from the service

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeFR from '@angular/common/locales/fr';
 import { Location } from '@angular/common';
@@ -8,7 +8,8 @@ import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { ReservationService } from '../../../services/reservation/reservation.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from '../../../services/Auth/auth.service';
+import { AuthService } from '../../../services/Auth/auth.service'; // Importer AuthService
+
 registerLocaleData(localeFR, 'fr');
 
 @Component({
@@ -19,7 +20,7 @@ registerLocaleData(localeFR, 'fr');
   styleUrls: ['./detail.component.css']
 })
 export class DetailTrajetComponent implements OnInit {
-  trajetId!: string;  ;
+  trajetId!: string;
   trajet: any = {};
   isAvailable: boolean = false;
   newComment: string = '';
@@ -35,7 +36,9 @@ export class DetailTrajetComponent implements OnInit {
     private route: ActivatedRoute,
     private trajetService: TrajetService,
     private location: Location,
-    private reservationService: ReservationService // Injection corrigée
+    private reservationService: ReservationService,
+    private authService: AuthService, // Injecter AuthService
+    private router: Router // Injecter Router
   ) {}
 
   ngOnInit(): void {
@@ -59,14 +62,11 @@ export class DetailTrajetComponent implements OnInit {
         this.isAvailable = this.trajet.statut?.trim().toLowerCase() === 'disponible';
         this.passager = this.trajet.data.reservations;
 
-        const placesDisponibles = this.trajet.data.nombre_places; // Nombre total de places
-        const nombreReservations = this.trajet.data.reservations.length; // Nombre de réservations existantes
-        const placesRestantes = placesDisponibles - nombreReservations; // Calcul des places restantes
+        const placesDisponibles = this.trajet.data.nombre_places;
+        const nombreReservations = this.trajet.data.reservations.length;
+        const placesRestantes = placesDisponibles - nombreReservations;
 
-        // Afficher le nombre de places restantes
         console.log(`Places restantes pour le trajet ${this.trajetId}:`, placesRestantes);
-
-        // Optionnel: vous pouvez stocker placesRestantes dans une propriété si vous souhaitez l'utiliser ailleurs
         this.trajet.data.placesRestantes = placesRestantes;
 
         console.log('Détails du trajet:', this.trajet.data);
@@ -80,29 +80,32 @@ export class DetailTrajetComponent implements OnInit {
     });
   }
 
-
   goBack(): void {
     this.location.back();
   }
 
-
   reserveTrajet(trajetId: any): void {
-    if (!this.UserId || !trajetId || !this.trajet) {
-      console.error('Données manquantes pour la réservation', this.UserId, trajetId);
-      return;
-    }
+    // Vérifier si l'utilisateur est connecté
+    // if (!this.authService.isAuthenticated()) {
+    //   this.router.navigate(['/login']); // Rediriger vers la page de connexion
+    //   return;
+    // }
 
-    const placesDisponibles = this.trajet.data.nombre_places; // Remplacez par le champ correct
-    const nombreReservations = this.trajet.data.reservations.length; // Supposons que `reservations` soit un tableau
+    // if (!trajetId || !this.trajet) {
+    //   console.error('Données manquantes pour la réservation', this.UserId, trajetId);
+    //   return;
+    // }
 
-    // Vérifier si des places sont disponibles
+    const placesDisponibles = this.trajet.data.nombre_places;
+    const nombreReservations = this.trajet.data.reservations.length;
+
     if (nombreReservations < placesDisponibles) {
       const today = new Date();
       const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, '0'); // Les mois commencent à 0
+      const month = String(today.getMonth() + 1).padStart(2, '0');
       const day = String(today.getDate()).padStart(2, '0');
 
-      const formattedDate = `${year}-${month}-${day}`; // Format: 'YYYY-MM-DD'
+      const formattedDate = `${year}-${month}-${day}`;
 
       const reservationData = new FormData();
       reservationData.append('user_id', this.UserId);
@@ -127,39 +130,30 @@ export class DetailTrajetComponent implements OnInit {
     }
   }
 
-
-
   addComment(): void {
-    // Vérifier si le commentaire est vide
     if (!this.newComment.trim()) {
       console.error('Le commentaire est vide');
       return;
     }
 
-    // Créer un objet FormData pour les données de l'avis
     const avisData = new FormData();
-    avisData.append('user_id', this.UserId);  // ID de l'utilisateur
-    avisData.append('trajet_id', this.trajetId);  // ID du trajet
-    avisData.append('commentaire', this.newComment);  // Commentaire
-    avisData.append('note', this.newNote ? this.newNote.toString() : '5');  // Note (par défaut 5)
+    avisData.append('user_id', this.UserId);
+    avisData.append('trajet_id', this.trajetId);
+    avisData.append('commentaire', this.newComment);
+    avisData.append('note', this.newNote ? this.newNote.toString() : '5');
 
-    // Envoyer la requête pour ajouter l'avis
     this.reservationService.addAvis(avisData).subscribe(
       (response) => {
         console.log('Commentaire ajouté avec succès:', response);
-        // Ajouter le nouveau commentaire localement à la liste des avis
         this.trajet.data.avis.push(response.data);
-        // Réinitialiser les champs après l'ajout
         this.newComment = '';
-        this.newNote = 5;  // Réinitialiser la note à 5 par défaut
+        this.newNote = 5;
       },
       (error) => {
         console.error('Erreur lors de l\'ajout du commentaire:', error);
       }
     );
   }
-
-
 
   showSuccessMessage(message: string): void {
     Swal.fire({

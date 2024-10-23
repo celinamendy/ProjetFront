@@ -1,25 +1,25 @@
 /* Header Section */
-header {
+/* header {
   background-color: white;
   padding: 1rem 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 10;
-}
+} */
 
 .container {
   display: flex;
   gap: 50px;
-  justify-content: space-between;
+  justify-content: space-between; 
   /* align-items: center; */
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 
-}
+ }
 
-.logo {
+/* .logo {
   font-size: 1.8rem;
   font-weight: bold;
   color: #FF681A;
@@ -37,9 +37,9 @@ nav ul li a {
   font-weight: 600;
   font-size: 1rem;
   transition: color 0.3s ease;
-}
+} */
 
-nav ul li a:hover {
+/* nav ul li a:hover {
   color: #FF681A;
 }
 
@@ -51,7 +51,7 @@ nav ul li a:hover {
 .actions .action-btn {
   background-color: #FF681A;
   color: white;
-  padding: 0.6rem 1.2rem;
+  padding: 10px;
   border-radius: 5px;
   text-decoration: none;
   font-size: 1rem;
@@ -60,7 +60,8 @@ nav ul li a:hover {
 
 .actions .action-btn:hover {
   background-color: #FF681A;
-}
+} */
+
 
 
 .image-section img {

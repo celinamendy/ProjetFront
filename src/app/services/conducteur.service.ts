@@ -17,6 +17,12 @@ export class ConducteurService {
       catchError(this.handleError)
     );
   }
+     // Mettre à jour un conducteur
+  updateConducteur(id: number, conducteur: any): Observable<any> {
+    return this.http.put(`${apiUrl}/conducteurs/${id}`, conducteur, this.getAuthHeaders()).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   private handleError(error: any): Observable<never> {
     // Log ou gérer l'erreur ici

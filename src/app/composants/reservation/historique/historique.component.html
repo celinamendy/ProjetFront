@@ -1,0 +1,104 @@
+<!-- Header Section -->
+<header>
+  <div class="container">
+    <div class="logo">LOGO</div>
+    <nav>
+      <ul>
+
+        <li><a href="#">accueil</a></li>
+        <li><a href="trajet">Trajets</a></li>
+        <li><a href="historique">Historique</a></li>
+        <li><a href="contact">Contact</a></li>
+      </ul>
+
+    </nav>
+    <div class="actions">
+      <a href="#" class="action-btn">Rechercher</a>
+      <a href="/Proposer_Trajet" class="action-btn">Proposer Trajet</a>
+    </div>
+  </div>
+</header>
+
+<!-- Image Section -->
+<div class="image-section">
+  <img src="assets/images/imagetra.png" alt="Image" class="header-image">
+</div>
+
+<!-- Main Content Section -->
+<section class="reservation-section">
+  <div class="container">
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <h1>Historique des Réservations</h1>
+      <hr>
+      <div class="search-bar">
+        <input [(ngModel)]="searchTerm" (input)="applyFilter()" placeholder="Rechercher par date, lieu de départ, prix">
+        <button class="search-btn" (click)="applyFilter()">Rechercher</button>
+      </div>
+      <div class="filter-options">
+        <h2>Trier Par</h2>
+        <ul>
+          <li (click)="sortBy('date')">Date</li>
+          <li (click)="sortBy('destination')">Destination</li>
+          <li (click)="sortBy('early')">Réservation la plus tôt</li>
+          <li (click)="sortBy('cheap')">Réservation la moins chère</li>
+        </ul>
+        <button class="clear-filters" (click)="resetFilters()">Tout effacer</button>
+      </div>
+    </div>
+
+    <!-- Reservation Cards Section -->
+    <div class="main-content">
+      <h2>Réservations récentes</h2>
+      <hr>
+      <div *ngFor="let reservation of reservations">
+        <div class="reservation-card d-flex flex-column">
+          <div class="reservation-info">
+            <p><img src="assets/images/Calendar31.png" alt="Calendrier" class="icon">
+              DATE ET HEURE : {{ reservation.trajet.date_depart }} à {{ reservation.heure_depart }}
+            </p>
+            <p><img src="assets/images/Address.png" alt="Localisation" class="icon">
+              Départ et destination : {{ reservation.point_depart }} ➔ {{ reservation.point_arrivee }}
+            </p>
+            <p><img src="assets/images/Mask-group.png" alt="Prix" class="icon">
+              Prix : {{ reservation.prix }} FCFA
+            </p>
+          </div>
+          <div class="reservation-actions">
+            <button (click)="navigateToDetail(reservation.id)">
+              <img src="assets/images/Eye.png" alt="Voir">
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h2>Réservations passées</h2>
+      <div *ngIf="reservations && reservations.length > 0; else noReservations">
+        <div *ngFor="let reservation of reservations">
+          <div class="reservation-card">
+            <div class="reservation-info">
+              <p><img src="assets/images/Calendar31.png" alt="Calendrier" class="icon">
+                DATE ET HEURE : {{ reservation.date_depart }} à {{ reservation.heure_depart }}
+              </p>
+              <p><img src="assets/images/Address.png" alt="Localisation" class="icon">
+                Départ et destination : {{ reservation.point_depart }} ➔ {{ reservation.point_arrivee }}
+              </p>
+              <p><img src="assets/images/Mask-group.png" alt="Prix" class="icon">
+                Prix : {{ reservation.prix }} FCFA
+              </p>
+            </div>
+            <div class="reservation-actions">
+              <button (click)="navigateToDetail(reservation.id)">
+                <img src="assets/images/Eye.png" alt="Voir">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noReservations>
+      <p>Aucune réservation trouvée pour ce passager.</p>
+    </ng-template>
+  </div>
+</section>

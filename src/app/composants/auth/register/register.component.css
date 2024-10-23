@@ -2,39 +2,44 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-image: url('/assets/images/connexion.png'); /* Remplacez par le chemin de votre image d'arrière-plan */
+  background-image: url('/assets/images/connexion.png');
   background-size: cover; /* Couvre tout l'arrière-plan */
-  background-position: center; /* Centre l'image */
+  /* background-position: center; Centre l'image */
   height: 100vh; /* Hauteur de la vue */
   display: flex; /* Utilisation de Flexbox pour disposer les éléments */
-  justify-content: center; /* Centrer horizontalement */
+  /* justify-content: center; Centrer horizontalement */
   align-items: center; /* Centrer verticalement */
 }
 
+
+
 .container {
   display: flex; /* Disposition en Flexbox */
-  max-width: 800px; /* Largeur maximale du conteneur */
+  /* max-width: 800px; Largeur maximale du conteneur */
   width: 100%; /* Prendre toute la largeur disponible */
+  gap: 2rem;
 }
 
 .img-connexion {
   flex: 1; /* Prendre un espace proportionnel */
   display: flex;
-  justify-content: center; /* Centrer l'image */
-  align-items: center; /* Centrer verticalement */
+  /*justify-content: center; /* Centrer l'image */
+  /*align-items: center; /* Centrer verticalement */
+  width: 50%;
+
 }
 
 .img-connexion img {
-  max-width: 100%; /* Image responsive */
-  height: auto; /* Garder le ratio d'aspect */
+  width: 100%; /* Image responsive */
+  height: 50rem; /* Garder le ratio d'aspect */
 }
 
 form {
   background-color: rgba(255, 255, 255, 0.8); /* Fond blanc avec transparence */
   border-radius: 8px;
   padding: 20px;
-  max-width: 400px; /* Largeur maximale du formulaire */
-  width: 100%; /* Prendre toute la largeur disponible */
+  /* max-width: 400px; Largeur maximale du formulaire */
+  /* width: 50%; /*Prendre toute la largeur disponible */
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1); /* Ombre du formulaire */
 }
 

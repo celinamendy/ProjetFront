@@ -1,12 +1,56 @@
 /* Header Section */
-header {
+/* header {
   background-color: white;
   padding: 1rem 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 10;
+} */
+
+/* .actions {
+  display: flex;
+  align-items: center;
 }
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+} */
+
+/* .user-icon {
+  width: 60px; Ajustez la taille selon vos besoins */
+  /* height: auto; */
+/* } */
+
+/* .dropdown-content {
+  display: none;
+  position: absolute; */
+  /* background-color: white; /* Changez la couleur si nécessaire */
+  /* min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+} */
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+/*
+.dropdown-content a {
+  color: white; /* Changez la couleur selon votre thème */
+  /* padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}  */
+
+
+
 
 .container {
   display: flex;
@@ -17,7 +61,7 @@ header {
   padding: 0 1rem;
 }
 
-.logo img{
+/* .logo img{
   width: 100px;
   height: 80px;
 
@@ -50,7 +94,7 @@ nav ul li a:hover {
 .actions .action-btn {
   background-color: #FF681A;
   color: white;
-  padding: 0.6rem 1.2rem;
+  padding: 10px;
   border-radius: 5px;
   text-decoration: none;
   font-size: 1rem;
@@ -59,16 +103,12 @@ nav ul li a:hover {
 
 .actions .action-btn:hover {
   background-color: #FF681A;
-}
+} */
 
 
 /* Hero Section */
 .hero {
   height: 700px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Positionnement vertical par défaut en haut */
-  align-items: flex-end; /* Aligner à droite */
   background-image: url('/assets/images/im1.jpg');
   background-size: cover;
   background-position: center;
@@ -78,16 +118,32 @@ nav ul li a:hover {
   margin-top: var(--hero-margin-top, 10); /* Paramètre pour monter ou descendre */
 }
 
+.hero .hero-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Positionnement vertical par défaut en haut */
+  align-items: flex-end; /* Aligner à droite */
+  gap: 5rem;
+}
+
 
 .hero-content {
-  position: relative;
-  max-width: 600px;
-  text-align: justify; /* Justifier le texte */
+  /* position: relative; */
+
+  width: 400px;
+  /* text-align: justify; Justifier le texte */
   margin-bottom: 2rem;
   font-weight: bold;
-  padding-right: 6rem; /* Espace entre le texte et le bord droit */
-  margin-top: 100px;
+  /* padding-right: 6rem; Espace entre le texte et le bord droit */
+  margin-top: 50px;
 
+}
+.hero-content p{
+  font-size: 1.3rem;
+  text-align: justify; /* Justifier le texte */
+  margin-bottom: 30px;
+  border-left: 8px solid #FF681A;
+  padding-left: 10px;
 }
 
 .hero-buttons .btn {
@@ -97,31 +153,38 @@ nav ul li a:hover {
   font-size: 1rem;
   text-decoration: none;
   color: white;
+  font-weight: bold;
+  border:2px  solid #F4E3D2 ;
 }
+.hero-buttons{
+  padding-left: 55px;
 
+}
 
 
 
 /* Search Section */
 .search-bar {
+  width: 100%;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  gap: .8rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  margin-top: 150px;
+
 }
 
 .search-fields {
+  padding: 0;
   display: flex;
-  gap: 1rem;
+  gap: .6rem;
 }
 
 .search-field {
+  width: 25%;
   background-color: #f4f4f4;
   padding: 0.5rem;
   border-radius: 5px;
@@ -136,18 +199,28 @@ nav ul li a:hover {
 }
 
 .search-field input {
+  width: 100%;
   border: none;
   background: none;
   font-size: 1rem;
 }
 
+.search-actions {
+    display: flex;
+    width: 30%;
+}
+
 .search-actions .btn {
   padding: 0.8rem 1.5rem;
-  border-radius: 5px;
-  font-size: 0.5rem;
+  border-radius: 10px;
+  font-size: .8rem;
   text-decoration: none;
   color: white;
+  font-weight: bold;
+  border:2px  solid #F4E3D2 ;
+
 }
+
 
 /* Couleurs des boutons */
 .orange-btn {
@@ -173,35 +246,53 @@ nav ul li a:hover {
   display: flex;
   justify-content: space-around;
   padding: 2rem;
-  background-color: #fff;
+  background-color: none;
   flex-wrap: nowrap; /* Pour garder les cartes sur la même ligne */
+  background-color: rgb(190, 194, 194, 0.11);
+  margin-top: 8%;
+height: 80%;
+
 }
 
+
+.features-container{
+  position: relative; /* Permet le positionnement des images */
+  gap: 2%;
+  margin-top: -8%;
+
+}
 .feature-card {
-  background-color: #00254E;
+  background-color: #001E45;
   color: white;
   padding: 1rem;
   border-radius: 8px;
   text-align: center;
-  width: 100%;
+  width: 33%;
   margin: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: relative; /* Permet le positionnement des images */
 }
 
-.feature-image-container {
-  width: 50%; /* Prend toute la largeur de la carte */
-  position: relative; /* Permet le positionnement absolu de l'image */
+.feature-image1 {
+  position: absolute; /* Permet le positionnement absolu de l'image */
+  top: 35%;
+  left:25% ;
+  z-index: -1;
 }
 
+.feature-image2 {
+  position: absolute; /* Permet le positionnement absolu de l'image */
+  right: 25%;
+  top: 35%;
+  z-index: -1;
+}
 .feature-image {
   position: absolute; /* Positionnement absolu pour permettre le repositionnement */
   top: 80px; /* Ajuste cette valeur pour positionner verticalement */
-  left: 50%; /* Centrer horizontalement */
+  left: 30%; /* Centrer horizontalement */
   transform: translateX(-50%); /* Centrer l'image */
-  z-index: 1; /* Met l'image au-dessus des cartes */
-  width: 200px; /* Ajuste la taille si nécessaire */
-  height: 100px; /* Garde le ratio de l'image */
+  /* z-index: 1; Met l'image au-dessus des cartes */
+  width: 100px; /* Ajuste la taille si nécessaire */
+  height: 80px; /* Garde le ratio de l'image */
 }
 
 .icon {
@@ -223,6 +314,7 @@ nav ul li a:hover {
 .feature-card p {
   font-size: 0.9rem;
   line-height: 1.4;
+  text-align: justify;
 }
 
 
@@ -232,7 +324,13 @@ nav ul li a:hover {
   padding: 2rem;
   background-color: #fff;
   margin-top: 1rem;
+  position: relative;
+
 }
+.about-us .about-content img {
+  position:absolute;
+}
+
 
 .about-content {
   display: flex;
@@ -255,7 +353,7 @@ nav ul li a:hover {
 .about-us h2 {
   font-size: 1.8rem;
   margin-bottom: 1rem;
-  color: #00254E;
+  color: #001E45;
 }
 
 .about-us p {
@@ -284,12 +382,20 @@ nav ul li a:hover {
 .how-it-works {
   padding: 2rem;
   text-align: center;
-  background-color: #f0f0f0; /* Light gray background */
+  background-color: #f0f0f0;
+  /* background-image: url('/assets/images/background.png'); */
+  position: relative;
+  z-index: -2;
+
 }
 
 .how-it-works h2 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
+}
+.container-precess-steps{
+  display: flex;
+  flex-direction: column;
 }
 
 /* Styles for the process steps */
@@ -297,19 +403,36 @@ nav ul li a:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 5rem;
+  position: relative;
+
+}
+.feature-image3 {
+  position: absolute; /* Permet le positionnement absolu de l'image */
+  left: 25%;
+  top: -2%;
+  z-index: -1;
+}
+.feature-image4 {
+  position: absolute; /* Permet le positionnement absolu de l'image */
+  right: 5%;
+  top: 55%;
+  z-index: -1;
 }
 
+
 .step {
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* border-radius: 8px; */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 20%; /* Adjust width for a three-item row */
+  width: 25%; /* Adjust width for a three-item row */
   margin-bottom: 1rem;
+
+
 }
 
 .step-icon {
@@ -326,6 +449,9 @@ nav ul li a:hover {
 .step p {
   font-size: 1rem;
   color: #666;
+  text-align: center;
+
+
 }
 
 /* Media Query for responsive behavior */
@@ -368,7 +494,8 @@ nav ul li a:hover {
   display: flex;
   justify-content: space-between;
   padding: 2rem;
-  background-color: #f5f5f5; /* Light gray background */
+  background-color: rgb(190, 194, 194, 0.11);
+  margin-top: 8%;
 }
 
 .content-wrapper {
@@ -376,17 +503,24 @@ nav ul li a:hover {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  gap: 2rem;
+  gap: 1rem;
 }
 
-.image-wrapper {
+.image-wrapper iframe {
   position: relative;
-  max-width: 50%;
+  /* width: 100%; */
+  margin-top: -22%;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgb(133, 132, 132);
+
+
 }
 
 .section-image {
   width: 100%;
+  height: 100%;
   border-radius: 10px;
+
 }
 
 .play-button {
@@ -395,11 +529,11 @@ nav ul li a:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 2rem;
-  color: #007bff;
+  color: #001E45;
 }
 
 .text-wrapper {
-  max-width: 50%;
+  max-width: 80%;
   padding: 1rem;
   text-align: left;
 }
@@ -418,7 +552,7 @@ nav ul li a:hover {
 
 /* Styles for the 'Where are you going?' section */
 .where-are-you-going {
-  background-color: #002e5b; /* Dark blue background */
+  background-color: #001E45; /* Dark blue background */
   padding: 2rem;
   color: #fff;
   display: flex;
@@ -440,9 +574,10 @@ nav ul li a:hover {
 
 /* Align the trip options to the left */
 .trip-options {
+  width: 100%;
   display: flex;
-  justify-content: flex-start; /* Align buttons to the left */
-  gap: 1rem;
+  justify-content: space-between; /* Align buttons to the left */
+  /* gap: 3rem; */
 }
 
 /* Style for trip buttons */
@@ -498,13 +633,19 @@ nav ul li a:hover {
 /* Section Testimonials */
 .testimonials {
   padding: 2rem;
-  background-color: #f9f9f9;
-  position: relative; /* For positioning the rectangle image */
+  /* background-color: #f9f9f9; */
+  position: relative;
 }
 
+.testimonials .container-temoignage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
 .testimonial-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .testimonial-header h2 {
@@ -555,67 +696,121 @@ nav ul li a:hover {
   height: 350px;
 }
 
-.rectangle-img16 {
+/* .rectangle-img16 {
   position: absolute;
   right: 5cm;
   top: 270px;
   width: 100px;
   height: 380px;
-}
+} */
 
-.rectangle-img17 {
+/* .rectangle-img17 {
   position: absolute;
   right: -6cm;
   top: 25px;
   width: 1000px;
   height: 300px;
-}
+} */
 
 /* Image du témoin */
-.temoin-img {
+/* .temoin-img {
   position: absolute;
   top: -15px; /* Placer l'image du témoin juste en haut du rectangle */
-  left: 300px; /* Ajuster la position à gauche */
-  width: 100px; /* Ajuster la taille de l'image */
-  height: auto;
-}
+  /* left: 300px; /* Ajuster la position à gauche */
+  /* width: 100px; /* Ajuster la taille de l'image */
+  /* height: auto; */
+/* } */
 
 /* Container for the testimonial */
 .testimonial-container {
+  /* position: relative; */
+  width: 100%;
+  background-color: #001E45;
+
+}
+.container-temoignage{
   position: relative;
-  width: 1000px;
-  height: 300px;
 }
 
-/* Positioning the text on top of the image */
-.testimonial-text-overlay {
+.temoin-content {
+  width: 100%;
+  position:relative;
+}
+
+.temoin-content .Group {
+  width: 400px;
+  height: 400px;
   position: absolute;
-  top: 50px;
-  left: 300px;
-  color: #fff;
-  width: 90%;
-  text-align: left;
+  top: -15%;
+  right: -4%;
+  z-index: -1;
 }
 
-.testimonial-text-overlay h3 {
+.temoin{
+  width: 100%;
+  border-radius: 30px;
+  background-color: #001E45;
+  padding: 62px;
+}
+
+.temoin-img {
+  width: 150px; /* Ajuster la taille de l'image */
+  height: auto;
+  margin-top: -15%;
+  margin-left: 15%;
+}
+
+.testimonials .temoin h3 {
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 1rem;
+  font-weight: bold;
+  color:white;
 }
 
-.testimonial-text-overlay p {
+.temoin blockquote p {
+  text-align: center;
+  justify-content: justify;
+  color: white;
+  font-size: 20px;
+}
+/* .feature-image3{
+  position: absolute;
+  right: 5%;
+  top: 55%;
+  z-index: 0;
+}
+.feature-image4{
+  position: absolute;
+  right: 5%;
+  top: 55%;
+  z-index: 0;
+} */
+
+/* Positioning the text on top of the image */
+/* .testimonial-text-overlay {
+  /* position: absolute;
+  top: 50px;
+  left: 300px; */
+  /* color: #fff;
+  width: 90%;
+  text-align: left;
+} */
+
+
+/* .testimonial-text-overlay p {
   font-size: 1rem;
   line-height: 1.5;
-}
+} */
 
 .quote-texte {
   font-size: 1.2rem;
   color: #666;
   text-align: center;
-  font-style: italic;
-  position: relative;
+  /* font-style: italic; */
+  /* position: relative; */
   display: inline-block;
-  max-width: 600px;
+  /* max-width: 600px; */
 }
 
 /* Styles for the quote images */
@@ -626,8 +821,8 @@ nav ul li a:hover {
   width: 80px;
   height: 65px;
   position: absolute;
-  left: -75px;
-  top: -50px;
+  left: 10%;
+  top: 15%;
 }
 
 .quote-texte::after {
@@ -637,8 +832,8 @@ nav ul li a:hover {
   width: 80px;
   height: 60px;
   position: absolute;
-  right: -75px;
-  bottom: 0;
+  right: 10%;
+  bottom: 5%;
 }
 
 .testimonials {
@@ -663,7 +858,7 @@ nav ul li a:hover {
   background-color: white;
   border-radius: 10px;
   padding: 2rem;
-  width: 40%;
+  width: 48%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
 }
@@ -712,19 +907,24 @@ nav ul li a:hover {
 }
 
 .driver .cta-btn {
-  background-color: #002060; /* Bouton bleu foncé */
+  background-color: #001E45; /* Bouton bleu foncé */
 }
 
 /* Style pour la boîte Passager */
 .passenger {
-  background-color: #002060;
+  background-color: #001E45;
 }
 
 .passenger .cta-btn {
   background-color: #FF681A; /* Bouton orange */
 }
 
+.container-trajet {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
+}
 .cta-box ul li img {
   width: 24px;
   height: 24px;
@@ -752,12 +952,14 @@ nav ul li a:hover {
 
 /* Section de contact */
 .contact-section {
-  background-color: #FF681A;
+  background-image: url('/assets/images/group.png');
   padding: 2rem 0;
   position: relative;
+  min-height: 85vh;
 }
 
 .contact-container {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -809,7 +1011,7 @@ nav ul li a:hover {
 .contact-form button {
   width: 100%;
   padding: 0.8rem;
-  background-color: #001f3f;
+  background-color: #001E45;
   color: white;
   font-size: 1rem;
   border: none;
@@ -856,7 +1058,7 @@ nav ul li a:hover {
 
 /* Section du footer */
 .footer-section {
-  background-color: #001f3f; /* Couleur de fond bleue */
+  background-color: #001E45; /* Couleur de fond bleue */
   padding: 40px 0;
   color: white;
   font-family: Arial, sans-serif;

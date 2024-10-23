@@ -11,6 +11,7 @@ import { ConducteurComponent } from './composants/profile/conducteur/conducteur.
 import { DetailTrajetConducteurComponent } from './composants/trajet/detail-conducteur/detail-conducteur.component';
 import { ModificationTrajetComponent } from './composants/trajet/modifier/modifier.component';
 import { DetailTrajetComponent } from './composants/trajet/detail/detail.component';
+import { HistoriqueReservationComponent } from './composants/reservation/historique/historique.component';
 
 
 export const routes: Routes = [
@@ -20,7 +21,7 @@ export const routes: Routes = [
   { path: "register", component: RegisterComponent },
   { path: "trajet", component: TrajetComponent },
   { path: "historique", component: HistoriqueTrajetComponent },
-
+  { path: 'historique-reservation', component: HistoriqueReservationComponent },
   { path: 'ajout', component: AjouterTrajetComponent } ,// Page d'ajout de trajet
   { path: 'modifier/:id', component: ModificationTrajetComponent }, // Changez ici aussi
   { path: 'trajet/:id', component: DetailTrajetComponent }, // Route pour afficher les détails du trajet

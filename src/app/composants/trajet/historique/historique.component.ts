@@ -9,11 +9,11 @@ import { switchMap, throwError } from 'rxjs';
 import { ConducteurService } from '../../../services/conducteur.service';
 import { TrajetService } from '../../../services/tajet.service';
 import { Trajet } from '../../../Models/trajet/trajet.component';
-
+import { HeaderComponent } from '../../header/header.component';
 @Component({
   selector: 'app-historique-trajet',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule ,HeaderComponent],
   templateUrl: './historique.component.html',
   styleUrls: ['./historique.component.css']
 })
@@ -172,6 +172,48 @@ export class HistoriqueTrajetComponent implements OnInit {
     this.sortKey = ''; // Reset sort key
     this.sortDirection = 'asc'; // Reset sort direction
   }
+  // Ajout de la méthode de confirmation du trajet
+confirmTrajet(trajetId: number): void {
+  // Utilisation de SweetAlert pour demander la confirmation
+  Swal.fire({
+    title: 'Confirmer le trajet',
+    text: 'Êtes-vous sûr de vouloir confirmer ce trajet ?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Oui, confirmer',
+    cancelButtonText: 'Annuler'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Appel au service pour confirmer le trajet
+      this.trajetService.confirmTrajet(trajetId).subscribe(
+
+         (response: any) => {
+          console.log('Trajet confirmé avec succès:', response);
+          this.fetchTrajets(); // Rafraîchit la liste des trajets après confirmation
+
+
+          console.log(trajetId,'id du trajet est bien recuperer');
+          Swal.fire(
+            'Trajet confirmé!',
+            'Le trajet a été confirmé avec succès.',
+            'success'
+          );
+          this.fetchTrajets(); // Rafraîchit la liste des trajets après confirmation
+        },
+        (error) => {
+          Swal.fire(
+            'Erreur!',
+            'Une erreur est survenue lors de la confirmation du trajet.',
+            'error'
+          );
+          console.error('Error confirming trajet:', error);
+        }
+      );
+    }
+  });
+}
+
+
 
   // Method to handle form submission
   onSubmit(): void {
@@ -237,4 +279,6 @@ export class HistoriqueTrajetComponent implements OnInit {
     console.error('An error occurred:', error);
     return throwError(() => new Error('Something went wrong. Please try again later.'));
   }
+
+
 }

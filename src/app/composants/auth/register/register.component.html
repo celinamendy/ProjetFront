@@ -1,63 +1,79 @@
 <!-- register.component.html -->
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <label for="type">Type d'utilisateur :</label>
-  <select formControlName="type" (change)="onTypeChange()">
-    <option value="passager">Passager</option>
-    <option value="conducteur">Conducteur</option>
-  </select>
+<div class="container"  >
 
-  <div>
-    <label for="nom">Nom :</label>
-    <input formControlName="nom" required>
+  <div class="img-connexion">
+    <img src="/assets/images/image 21.png" alt="Description de l'image" />
   </div>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <label for="type">Type d'utilisateur :</label>
+    <select formControlName="type" (change)="onTypeChange()">
+      <option value="passager">Passager</option>
+      <option value="conducteur">Conducteur</option>
+    </select>
+<div class="d-flex gap-2">
+    <div>
+      <label for="nom">Nom :</label>
+      <input formControlName="nom" required>
+    </div>
+
+    <div>
+      <label for="prenom">Prénom :</label>
+      <input formControlName="prenom" required>
+    </div>
+  </div>
+  <div class="d-flex gap-2">
+    <div>
+      <label for="age">Age :</label>
+      <input formControlName="age" type="age" required>
+    </div>
+
+    <div>
+      <label for="adresse">Adresse :</label>
+      <input formControlName="adresse" required>
+    </div>
+  </div>
+
+    <div class="d-flex gap-2">
+    <div>
+      <label for="email">Email :</label>
+      <input formControlName="email" type="email" required>
+    </div>
+
+    <div>
+      <label for="password">Mot de passe :</label>
+      <input formControlName="password" type="password" required>
+    </div>
+  </div>
+  <div class="d-flex gap-2">
   <div>
     <label for="telephone">telephone:</label>
     <input formControlName="telephone" required>
   </div>
-  <div>
-    <label for="prenom">Prénom :</label>
-    <input formControlName="prenom" required>
-  </div>
+</div>
+    <div *ngIf="isDriver">
+      <div class="d-flex gap-2">
+      <div>
+        <label for="permis_conduire">Permis de conduire :</label>
+        <input formControlName="permis_conduire" required>
+      </div>
 
-  <div>
-    <label for="email">Email :</label>
-    <input formControlName="email" type="email" required>
-  </div>
-
-  <div>
-    <label for="password">Mot de passe :</label>
-    <input formControlName="password" type="password" required>
-  </div>
-  <div>
-    <label for="age">Age :</label>
-    <input formControlName="age" type="age" required>
-  </div>
-
-  <div>
-    <label for="adresse">Adresse :</label>
-    <input formControlName="adresse" required>
-  </div>
-
-  <div *ngIf="isDriver">
-    <div>
-      <label for="permis_conduire">Permis de conduire :</label>
-      <input formControlName="permis_conduire" required>
+      <div>
+        <label for="cni">CIN :</label>
+        <input formControlName="CIN" required>
+      </div>
+    </div>
+    <div class="d-flex gap-2">
+      <div>
+        <label for="carte_gris">Carte gris:</label>
+        <input formControlName="carte_gris" required>
+      </div>
+      <!-- <div>
+        <label for="telephone">telephone:</label>
+        <input formControlName="telephone" required>
+      </div> -->
+    </div>
     </div>
 
-    <div>
-      <label for="cni">CIN :</label>
-      <input formControlName="CIN" required>
-    </div>
-
-    <div>
-      <label for="carte_gris">Carte gris:</label>
-      <input formControlName="carte_gris" required>
-    </div>
-    <!-- <div>
-      <label for="age">AGE :</label>
-      <input formControlName="age" required>
-    </div> -->
-  </div>
-
-  <button type="submit">S'inscrire</button>
-</form>
+    <button type="submit">S'inscrire</button>
+  </form>
+</div>

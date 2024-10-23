@@ -189,10 +189,10 @@ private getAuthHeaders() {
     this.router.navigate(['/login']); // Redirection vers la page de connexion
   }
 
-  // Vérifier si l'utilisateur est connecté
-  isLoggedIn(): boolean {
-    return !!this.getToken(); // Vérifie si un token est présent
-  }
+  // // Vérifier si l'utilisateur est connecté
+  // isLoggedIn(): boolean {
+  //   return !!this.getToken(); // Vérifie si un token est présent
+  // }
    // Méthode pour récupérer les détails de l'utilisateur connecté
 
     getUserDetails(): Observable<any> {
@@ -227,5 +227,16 @@ private getAuthHeaders() {
         'Authorization': `Bearer ${this.getToken()}`
       })
     });
+  }
+  // Méthode pour vérifier si l'utilisateur est authentifié
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('token'); // Remplacez 'token' par la clé que vous utilisez pour stocker le token d'authentification
+    return !!token; // Retourne true si le token existe, sinon false
+  }
+
+  // Méthode pour vérifier si l'utilisateur est connecté
+  isLoggedIn(): boolean {
+    const user = localStorage.getItem('user');
+    return !!user; // Retourne true si l'utilisateur est trouvé, sinon false
   }
 }

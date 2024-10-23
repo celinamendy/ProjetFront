@@ -5,12 +5,12 @@ import { Location } from '@angular/common';
 import { TrajetService } from '../../../services/tajet.service';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';  // Correct import de HttpClientModule
-
+import { HttpClientModule } from '@angular/common/http';
+import { ReservationService } from '../../../services/reservation/reservation.component';
 @Component({
   selector: 'app-detail-trajet-conducteur',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule ],
   templateUrl: './detail-conducteur.component.html',
   styleUrls: ['./detail-conducteur.component.css']
 })
@@ -19,15 +19,18 @@ export class DetailTrajetConducteurComponent implements OnInit {
   trajet: any = {};
   UserId: any | null = null;
   reservations: any[] = [];
-  loading: boolean = true;
-  trajetsConducteur: any[] = [];
-  passager: any[] = [];
-  users: any[] = []; // Ajoutez un tableau pour stocker les utilisateurs
   avis: any[] = []; // Déclaration de la propriété 'avis'
+  loading: boolean = true;
+  newComment: string = '';
+  newNote: number = 5;
+
+
+
   constructor(
     private route: ActivatedRoute,
     private trajetService: TrajetService,
-    private location: Location
+    private location: Location,
+    private reservationService: ReservationService,
   ) {}
 
   ngOnInit(): void {
@@ -40,8 +43,8 @@ export class DetailTrajetConducteurComponent implements OnInit {
   }
 
   getUserId(): number | null {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user).id : null;
+    const conducteur = localStorage.getItem('conducteur');
+    return conducteur ? JSON.parse(conducteur).id : null;
   }
 
   loadDetails(): void {
@@ -50,22 +53,47 @@ export class DetailTrajetConducteurComponent implements OnInit {
       (response: any) => {
         if (response.status) {
           this.trajet = response.data; // Assurez-vous que vous accédez au bon champ
-          console.log(this.trajet); // Ajoutez cette ligne pour vérifier la structure
+          console.log('detail',this.trajet); // Vérifiez la structure du trajet
           this.reservations = this.trajet.reservations || [];
+          console.log('detail',this.reservations); // Vérifiez la structure du trajet
+
           this.avis = this.trajet.avis || [];
         } else {
-          console.error('Erreur :', response.message);
+          this.showErrorMessage(response.message);
         }
       },
       (error) => {
         console.error('Erreur lors de la récupération des détails du trajet:', error);
+        this.showErrorMessage('Erreur lors de la récupération des détails du trajet.');
       }
     ).add(() => {
       this.loading = false;
     });
-}
+  }
+  addComment(): void {
+    if (!this.newComment.trim()) {
+      console.error('Le commentaire est vide');
+      return;
+    }
 
+    const avisData = new FormData();
+    avisData.append('user_id', this.UserId);
+    avisData.append('trajet_id', this.trajetId);
+    avisData.append('commentaire', this.newComment);
+    avisData.append('note', this.newNote ? this.newNote.toString() : '5');
 
+    this.reservationService.addAvis(avisData).subscribe(
+      (response) => {
+        console.log('Commentaire ajouté avec succès:', response);
+        this.trajet.data.avis.push(response.data);
+        this.newComment = '';
+        this.newNote = 5;
+      },
+      (error) => {
+        console.error('Erreur lors de l\'ajout du commentaire:', error);
+      }
+    );
+  }
 
   goBack(): void {
     this.location.back();

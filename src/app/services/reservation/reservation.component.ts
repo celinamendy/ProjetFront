@@ -12,23 +12,23 @@ export class ReservationService {
   constructor(private http: HttpClient) {}
 
   // Méthode pour obtenir les réservations avec authentification
-  getReservations(): Observable<any> {
-    const token = this.getToken(); //  méthode est bien définie
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
+  // getReservations(): Observable<any> {
+  //   const token = this.getToken(); //  méthode est bien définie
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${token}`,
+  //     'Content-Type': 'application/json'
+  //   });
 
-    console.log("Token utilisé pour la requête:", token); // Log pour débogage
+  //   console.log("Token utilisé pour la requête:", token); // Log pour débogage
 
-    return this.http.get(this.apiUrl, { headers }).pipe(
-      catchError(error => {
-        console.error('Erreur lors de la récupération des réservations', error);
-        return throwError(() => new Error('Erreur lors de la récupération des réservations'));
-      })
-    );
-  }
-  
+  //   return this.http.get(this.apiUrl, { headers }).pipe(
+  //     catchError(error => {
+  //       console.error('Erreur lors de la récupération des réservations', error);
+  //       return throwError(() => new Error('Erreur lors de la récupération des réservations'));
+  //     })
+  //   );
+  // }
+
 
   // Méthode pour obtenir les détails d'un utilisateur par ID
   getUser(userId: number): Observable<any> {
@@ -58,4 +58,33 @@ export class ReservationService {
       catchError(this.handleError) // Gérer les erreurs ici
     );
   }
+  // Récupérer les trajets réservés par le passager connecté
+  // getReservationsByPassagerId(passagerId: number): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/passager/${passagerId}`);
+  // }
+  getReservationsByPassagerId(passagerId: number) {
+    return this.http.get(`${this.apiUrl}/reservations/passager/${passagerId}`); // Vérifie l'URL et la réponse
+  }
+// Méthode pour récupérer un trajet par son ID
+getTrajetById(trajetId: number): Observable<any> {
+  const token = this.getToken();
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.get(`${this.apiUrl}/trajets/${trajetId}`, { headers }).pipe(
+    catchError(this.handleError)
+  );
+}
+  private getAuthHeaders() {
+    const token = localStorage.getItem('access_token');
+    return {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      })
+    };
+  }
+  
+
 }

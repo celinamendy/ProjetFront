@@ -41,6 +41,15 @@
       </div>
     </div>
 
+
+    <div class="form-group">
+      <label for="statut">Statut</label>
+      <input type="text" id="statut" formControlName="statut" class="form-control" />
+      <div *ngIf="trajetForm.get('statut')?.invalid && (trajetForm.get('statut')?.touched || trajetForm.get('statut')?.dirty)" class="text-danger">
+        Le statut est requis.
+      </div>
+    </div>
+
     <div class="form-group">
       <label for="prix">Prix</label>
       <input type="number" id="prix" formControlName="prix" class="form-control" />

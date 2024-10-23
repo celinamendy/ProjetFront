@@ -76,7 +76,7 @@ body {
 
 .trip-info h3 {
   color: #FF681A;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .trip-info .separateur .rond {
@@ -115,7 +115,7 @@ body {
 .comments-section {
   /* background-color: #fff; */
   /* border: 1px solid #eee; */
-  padding: 10px;
+  padding: 20px;
   /* border-radius: 25px; */
 }
 

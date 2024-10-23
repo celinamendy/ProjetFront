@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './Auth/auth.service';
 import { Observable, throwError } from 'rxjs'; // Ajout de throwError
@@ -112,5 +112,26 @@ deleteTrajets(id: any): Observable<any> {
       catchError(this.handleError)
     );
   }
+
+  // Ajout de la méthode pour vérifier et mettre à jour le statut du trajet
+  verifierStatutTrajet(trajetId: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/trajets/${trajetId}/verifier-statut`, {}, this.getAuthHeaders()).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Dans TrajetService
+  confirmTrajet(trajetId: number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/trajets/confirmer/${trajetId}`, {}, { responseType: 'json' }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error confirming trajet:', error);
+        return throwError(error);  // Ou une gestion d'erreur plus appropriée
+      })
+    );
+  }
+
+
+
+
 }
 

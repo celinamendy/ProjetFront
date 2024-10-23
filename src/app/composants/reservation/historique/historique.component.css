@@ -1,12 +1,12 @@
 /* Header Section */
-/* header {
+header {
   background-color: white;
   padding: 1rem 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 10;
-} */
+}
 
 .container {
   display: flex;
@@ -17,13 +17,13 @@
   padding: 0 1rem;
 }
 
-/* .logo {
+.logo {
   font-size: 1.8rem;
   font-weight: bold;
   color: #FF681A;
-} */
+}
 
-/* nav ul {
+nav ul {
   list-style: none;
   display: flex;
   gap: 1.5rem;
@@ -58,7 +58,7 @@ nav ul li a:hover {
 
 .actions .action-btn:hover {
   background-color: #FF4500;
-} */
+}
 
 /* Image Section */
 .image-section img {
@@ -222,35 +222,6 @@ nav ul li a:hover {
 
 .trajet-actions button:hover img {
   filter: brightness(0.8);
-}
-/* .trajet-actions .bouton-confirmer{
-  background-color: #FF681A;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-} */
-
-
-.confirm-btn {
-  background-color: #4CAF50; /* Vert clair */
-  color: white; /* Couleur du texte */
-  padding: 10px 20px; /* Espacement interne du bouton */
-  font-size: 16px; /* Taille du texte */
-  border: none; /* Pas de bordure */
-  border-radius: 5px; /* Coins arrondis */
-  cursor: pointer; /* Curseur en forme de main au survol */
-  transition: background-color 0.3s ease; /* Animation sur le changement de couleur */
-}
-
-.confirm-btn:hover {
-  background-color: #45a049; /* Changement de couleur au survol */
-}
-
-.confirm-btn:focus {
-  outline: none; /* Supprime l'effet focus par défaut */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ajout d'une ombre */
 }
 
 /* No Trajets Message */

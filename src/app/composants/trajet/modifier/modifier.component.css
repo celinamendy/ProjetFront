@@ -1,96 +1,84 @@
-
-/* Styles pour le corps */
+/* Appliquer un fond d'image à la page entière */
 body {
-  font-family: Arial, sans-serif;
-  /* background: url('images/Desktop2.png') no-repeat center center fixed; */
+  background-image: url('/assets/images/connexion.png');
   background-size: cover;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
 }
 
-/* Conteneur du formulaire */
-.form-container {
-  background-color: rgba(255, 255, 255, 0.8);
+/* Centrer le formulaire dans la page */
+.container {
+  max-width: 600px;
+  margin: 50px auto;
   padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8); /* Légèrement transparent */
   border-radius: 10px;
-  width: 800px; /* Ajustez selon vos besoins */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Styles pour les lignes du formulaire */
-.form-row {
-  display: flex;
-  justify-content: space-between; /* Espace entre les colonnes */
-  margin-bottom: 15px; /* Espace entre les lignes */
-}
-
-/* Styles pour les champs du formulaire */
+/* Style des titres */
 h2 {
   text-align: center;
+  color: #333;
   margin-bottom: 20px;
-  color: #333;
 }
 
-.form-group {
-  flex: 1; /* Chaque groupe occupe une largeur égale */
-  margin-right: 10px; /* Espace entre les colonnes */
-}
-
-.form-group:last-child {
-  margin-right: 0; /* Pas d'espace à droite pour le dernier élément */
-}
-
+/* Style des labels */
 label {
-  font-size: 14px;
-  margin-bottom: 5px;
-  color: #333;
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
 }
 
+/* Style des champs d'entrée */
 input[type="text"],
-input[type="number"],
 input[type="date"],
-input[type="file"],
-input[type="time"] {
-  width: 90%; /* Ajustez la largeur pour un meilleur alignement */
+input[type="time"],
+input[type="number"],
+select {
+  width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 14px;
+  background-color: #FF681A; /* Couleur orange pour les champs */
+  color: white;
 }
 
-input[type="file"] {
-  padding: 5px;
+/* Style des messages d'erreur */
+.text-danger {
+  color: red;
+  font-size: 0.9em;
 }
 
-input[type="submit"],
-button {
-  padding: 10px;
+/* Boutons de soumission */
+button[type="submit"],
+button[type="reset"] {
+  background-color: #FF681A;
+  color: white;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 48%;
+  margin: 10px 1%;
 }
 
-/* Styles pour les boutons */
-.submit-btn {
-  background-color: #002060;
-  color: white;
-  margin-top: 10px;
-  grid-column: span 2; /* Le bouton s'étend sur les deux colonnes */
+button[type="submit"]:hover,
+button[type="reset"]:hover {
+  background-color: #ff8533;
 }
 
-.cancel-btn {
-  background-color: white;
-  color: #002060;
-  border: 2px solid #002060; /* Ajouter une bordure */
-  margin-top: 10px;
-  grid-column: span 2; /* Le bouton s'étend sur les deux colonnes */
-}
-
+/* Flexbox pour les boutons */
 .form-buttons {
   display: flex;
   justify-content: space-between;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+  }
 }
