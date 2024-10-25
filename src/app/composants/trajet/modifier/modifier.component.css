@@ -42,7 +42,7 @@ select {
   margin-bottom: 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #FF681A; /* Couleur orange pour les champs */
+  /* background-color: #FF681A; Couleur orange pour les champs */
   color: white;
 }
 

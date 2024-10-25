@@ -108,7 +108,7 @@ deleteTrajets(id: any): Observable<any> {
   }
   // Méthode pour récupérer la listes des reserves
   getAllreserveTrajet(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/trajets`).pipe(
+    return this.http.get(`${this.apiUrl}/reservations`).pipe(
       catchError(this.handleError)
     );
   }

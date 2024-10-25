@@ -70,25 +70,39 @@
           <!-- Bouton réserver -->
           <button class="reserve-btn" (click)="reserveTrajet(trajet.data.id)" >RÉSERVER</button>
       </div>
-            <!-- Section des commentaires -->
-              <div class="comments-section">
-                <div class="comment-champs">
-                  <input class="mb-0" [(ngModel)]="newComment" placeholder="Ajouter un commentaire"/>
-                  <button (click)="addComment()">Envoyer</button>
-                </div>
+           <!-- Section des commentaires -->
+          <div class="comments-section">
+            <div class="comments-commentaire">
 
-
-                <div *ngIf="trajet.data.reservations && trajet.data.avis.length > 0; else noComments">
-                    <div class="comment" *ngFor="let comment of trajet.data.avis">
-                        <p><b>{{ comment.user.nom }}</b></p>
-                        <p>{{ comment.commentaire }}</p>
-                        <p>{{ comment.note }}</p>
-                    </div>
-                </div>
-                <ng-template #noComments>
-                    <div>Aucun commentaire pour ce trajet.</div>
-                </ng-template>
+            <!-- <div class="comment-champs">
+              <input class="mb-0" [(ngModel)]="newComment" placeholder="Ajouter un commentaire" />
+              <button (click)="addComment()">Envoyer</button>
             </div>
+             <div class="rating-icons ">
+              <span (click)="setNote(1)" [class.active]="newNote === 1">
+                <img src="/assets/images/iconamoon_like-thin.png" alt="">
+                <span>{{ likesCount }}</span>
+              </span>
+              <span (click)="setNote(-1)" [class.active]="newNote === -1">
+                <img src="/assets/images/iconamoon_dislike-light.png" alt="">
+                <span>{{ dislikesCount }}</span>
+              </span>
+            </div>
+          </div> -->
+
+            <div *ngIf="avis.length > 0; else noComments">
+              <div class="comment" *ngFor="let comment of avis">
+                <p><b>{{ comment.user.nom }}</b></p>
+                <p>{{ comment.commentaire }}</p>
+                <!-- <p>{{ comment.note === 1 ? '👍' : comment.note === -1 ? '👎'  }}</p> -->
+              </div>
+            </div>
+            <ng-template #noComments>
+              <div>Aucun commentaire pour ce trajet.</div>
+            </ng-template>
+          </div>
+
+
           </div>
         </div>
     </div>

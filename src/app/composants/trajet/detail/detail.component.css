@@ -119,8 +119,15 @@ body {
   /* border-radius: 25px; */
 }
 
+.comments-commentaire{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+}
 .comments-section .comment-champs {
   height: 50px;
+  width: 80%;
   display: flex;
   align-items: center;
   border: 1px solid black;
@@ -137,7 +144,7 @@ body {
 .comments-section button {
   border-top-right-radius: 35px;
   border-bottom-right-radius: 35px;
-  width: 18%;
+  width: 50%;
   height: 100%;
   padding: 10px;
   background-color: #00214A;

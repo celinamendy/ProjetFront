@@ -19,7 +19,15 @@ export class NotificationsService {
     );
   }
 
-
+// Méthode d'envoi de notification
+sendNotification(title: string, message: string, userId: number): Observable<any> {
+  const notificationData = {
+    title: title,
+    message: message,
+    userId: userId
+  };
+  return this.http.post(`${this.apiUrl}/notifications`, notificationData);
+}
 
 
   // Méthode pour obtenir le token (à définir si ce n'est pas déjà fait)

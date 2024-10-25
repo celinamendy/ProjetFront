@@ -2,32 +2,37 @@
   <div class="container">
     <!-- Section gauche : Infos conducteur et réservations -->
     <div class="left-section">
+      <!-- <pre>{{reservations[0].statut}}</pre> -->
+
+
+
+
+
 
       <!-- Infos du conducteur -->
-      <div *ngIf="trajet.data?.conducteur" class="driver-info">
+      <!-- <div *ngIf="trajet.data?.conducteur" class="driver-info">
         <img src="assets/images/Ellipse 255.png" alt="Driver Avatar" class="avatar">
         <p><b>Conducteur :</b> {{ trajet.data.conducteur.nom }}</p>
         <p><b>Âge :</b> {{ trajet.conducteur.age }} ans</p>
         <p><b>Tél :</b> {{ trajet.conducteur.telephone }}</p>
         <p><b>Email :</b> {{ trajet.conducteur.email }}</p>
-      </div>
+      </div> -->
 
       <!-- Liste des réservations -->
       <div class="reservations">
-        <h4>Réservations des passagers</h4>
-        <div *ngIf="reservations.length > 0; else noReservations">
-          <ul>
-            <li *ngFor="let reservation of reservations">
-              <p><b>Nom du passager :</b> {{ reservation.user.nom }}</p>
-              <p><b>Email :</b> {{ reservation.user.email }}</p>
-              <p><b>Téléphone :</b> {{ reservation.user.telephone }}</p>
-              <hr>
-            </li>
-          </ul>
+        <h4>Réservations des passagers </h4>
+        <div >
+          <div *ngFor="let item of datasRersvation">
+            <span class="liste">
+                <p><b> Nom du passager :</b> {{ item.user.prenom}} {{ item.user.nom}}</p>
+                <p><b>Email :</b> {{ item.user.email}}</p>
+                <p><b>Téléphone :</b> {{ item.user.passager.telephone }}</p>
+                <hr>
+            </span>
+          </div>
+
         </div>
-        <ng-template #noReservations>
-          <p>Aucune réservation pour ce trajet.</p>
-        </ng-template>
+
       </div>
     </div>
 
@@ -79,8 +84,8 @@
             <button (click)="addComment()">Envoyer</button>
           </div>
 
-          <div *ngIf="trajet.data.reservations && trajet.data.avis.length > 0; else noComments">
-            <div class="comment" *ngFor="let comment of trajet.data.avis">
+          <div *ngIf="avis.length > 0; else noComments">
+            <div class="comment" *ngFor="let comment of avis">
               <p><b>{{ comment.user.nom }}</b></p>
               <p>{{ comment.commentaire }}</p>
               <p>{{ comment.note }}</p>

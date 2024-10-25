@@ -14,7 +14,6 @@ import Swal from 'sweetalert2';
 import { NgIf } from '@angular/common';
 import { Trajet } from '../../../Models/trajet/trajet.component';
 
-
 @Component({
   selector: 'app-modifier',
   standalone: true,
@@ -58,10 +57,9 @@ export class ModificationTrajetComponent implements OnInit {
 
   loadTrajet(): void {
     this.trajetService.getTrajetsDetails(this.trajetId).subscribe(
-      (trajet: any)=> {
-        const date = trajet.data.date_depart? new Date(trajet.data.date_depart).toISOString().substring(0, 10) : '';
+      (trajet: any) => {
+        const date = trajet.data.date_depart ? new Date(trajet.data.date_depart).toISOString().substring(0, 10) : '';
         this.trajet = trajet.data;
-        console.log(this.trajet);
 
         this.trajetForm.patchValue({
           point_depart: this.trajet.point_depart,
@@ -76,17 +74,15 @@ export class ModificationTrajetComponent implements OnInit {
         });
       },
       (error: HttpErrorResponse) => {
-        console.error('Erreur lors de la récupération du trajet:', error.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur de chargement',
+          text: 'Impossible de charger les détails du trajet. Veuillez réessayer plus tard.',
+          showConfirmButton: true
+        });
       }
     );
   }
-
-  // onFileChange(event: any): void {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     this.imageFile = file;
-  //   }
-  // }
 
   onSubmit(): void {
     if (this.trajetForm.valid) {
@@ -99,17 +95,8 @@ export class ModificationTrajetComponent implements OnInit {
         }
       });
 
-      // if (this.imageFile) {
-      //   formData.append('photo', this.imageFile);
-      // }
-
-
-      console.log('formulaire',formData);
-
       this.trajetService.updateTrajets(this.trajetId, formData).subscribe({
         next: (response) => {
-          console.log('reponse',response);
-
           Swal.fire({
             icon: 'success',
             title: 'Trajet mis à jour',
@@ -118,16 +105,15 @@ export class ModificationTrajetComponent implements OnInit {
             timer: 2000
           });
           setTimeout(() => {
-            // this.router.navigate(['/historique']); // Redirection après la mise à jour
+            this.router.navigate(['/historique']); // Redirection après la mise à jour
           }, 2000);
         },
         error: (error) => {
           Swal.fire({
             icon: 'error',
-            title: 'Erreur',
+            title: 'Erreur de mise à jour',
             text: 'Une erreur s\'est produite lors de la mise à jour du trajet.',
-            showConfirmButton: false,
-            timer: 3000
+            showConfirmButton: true
           });
         }
       });

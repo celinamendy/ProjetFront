@@ -9,7 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { ReservationService } from '../../../services/reservation/reservation.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../../../services/Auth/auth.service'; // Importer AuthService
-
+import { Avis } from '../../../Models/avis/avis.component';
+import { NotificationsService } from '../../../services/notifications.service';
 registerLocaleData(localeFR, 'fr');
 
 @Component({
@@ -30,7 +31,11 @@ export class DetailTrajetComponent implements OnInit {
   reservations: any[] = [];
   passager: any[] = [];
   users: any[] = []; // Ajoutez un tableau pour stocker les utilisateurs
-  newNote: number = 5;
+  newNote: number = 0;
+  likesCount: number = 0;
+  dislikesCount: number = 0;
+  avis: any[] = [];
+
 
   constructor(
     private route: ActivatedRoute,
@@ -39,6 +44,7 @@ export class DetailTrajetComponent implements OnInit {
     private reservationService: ReservationService,
     private authService: AuthService, // Injecter AuthService
     private router: Router // Injecter Router
+    // private notificationsService: NotificationsService // Injecter NotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +52,31 @@ export class DetailTrajetComponent implements OnInit {
     this.UserId = this.getUserId();
     this.loadDetails();
   }
+  // Méthode pour définir la note
+  setNote(note: number, avisId: number): void {
+    // Mettre à jour la note localement pour l'affichage immédiat
+    if (note === 1) {
+      this.likesCount++;
+      this.newNote = 1;
+    } else if (note === -1) {
+      this.dislikesCount++;
+      this.newNote = -1;
+    }
+
+    // Appeler l'API pour enregistrer la note dans la base de données
+    this.reservationService.updateNote(avisId, note).subscribe(
+      (response) => {
+        console.log('Note mise à jour:', response);
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour de la note:', error);
+      }
+    );
+  }
+
+
+
+
 
   getUserId(): number | null {
     const user = localStorage.getItem('user');
@@ -91,44 +122,76 @@ export class DetailTrajetComponent implements OnInit {
     //   return;
     // }
 
-    // if (!trajetId || !this.trajet) {
-    //   console.error('Données manquantes pour la réservation', this.UserId, trajetId);
-    //   return;
-    // }
+    // Vérifier que les données sont bien disponibles
+    if (!trajetId || !this.trajet) {
+        console.error('Données manquantes pour la réservation', this.UserId, trajetId);
+        return;
+    }
 
     const placesDisponibles = this.trajet.data.nombre_places;
     const nombreReservations = this.trajet.data.reservations.length;
+    const dateHeureTrajet = new Date(this.trajet.data.date_heure);
 
+    // Vérifier si la date du trajet est dans le futur
+    // const now = new Date();
+    // if (dateHeureTrajet < now) {
+    //     console.error("La date du trajet est passée. Impossible de réserver.");
+    //     this.showErrorMessage("La date du trajet est passée. Réservation impossible.");
+    //     return;
+    // }
+
+    // Vérifier la disponibilité des places
     if (nombreReservations < placesDisponibles) {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const day = String(today.getDate()).padStart(2, '0');
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
 
-      const formattedDate = `${year}-${month}-${day}`;
+        const reservationData = new FormData();
+        reservationData.append('user_id', this.UserId);
+        reservationData.append('trajet_id', trajetId);
+        reservationData.append('date_heure_reservation', formattedDate);
+        reservationData.append('statut', 'confirmer');
 
-      const reservationData = new FormData();
-      reservationData.append('user_id', this.UserId);
-      reservationData.append('trajet_id', trajetId);
-      reservationData.append('date_heure_reservation', formattedDate);
-      reservationData.append('statut', 'confirmer');
+        // Appel au service pour ajouter la réservation
+        this.trajetService.addreserveTrajet(reservationData).subscribe(
+            (response) => {
+                console.log('Réservation réussie:', response);
+                this.showSuccessMessage('Réservation effectuée avec succès.');
 
-      this.trajetService.addreserveTrajet(reservationData).subscribe(
-        (response) => {
-          console.log('Réservation réussie:', response);
-          this.showSuccessMessage('Réservation effectuée avec succès.');
-          window.location.reload();
-        },
-        (error) => {
-          console.error('Erreur lors de la réservation:', error);
-          this.showErrorMessage('Une erreur est survenue lors de la réservation.');
-        }
-      );
+                const trajetData = new FormData();
+                trajetData.append('statut', 'terminer');
+
+
+                // Vérifier si le nombre de réservations atteint le nombre de places disponibles
+                if (nombreReservations + 1 >= placesDisponibles) {
+                    // Mettre à jour le statut du trajet en "terminé"
+                    this.trajetService.updateTrajets(trajetId, trajetData).subscribe(
+                        (statusResponse) => {
+                            console.log('Statut du trajet mis à jour en terminé:', statusResponse);
+                        },
+                        (statusError) => {
+                            console.error("Erreur lors de la mise à jour du statut du trajet:", statusError);
+                        }
+                    );
+                }
+                // window.location.reload();
+            },
+            (error) => {
+                console.error('Erreur lors de la réservation:', error);
+                this.showErrorMessage('Desole , mais vous ne pouvez plus reserver a ce trajet.');
+            }
+        );
     } else {
-      console.error('Aucune place disponible pour cette réservation.');
-      this.showErrorMessage('Aucune place disponible pour cette réservation.');
+        console.error('Aucune place disponible pour cette réservation.');
+        this.showErrorMessage('Desole , le nombre de place disponible pour ce trajet est atteint.');
     }
-  }
+}
+
+
+
+
 
   addComment(): void {
     if (!this.newComment.trim()) {
@@ -140,20 +203,23 @@ export class DetailTrajetComponent implements OnInit {
     avisData.append('user_id', this.UserId);
     avisData.append('trajet_id', this.trajetId);
     avisData.append('commentaire', this.newComment);
-    avisData.append('note', this.newNote ? this.newNote.toString() : '5');
+
+    // Utiliser la nouvelle note définie par like/dislike
+    avisData.append('note', this.newNote ? this.newNote.toString() : '0'); // Note par défaut à 0 si pas de sélection
 
     this.reservationService.addAvis(avisData).subscribe(
       (response) => {
         console.log('Commentaire ajouté avec succès:', response);
         this.trajet.data.avis.push(response.data);
         this.newComment = '';
-        this.newNote = 5;
+        this.newNote = 0; // Réinitialiser la note après ajout
       },
       (error) => {
         console.error('Erreur lors de l\'ajout du commentaire:', error);
       }
     );
   }
+
 
   showSuccessMessage(message: string): void {
     Swal.fire({

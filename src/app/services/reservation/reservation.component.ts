@@ -58,6 +58,11 @@ export class ReservationService {
       catchError(this.handleError) // Gérer les erreurs ici
     );
   }
+
+  // Ajout de la méthode pour récupérer les avis
+  getAvis(trajetId: number): Observable<any> {
+    return this.http.get(`/api/trajet/${trajetId}/avis`);
+  }
   // Récupérer les trajets réservés par le passager connecté
   // getReservationsByPassagerId(passagerId: number): Observable<any> {
   //   return this.http.get(`${this.apiUrl}/passager/${passagerId}`);
@@ -77,6 +82,12 @@ getTrajetById(trajetId: number): Observable<any> {
     catchError(this.handleError)
   );
 }
+updateNote(avisId: number, note: number): Observable<any> {
+  const data = new FormData();
+  data.append('note', note.toString());
+  return this.http.post(`/api/avis/${avisId}/update-note`, data);
+}
+
   private getAuthHeaders() {
     const token = localStorage.getItem('access_token');
     return {
@@ -85,6 +96,6 @@ getTrajetById(trajetId: number): Observable<any> {
       })
     };
   }
-  
+
 
 }

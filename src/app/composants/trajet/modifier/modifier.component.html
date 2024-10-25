@@ -1,6 +1,7 @@
 <div class="container">
   <h2>Modifier le Trajet</h2>
   <form [formGroup]="trajetForm" (ngSubmit)="onSubmit()">
+    
     <div class="form-group">
       <label for="point_depart">Point de départ</label>
       <input type="text" id="point_depart" formControlName="point_depart" class="form-control" />
