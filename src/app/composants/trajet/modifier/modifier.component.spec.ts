@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModifierComponent } from './modifier.component';
+import { ModifierComponent } from '../../profile/conducteur/modifier/modifier.component';
+
 
 describe('ModifierComponent', () => {
   let component: ModifierComponent;
@@ -11,7 +12,7 @@ describe('ModifierComponent', () => {
       imports: [ModifierComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ModifierComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -2,7 +2,7 @@ import {  ErrorHandler, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders ,HttpInterceptor} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
+import { forkJoin, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -67,6 +67,18 @@ export class ReservationService {
   // getReservationsByPassagerId(passagerId: number): Observable<any> {
   //   return this.http.get(`${this.apiUrl}/passager/${passagerId}`);
   // }
+
+  confirmReservation(reservationId: number): Observable<any> {
+    return this.http.post(`/api/reservations/${reservationId}/confirm`, {});
+  }
+   // Nouvelle méthode pour traiter les réservations sélectionnées
+   confirmSelectedReservations(selectedReservations: any[]): Observable<any[]> {
+    const confirmationRequests = selectedReservations.map(reservation =>
+      this.confirmReservation(reservation.id)
+    );
+    return forkJoin(confirmationRequests);
+  }
+
   getReservationsByPassagerId(passagerId: number) {
     return this.http.get(`${this.apiUrl}/reservations/passager/${passagerId}`); // Vérifie l'URL et la réponse
   }

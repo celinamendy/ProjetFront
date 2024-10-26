@@ -8,14 +8,20 @@ import { catchError } from 'rxjs/operators';
 })
 export class NotificationsService {
 
+
   private apiUrl = 'http://127.0.0.1:8000/api';
 
   constructor(private http: HttpClient) {}
 
-  // Méthode pour obtenir les réservations avec authentification
   getNotifications(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/notifications`).pipe(
-
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+    });
+    return this.http.get(`${this.apiUrl}/notifications`, { headers }).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la récupération des notifications:', error);
+        return throwError(error);
+      })
     );
   }
 

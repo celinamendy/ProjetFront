@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReservationService } from '../../../services/reservation/reservation.component';
 import { Avis } from '../../../Models/avis/avis.component';
-
+import { forkJoin, of } from 'rxjs';
 
 @Component({
   selector: 'app-detail-trajet-conducteur',
@@ -36,12 +36,14 @@ export class DetailTrajetConducteurComponent implements OnInit {
 
 
 
+
   constructor(
     private route: ActivatedRoute,
     private trajetService: TrajetService,
     private location: Location,
     private reservationService: ReservationService,
     private cdr: ChangeDetectorRef // Ajoutez ceci
+
   ) { }
 
   ngOnInit(): void {
@@ -86,6 +88,37 @@ export class DetailTrajetConducteurComponent implements OnInit {
     ).add(() => {
         this.loading = false;
     });
+}
+
+confirmSelectedReservations(): void {
+  const selectedReservations = this.datasRersvation.filter(item => item.isSelected);
+
+  if (selectedReservations.length > 0) {
+    Swal.fire({
+      title: 'Confirmer les réservations',
+      text: `Êtes-vous sûr de vouloir confirmer ${selectedReservations.length} réservations?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Oui, confirmer!',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.reservationService.confirmSelectedReservations(selectedReservations).subscribe(responses => {
+          responses.forEach((response, index) => {
+            if (response) {
+              this.showSuccessMessage(`Réservation pour ${selectedReservations[index].user.prenom} confirmée avec succès!`);
+              this.datasRersvation = this.datasRersvation.filter(item => item.id !== selectedReservations[index].id);
+            }
+          });
+        }, error => {
+          console.error('Erreur lors de la confirmation des réservations:', error);
+          this.showErrorMessage('Erreur lors de la confirmation des réservations.');
+        });
+      }
+    });
+  } else {
+    this.showErrorMessage('Veuillez sélectionner au moins une réservation à confirmer.');
+  }
 }
 
 
