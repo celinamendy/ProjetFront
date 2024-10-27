@@ -8,6 +8,8 @@ import { AjouterTrajetComponent } from './composants/trajet/ajouter/ajouter.comp
 import { ModificationTrajetComponent } from './composants/trajet/modifier/modifier.component';
 import { DetailTrajetComponent } from './composants/trajet/detail/detail.component';
 import { HeaderComponent } from './composants/header/header.component';
+
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -18,7 +20,8 @@ import { HeaderComponent } from './composants/header/header.component';
     AjouterTrajetComponent,
     ModificationTrajetComponent,
     DetailTrajetComponent,
-    HeaderComponent
+    HeaderComponent,
+   
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

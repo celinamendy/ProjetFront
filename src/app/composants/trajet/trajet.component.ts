@@ -15,7 +15,7 @@ import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-trajet',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule , HeaderComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule , HeaderComponent ],
   templateUrl: './trajet.component.html',
   styleUrls: ['./trajet.component.css']
 })

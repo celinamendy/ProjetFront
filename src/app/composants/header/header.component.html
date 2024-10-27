@@ -11,13 +11,19 @@
         <li><a href="historique">Historique</a></li>
         <li><a href="historique-reservation">Mes Reservation</a></li>
         <li><a href="contact">Contact</a></li>
-          
       </ul>
     </nav>
 
     <div class="actions">
+      <div *ngIf="isLoggedIn()">
+        <button class="notification-btn" (click)="showNotifications()">
+          <i class="fa fa-bell"></i>
+          <span *ngIf="hasNotifications" class="notification-badge">{{ notificationCount }}</span> <!-- Display the count -->
+        </button>
+        <button class="action-btn" (click)="logout()">Déconnexion</button>
+      </div>
+
       <div *ngIf="!isLoggedIn()">
-        <!-- Si l'utilisateur n'est pas connecté -->
         <div class="dropdown">
           <button class="dropbtn">
             <img src="/assets/images/iconp.jpeg" alt="User Icon" class="user-icon">
@@ -28,12 +34,19 @@
           </div>
         </div>
       </div>
-
-      <div *ngIf="isLoggedIn()">
-        <!-- Si l'utilisateur est connecté -->
-        <button class="action-btn" (click)="logout()">Déconnexion</button>
-      </div>
     </div>
   </div>
 
+  <!-- Modal de Notifications -->
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Notifications</h2>
+      <ul>
+        <li *ngFor="let notification of notifications">
+          {{ notification.message }}
+        </li>
+      </ul>
+    </div>
+  </div>
 </header>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReservationService } from '../../../services/reservation/reservation.component';
-import { Avis } from '../../../Models/avis/avis.component';
 
 @Component({
   selector: 'app-detail-trajet-conducteur',
@@ -17,6 +16,15 @@ import { Avis } from '../../../Models/avis/avis.component';
   styleUrls: ['./detail-conducteur.component.css']
 })
 export class DetailTrajetConducteurComponent implements OnInit {
+
+  constructor(
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
+    private trajetService: TrajetService,
+    private location: Location,
+    private reservationService: ReservationService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
   trajetId!: string;
   trajet: any = {};
   UserId: number | null = null;
@@ -31,13 +39,6 @@ export class DetailTrajetConducteurComponent implements OnInit {
   details!: any;
   datasRersvation: any[] = [];
 
-  constructor(
-    private route: ActivatedRoute,
-    private trajetService: TrajetService,
-    private location: Location,
-    private reservationService: ReservationService,
-    private cdr: ChangeDetectorRef
-  ) {}
 
   ngOnInit(): void {
     this.trajetId = this.route.snapshot.paramMap.get('id')!;
