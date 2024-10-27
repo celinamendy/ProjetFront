@@ -28,8 +28,7 @@
                 <div *ngFor="let item of datasRersvation">
                   <span class="liste">
                     <input type="checkbox" [(ngModel)]="item.isSelected"
-                           [disabled]="item.confirmed"
-                           (change)="updateLocalStorage(item)" />
+                           [disabled]="item.confirmed" />
                     <p><b>Nom du passager :</b> {{ item.user.prenom }} {{ item.user.nom }}</p>
                     <p><b>Email :</b> {{ item.user.email }}</p>
                     <p><b>Téléphone :</b> {{ item.user.passager.telephone }}</p>
@@ -40,6 +39,8 @@
               </div>
             </div>
           </div>
+
+
 
 
      <!-- Section droite : Carte et infos du trajet -->

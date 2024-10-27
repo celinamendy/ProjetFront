@@ -62,6 +62,12 @@ export class DetailTrajetConducteurComponent implements OnInit {
           this.reservations = response.data.reservations || [];
           this.avis = this.trajet.avis || [];
           this.datasRersvation = [...this.reservations];
+
+          // Afficher les réservations récupérées
+          // console.log('Réservations récupérées:', this.reservations);
+
+          // Appel de la fonction pour charger les réservations confirmées après les détails
+          this.loadConfirmedReservations();
         } else {
           this.showErrorMessage(response.message);
         }
@@ -76,30 +82,27 @@ export class DetailTrajetConducteurComponent implements OnInit {
   }
 
   loadConfirmedReservations(): void {
-    const confirmedReservations = JSON.parse(localStorage.getItem('confirmedReservations') || '[]');
+    // Afficher les réservations avant le traitement
+    // console.log('Réservations avant traitement pour confirmation:', this.datasRersvation);
+
+    // Parcourir les réservations déjà chargées dans datasRersvation
     this.datasRersvation.forEach(item => {
-      const confirmed = confirmedReservations.find((res: any) => res.id === item.id);
-      if (confirmed) {
-        item.confirmed = true;
-        item.isSelected = true;
+      if (item.statut === 'confirmer') {
+        item.isSelected = true; // Pré-cocher les réservations confirmées
+      } else {
+        item.isSelected = false; // S'assurer que les réservations non confirmées ne sont pas cochées
       }
     });
+
+    // Afficher l'état des réservations après traitement
+    // console.log('Réservations après traitement pour confirmation:', this.datasRersvation);
+
+    this.cdr.detectChanges(); // Déclencher la détection des changements
   }
 
-  updateLocalStorage(item: any): void {
-    const confirmedReservations = JSON.parse(localStorage.getItem('confirmedReservations') || '[]');
-    const index = confirmedReservations.findIndex((res: any) => res.id === item.id);
 
-    if (item.confirmed) {
-      if (index === -1) {
-        confirmedReservations.push({ id: item.id, confirmed: true });
-      }
-    } else if (index !== -1) {
-      confirmedReservations.splice(index, 1);
-    }
 
-    localStorage.setItem('confirmedReservations', JSON.stringify(confirmedReservations));
-  }
+
 
   confirmSelectedReservations(): void {
     const selectedReservations = this.datasRersvation.filter(item => item.isSelected && !item.confirmed);
@@ -120,7 +123,7 @@ export class DetailTrajetConducteurComponent implements OnInit {
                 const reservation = selectedReservations[index];
                 reservation.confirmed = true;
                 this.showSuccessMessage(`Réservation pour ${reservation.user.prenom} confirmée avec succès!`);
-                this.updateLocalStorage(reservation);
+
               }
             });
           }, error => {
@@ -148,7 +151,7 @@ export class DetailTrajetConducteurComponent implements OnInit {
 
     this.reservationService.addAvis(avisData).subscribe(
       (response) => {
-        console.log('Commentaire ajouté avec succès:', response);
+        // console.log('Commentaire ajouté avec succès:', response);
         this.trajet.avis.push(response.data);
         this.newComment = '';
         this.newNote = 5;
