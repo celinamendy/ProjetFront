@@ -1,7 +1,7 @@
-<div *ngIf="!loading; else loadingTemplate">
-  <div class="container">
+<!-- <div *ngIf="!loading; else loadingTemplate">
+  <div class="container"> -->
     <!-- Section gauche : Infos conducteur et réservations -->
-    <div class="left-section">
+    <!-- <div class="left-section"> -->
       <!-- <pre>{{reservations[0].statut}}</pre> -->
 
 
@@ -18,23 +18,29 @@
         <p><b>Email :</b> {{ trajet.conducteur.email }}</p>
       </div> -->
 
-      <!-- Liste des réservations -->
-      <div class="reservations">
-        <h4>Réservations des passagers </h4>
-        <div >
-          <div *ngFor="let item of datasRersvation">
-            <span class="liste">
-                <p><b> Nom du passager :</b> {{ item.user.prenom}} {{ item.user.nom}}</p>
-                <p><b>Email :</b> {{ item.user.email}}</p>
-                <p><b>Téléphone :</b> {{ item.user.passager.telephone }}</p>
-                <hr>
-            </span>
+      <div *ngIf="!loading; else loadingTemplate">
+        <div class="container">
+          <!-- Section gauche : Infos conducteur et réservations -->
+          <div class="left-section">
+            <div class="reservations">
+              <h4>Réservations des passagers</h4>
+              <div>
+                <div *ngFor="let item of datasRersvation">
+                  <span class="liste">
+                    <input type="checkbox" [(ngModel)]="item.isSelected"
+                           [disabled]="item.confirmed"
+                           (change)="updateLocalStorage(item)" />
+                    <p><b>Nom du passager :</b> {{ item.user.prenom }} {{ item.user.nom }}</p>
+                    <p><b>Email :</b> {{ item.user.email }}</p>
+                    <p><b>Téléphone :</b> {{ item.user.passager.telephone }}</p>
+                    <hr>
+                  </span>
+                </div>
+                <button (click)="confirmSelectedReservations()">Confirmer les réservations</button>
+              </div>
+            </div>
           </div>
 
-        </div>
-
-      </div>
-    </div>
 
      <!-- Section droite : Carte et infos du trajet -->
     <div class="right-section">

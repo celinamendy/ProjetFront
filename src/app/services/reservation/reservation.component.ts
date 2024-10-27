@@ -69,7 +69,7 @@ export class ReservationService {
   // }
 
   confirmReservation(reservationId: number): Observable<any> {
-    return this.http.post(`/api/reservations/${reservationId}/confirm`, {});
+    return this.http.post(`${this.apiUrl}/reservations/${reservationId}/confirm`, {});
   }
    // Nouvelle méthode pour traiter les réservations sélectionnées
    confirmSelectedReservations(selectedReservations: any[]): Observable<any[]> {

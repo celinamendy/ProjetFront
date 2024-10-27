@@ -147,6 +147,7 @@ body {
 }
 input[type="checkbox"] {
   margin-right: 10px; /* Espace entre la case à cocher et le texte */
+  margin-left: 90%;
 }
 
 .trip-info h3 {
