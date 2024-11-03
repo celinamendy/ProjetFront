@@ -44,13 +44,7 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
   getTrajetByConducteurId(conducteur_Id: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/getTrajetByconducteurId/${conducteur_Id}`);
    }
-  // getTrajetByConducteurId(trajetId: number): Observable<any[]> {
-  //   return this.http.get<any[]>(`${this.apiUrl}/trajets/trajet/${trajetId}`);
-  // }
-  // // Récupérer les trajets par conducteur
-  // getTrajetsByConducteur(conducteurId: number): Observable<any> {
-  //   return this.http.get<any>(`${this.apiUrl}/trajets/conducteur/${conducteurId}`);
-  // }
+
 
   // Méthode pour récupérer les trajets du conducteur connecté
   getUserTrajets(): Observable<any> {
@@ -59,12 +53,7 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
     );
   }
 
-  // // Méthode pour ajouter un trajet (réservée au conducteur connecté)
-  // addTrajets(trajet: FormData): Observable<any> { // Utilisation de FormData
-  //   return this.http.post<any>(`${this.apiUrl}/trajets`, trajet, this.getAuthHeaders()).pipe(
-  //     catchError(this.handleError) // Gestion des erreurs
-  //   );
-  // }
+
 
 
   addTrajets(trajetData: FormData): Observable<any> {
@@ -78,14 +67,15 @@ getTrajetsByVehiculeId(vehiculeId: number): Observable<any[]> {
     throw new Error('Erreur lors de la requête'); // Vous pouvez également lancer une erreur
   }
 
-  // Méthode pour mettre à jour un trajet (réservée au conducteur connecté)
-  updateTrajets(id: number, formData: any): Observable<any> {
-    console.log('service',id);
+// Méthode pour mettre à jour un trajet (réservée au conducteur connecté)
+updateTrajets(id: number, formData: any): Observable<any> {
+  console.log('service', id); // Log pour vérifier l'ID
 
-    return this.http.put(`${this.apiUrl}/trajets/${id}`, formData, this.getAuthHeaders()).pipe(
-      catchError(this.handleError)
-    );
-  }
+  return this.http.put(`${this.apiUrl}/trajets/${id}`, formData, this.getAuthHeaders()).pipe(
+    catchError(this.handleError)
+  );
+}
+
 
  // Méthode pour supprimer définitivement un trajet (réservée au conducteur connecté)
 deleteTrajets(id: any): Observable<any> {

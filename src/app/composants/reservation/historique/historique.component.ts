@@ -10,10 +10,12 @@ import { Trajet } from '../../../Models/trajet/trajet.component';
 import { ReservationService } from '../../../services/reservation/reservation.component';
 import { PassagerService } from '../../../services/passager.service';
 import { AuthService } from '../../../services/Auth/auth.service';
+import { HeaderComponent } from '../../header-passager/header-passager.component';
+
 @Component({
   selector: 'app-historique-reservation',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, HeaderComponent],
   templateUrl: './historique.component.html',
   styleUrls: ['./historique.component.css']
 })

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModifierComponent } from '../../profile/conducteur/modifier/modifier.component';
+// import { ModifierComponent } from '../../profile/conducteur/modifier/modifier.component';
+import { ModificationTrajetComponent } from './modifier.component';
 
-
-describe('ModifierComponent', () => {
-  let component: ModifierComponent;
-  let fixture: ComponentFixture<ModifierComponent>;
+describe(' ModificationTrajetComponent', () => {
+  let component:  ModificationTrajetComponent;
+  let fixture: ComponentFixture< ModificationTrajetComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModifierComponent]
+      imports: [ ModificationTrajetComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ModifierComponent);
+    fixture = TestBed.createComponent( ModificationTrajetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

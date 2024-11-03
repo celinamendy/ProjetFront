@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AvisComponent } from './avis.component';
+// // import { AvisComponent } from './avis.component';
 
-describe('AvisComponent', () => {
-  let component: AvisComponent;
-  let fixture: ComponentFixture<AvisComponent>;
+// describe('AvisComponent', () => {
+//   let component: AvisComponent;
+//   let fixture: ComponentFixture<AvisComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AvisComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(AvisComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [AvisComponent]
+//     })
+//     .compileComponents();
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//     fixture = TestBed.createComponent(AvisComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
+
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

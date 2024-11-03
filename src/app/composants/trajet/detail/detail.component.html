@@ -28,7 +28,8 @@
       <div class="map-section">
           <img src="assets/images/Rectangle 76.png" alt="Map" class="map-image">
       </div>
-
+      <!-- <app-map [pointDepart]="trajet.data.point_depart" [pointArrivee]="trajet.data.point_arrivee"></app-map> -->
+       <!-- <app-map></app-map> -->
       <!-- Informations sur le trajet -->
       <div class="trip-info">
         <div class="container-trajet">
@@ -70,28 +71,62 @@
           <!-- Bouton réserver -->
           <button class="reserve-btn" (click)="reserveTrajet(trajet.data.id)" >RÉSERVER</button>
       </div>
+           <!-- Vehicle Section Dynamisée -->
+<!-- Vehicle Section Dynamisée -->
+<div class="row mt-5" *ngFor="let vehicule of vehicules">
+  <div class="container-vehicule">
+    <div class="col-lg-6 mb-4 vehicle-image-container">
+      <img [src]="vehicule.photo ? imageUrl + vehicule.photo : 'https://via.placeholder.com/500x300'" class="vehicle-image" alt="Vehicle Image">
+    </div>
+    <div class="col-lg-6 mb-4">
+      <div class="info-card">
+        <h5>Informations du Véhicule</h5>
+        <hr>
+        <p><strong>Marque et Modèle du Véhicule:</strong> {{ vehicule.marque }} {{ vehicule.modele }}</p>
+        <p><strong>Couleur du Véhicule:</strong> {{ vehicule.couleur }}</p>
+        <p><strong>Numéro d'immatriculation:</strong> {{ vehicule.immatriculation }}</p>
+        <p><strong>Assurance du véhicule:</strong> {{ vehicule.assurance ? 'Oui' : 'Non' }}</p>
+        <p><strong>Carte grise:</strong> {{ vehicule.carteGrise ? 'Disponible' : 'Non Disponible' }}</p>
+        <!-- <button class="btn btn-outline-primary" (click)="modifierVehicule(vehicule.id)">Modifier</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
            <!-- Section des commentaires -->
           <div class="comments-section">
             <div class="comments-commentaire">
-
-            <!-- <div class="comment-champs">
-              <input class="mb-0" [(ngModel)]="newComment" placeholder="Ajouter un commentaire" />
-              <button (click)="addComment()">Envoyer</button>
+              <div class="comment-champs">
+                <input
+                  class="mb-0"
+                  [(ngModel)]="newComment"
+                  placeholder="Ajouter un commentaire"
+                />
+                <button (click)="addComment()" [disabled]="!newComment && !newNote">
+                  Envoyer
+                </button>
+              </div>
+              <div class="rating-icons">
+                <span
+                (click)="setRating(Note.Pour)"
+                  [class.active]="newNote === Note.Pour"
+                >
+                  <img src="/assets/images/iconamoon_like-thin.png" alt="Like" />
+                  <span>{{ likesCount }}</span>
+                </span>
+                <span
+                (click)="setRating(Note.Contre)"
+                  [class.active]="newNote === Note.Contre"
+                >
+                  <img src="/assets/images/iconamoon_dislike-light.png" alt="Dislike" />
+                  <span>{{ dislikesCount }}</span>
+                </span>
+              </div>
             </div>
-             <div class="rating-icons ">
-              <span (click)="setNote(1)" [class.active]="newNote === 1">
-                <img src="/assets/images/iconamoon_like-thin.png" alt="">
-                <span>{{ likesCount }}</span>
-              </span>
-              <span (click)="setNote(-1)" [class.active]="newNote === -1">
-                <img src="/assets/images/iconamoon_dislike-light.png" alt="">
-                <span>{{ dislikesCount }}</span>
-              </span>
-            </div>
-          </div> -->
 
-            <div *ngIf="avis.length > 0; else noComments">
-              <div class="comment" *ngFor="let comment of avis">
+            <div *ngIf="comment.length > 0; else noComments">
+              <div class="comment" *ngFor="let comment of comment">
                 <p><b>{{ comment.user.nom }}</b></p>
                 <p>{{ comment.commentaire }}</p>
                 <!-- <p>{{ comment.note === 1 ? '👍' : comment.note === -1 ? '👎'  }}</p> -->

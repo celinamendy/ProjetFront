@@ -35,6 +35,10 @@
 <div class="image-section">
   <img src="assets/images/imagetra.png" alt="Description de l'image" class="header-image">
 </div>
+<br>
+<div class="actions">
+  <a href="/accueil" class="action-btn">Retour</a>
+</div>
 
 <!-- Main Content Section -->
 <section class="trajet-section">
@@ -67,96 +71,140 @@
         <input [(ngModel)]="searchTerm" (input)="applyFilter()" placeholder="Rechercher par date, lieu de départ, prix">
         <button class="search-btn" (click)="applyFilter()">Rechercher</button>
       </div>
+      <br>
       <h2>Trajet du Jour</h2>
       <hr>
-      <!-- Loop through filtered and sorted trajets -->
-      <div *ngFor="let trajet of filteredTrajets">
 
-        <div class="trajet-card d-flex flex-column">
-          <div class="header">
-
+      <div *ngIf="todayTrajets.length > 0; else noTrajets">
+        <div *ngFor="let trajet of todayTrajets">
+          <div class="trajet-card d-flex flex-column">
+            <div class="header"></div>
+            <div class="trajet-info">
+              <div>
+                <p>
+                  <img src="assets/images/Calendar 31.png" alt="Calendrier" class="icon">
+                  DATE ET HEURE : {{ trajet.date_depart }} à {{ trajet.heure_depart }}
+                </p>
+                <p>
+                  <img src="assets/images/Address.png" alt="Localisation" class="icon">
+                  Départ et destination : {{ trajet.point_depart }} ➔ {{ trajet.point_arrivee }}
+                </p>
+                <p>
+                  <img src="assets/images/Tall Person.png" alt="Places" class="icon">
+                  Places disponibles : {{ trajet.nombre_places }}
+                </p>
+                <p>
+                  <img src="assets/images/Mask-group.png" alt="Prix" class="icon">
+                  Prix : {{ trajet.prix }} FCFA
+                </p>
+                <p>
+                  <img src="assets/images/status.png" alt="Statut" class="icon">
+                  Statut : {{ trajet.statut }}
+                </p>
+              </div>
+              <div class="trajet-actions">
+                <button (click)="navigateToDetail(trajet.id)">
+                  <img src="assets/images/Eye.png" alt="Voir">
+                </button>
+              </div>
+            </div>
           </div>
-
-          <div class="trajet-info">
-<div>
-
-            <p>
-              <img src="assets/images/Calendar 31.png" alt="Calendrier" class="icon">
-              DATE ET HEURE : {{ trajet.date_depart }} à {{ trajet.heure_depart }}
-            </p>
-            <p>
-              <img src="assets/images/Address.png" alt="Localisation" class="icon">
-              Départ et destination : {{ trajet.point_depart }} ➔ {{ trajet.point_arrivee }}
-            </p>
-            <p>
-              <img src="assets/images/Tall Person.png" alt="Places" class="icon">
-              Places disponibles : {{ trajet.nombre_places }}
-            </p>
-            <p>
-              <img src="assets/images/Mask-group.png" alt="Prix" class="icon">
-              Prix : {{ trajet.prix }} FCFA
-            </p>
-            <p>
-              <img src="assets/images/status.png" alt="Statut" class="icon">
-              Statut : {{ trajet.statut }}
-            </p>
-          </div>
-          <div class="trajet-actions">
-            <button (click)="navigateToDetail(trajet.id)">
-              <img src="assets/images/Eye.png" alt="Voir">
-            </button>
-          </div>
-          </div>
-
         </div>
       </div>
+
+      <ng-template #noTrajets>
+        <p>Aucun trajet prévu pour aujourd'hui.</p>
+      </ng-template>
 
       <h2>Trajets à venir</h2>
+      <hr>
       <!-- Loop through upcoming trips -->
       <div *ngFor="let trajet of upcomingTrajets">
-        <div class="trajet-card">
+        <div class="trajet-card d-flex flex-column">
+
+        <div class="header">
+
+        </div>
+        <!-- <div class="trajet-card "> -->
           <div class="trajet-info">
-            <p>
-              <img src="assets/images/Calendar31.png" alt="Calendrier" class="icon">
-              DATE ET HEURE : {{ trajet.date_depart }} à {{ trajet.heure_depart }}
-            </p>
-            <p>
-              <img src="assets/images/Address.png" alt="Localisation" class="icon">
-              Départ et destination : {{ trajet.point_depart }} ➔ {{ trajet.point_arrivee }}
-            </p>
-            <p>
-              <img src="assets/images/Tall-Person.png" alt="Places" class="icon">
-              Places disponibles : {{ trajet.nombre_places }}
-            </p>
-            <p>
-              <img src="assets/images/Mask-group.png" alt="Prix" class="icon">
-              Prix : {{ trajet.prix }} FCFA
-            </p>
-            <p>
-              <img src="assets/images/status.png" alt="Statut" class="icon">
-              Statut : {{ trajet.statut }}
-            </p>
+            <div>
+              <p>
+                <img src="assets/images/Calendar 31.png" alt="Calendrier" class="icon">
+                DATE ET HEURE : {{ trajet.date_depart }} à {{ trajet.heure_depart }}
+              </p>
+              <p>
+                <img src="assets/images/Address.png" alt="Localisation" class="icon">
+                Départ et destination : {{ trajet.point_depart }} ➔ {{ trajet.point_arrivee }}
+              </p>
+              <p>
+                <img src="assets/images/TallPerson.png" alt="Places" class="icon">
+                Places disponibles : {{ trajet.nombre_places }}
+              </p>
+              <p>
+                <img src="assets/images/Mask-group.png" alt="Prix" class="icon">
+                Prix : {{ trajet.prix }} FCFA
+              </p>
+              <p>
+                <img src="assets/images/status.png" alt="Statut" class="icon">
+                Statut : {{ trajet.statut }}
+              </p>
+
+            </div>
+            <div class="trajet-actions">
+              <button (click)="navigateToDetail(trajet.id)">
+                <img src="assets/images/Eye.png" alt="Voir">
+              </button>
+            </div>
           </div>
-          <div class="trajet-actions">
-            <button (click)="navigateToDetail(trajet.id)">
-              <img src="assets/images/Eye.png" alt="Voir">
-            </button>
-          </div>
+
         </div>
       </div>
+      <ng-template #noTrajets>
+        <p>Aucun trajet prévu.</p>
+      </ng-template>
+
+      <!-- Trajets Passés -->
+      <h2>Trajets passés</h2>
+      <hr>
+      <div *ngFor="let trajet of pastTrajets">
+        <div class="trajet-card d-flex flex-column">
+         <div class="header"></div>
+         <div class="trajet-info">
+           <div>
+             <p>
+               <img src="assets/images/Calendar 31.png" alt="Calendrier" class="icon">
+               DATE ET HEURE : {{ trajet.date_depart }} à {{ trajet.heure_depart }}
+             </p>
+             <p>
+               <img src="assets/images/Address.png" alt="Localisation" class="icon">
+               Départ et destination : {{ trajet.point_depart }} ➔ {{ trajet.point_arrivee }}
+             </p>
+             <p>
+               <img src="assets/images/Tall Person.png" alt="Places" class="icon">
+               Places disponibles : {{ trajet.nombre_places }}
+             </p>
+             <p>
+               <img src="assets/images/Mask-group.png" alt="Prix" class="icon">
+               Prix : {{ trajet.prix }} FCFA
+             </p>
+             <p>
+               <img src="assets/images/status.png" alt="Statut" class="icon">
+               Statut : {{ trajet.statut }}
+             </p>
+           </div>
+           <div class="trajet-actions">
+             <button (click)="navigateToDetail(trajet.id)">
+               <img src="assets/images/Eye.png" alt="Voir">
+             </button>
+           </div>
+         </div>
+       </div>
+      </div>
+
+
+
     </div>
   </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
 
 

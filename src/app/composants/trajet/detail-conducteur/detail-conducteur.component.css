@@ -81,7 +81,21 @@ body {
   background-color: #f7f7f7;
   color: #333;
 }
-
+/* Image Section */
+.image-section img {
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+}
+.actions .action-btn {
+  background-color: #FF681A;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
 .container {
   display: flex;
   max-width: 1200px;

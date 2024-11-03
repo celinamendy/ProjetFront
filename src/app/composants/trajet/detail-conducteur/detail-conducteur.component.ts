@@ -7,11 +7,11 @@ import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReservationService } from '../../../services/reservation/reservation.component';
-
+import { HeaderComponent } from '../../header-conducteur/header-conducteur.component';
 @Component({
   selector: 'app-detail-trajet-conducteur',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, HeaderComponent],
   templateUrl: './detail-conducteur.component.html',
   styleUrls: ['./detail-conducteur.component.css']
 })
@@ -32,7 +32,7 @@ export class DetailTrajetConducteurComponent implements OnInit {
   avis: any[] = [];
   loading: boolean = true;
   newComment: string = '';
-  newNote: number = 5; // Default note to 5
+  newNote: number = 0;
   likesCount: number = 0;
   dislikesCount: number = 0;
   user: any = {};
@@ -154,7 +154,7 @@ export class DetailTrajetConducteurComponent implements OnInit {
         // console.log('Commentaire ajouté avec succès:', response);
         this.trajet.avis.push(response.data);
         this.newComment = '';
-        this.newNote = 5;
+        this.newNote = 0;
       },
       (error) => {
         console.error('Erreur lors de l\'ajout du commentaire:', error);

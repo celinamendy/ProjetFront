@@ -1,5 +1,5 @@
 <!-- Header Section -->
-<header>
+<!-- <header>
   <div class="container">
     <div class="logo">LOGO</div>
     <nav>
@@ -17,11 +17,21 @@
       <a href="/Proposer_Trajet" class="action-btn">Proposer Trajet</a>
     </div>
   </div>
-</header>
+</header> -->
+<app-header></app-header>
+<div class="dropdown">
+  <button class="dropbtn">
+    <img src="/assets/images/iconp.jpeg" alt="User Icon" class="user-icon">
+  </button>
+  <div class="dropdown-content">
+    <a href="register" class="btn blue-btn">Inscription</a>
+    <a href="login" class="btn orange-btn">Connexion</a>
+  </div>
 
+</div>
 <!-- Image Section -->
 <div class="image-section">
-  <img src="assets/images/imagetra.png" alt="Image" class="header-image">
+  <img src="/assets/images/image 55.png" alt="Image" class="header-image">
 </div>
 
 <!-- Main Content Section -->
@@ -53,13 +63,16 @@
       <hr>
       <div *ngFor="let reservation of reservations">
         <div class="reservation-card d-flex flex-column">
+          <div class="header"></div>
           <div class="reservation-info">
-            <p><img src="assets/images/Calendar31.png" alt="Calendrier" class="icon">
+            <p>
+              <img src="assets/images/Calendar 31.png" alt="Calendrier" class="icon">
               DATE ET HEURE : {{ reservation.trajet.date_depart }} à {{ reservation.heure_depart }}
             </p>
             <p><img src="assets/images/Address.png" alt="Localisation" class="icon">
               Départ et destination : {{ reservation.point_depart }} ➔ {{ reservation.point_arrivee }}
             </p>
+
             <p><img src="assets/images/Mask-group.png" alt="Prix" class="icon">
               Prix : {{ reservation.prix }} FCFA
             </p>
@@ -75,8 +88,10 @@
       <h2>Réservations passées</h2>
       <div *ngIf="reservations && reservations.length > 0; else noReservations">
         <div *ngFor="let reservation of reservations">
-          <div class="reservation-card">
+          <div class="reservation-card d-flex flex-column">
+            <div class="header"></div>
             <div class="reservation-info">
+              <div>
               <p><img src="assets/images/Calendar31.png" alt="Calendrier" class="icon">
                 DATE ET HEURE : {{ reservation.date_depart }} à {{ reservation.heure_depart }}
               </p>
@@ -87,11 +102,13 @@
                 Prix : {{ reservation.prix }} FCFA
               </p>
             </div>
-            <div class="reservation-actions">
-              <button (click)="navigateToDetail(reservation.id)">
-                <img src="assets/images/Eye.png" alt="Voir">
-              </button>
+              <div class="reservation-actions">
+                <button (click)="navigateToDetail(reservation.id)">
+                  <img src="assets/images/Eye.png" alt="Voir">
+                </button>
+              </div>
             </div>
+
           </div>
         </div>
       </div>

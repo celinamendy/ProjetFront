@@ -26,14 +26,14 @@ export class RegisterComponent implements OnInit {
       prenom: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      adresse: ['', Validators.required],
-      telephone: [''], // Ajouté pour le passager
-      permis_conduire: [''], // Champ spécifique au conducteur
-      CIN: [''], // Champ spécifique au conducteur
-      carte_gris: [''], // Champ spécifique au conducteur
-      age : [''], // Ajout
-
+      telephone: ['', Validators.maxLength(15)],
+      adresse: [''],
+      permis_conduire: [''],
+      CIN: [''],
+      carte_gris: [''],
+      age: ['', Validators.required] // Assurez-vous que `age` est bien renseigné pour les conducteurs
     });
+
   }
 
   ngOnInit(): void {

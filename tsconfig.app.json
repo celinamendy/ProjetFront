@@ -2,9 +2,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "sourceMap": true,
     "outDir": "./out-tsc/app",
     "types": [
-      "node"
+      "node",
+      "jest"
     ]
   },
   "files": [
@@ -13,6 +15,8 @@
     "server.ts"
   ],
   "include": [
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "src/app/**/*",
+    "src/**/*.spec.ts"
   ]
 }

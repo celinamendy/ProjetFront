@@ -63,8 +63,9 @@ nav ul li a:hover {
 /* Image Section */
 .image-section img {
   width: 100%;
-  height: 75%;
+  height: 700px;
   object-fit: cover;
+  background-position: center;
 }
 
 /* Styling for the trajet-section */
@@ -163,7 +164,7 @@ nav ul li a:hover {
 }
 
 /* Trajet Cards */
-.trajet-card {
+.reservation-card {
   margin-bottom: 20px;
   background-color: white;
   border: 1px solid #e0e0e0;
@@ -172,7 +173,7 @@ nav ul li a:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.trajet-card .header {
+.reservation-card .header {
   width: 100%;
   height: 1px;
   background-color: #FF681A;
@@ -181,14 +182,14 @@ nav ul li a:hover {
   padding: 35px;
 }
 
-.trajet-info {
+.reservation-info {
   padding: 20px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
 }
 
-.trajet-info p {
+.reservation-info p {
   margin-bottom: 10px;
   color: #333;
 }
@@ -201,26 +202,26 @@ nav ul li a:hover {
 }
 
 /* Trajet Actions */
-.trajet-actions {
+.reservation-actions {
   display: flex;
   justify-content: flex-end;
   padding: 10px 20px;
   border-top: 1px solid #e0e0e0;
 }
 
-.trajet-actions button {
+.reservation-actions button {
   background-color: transparent;
   border: none;
   cursor: pointer;
   margin-right: 10px;
 }
 
-.trajet-actions button img {
+.reservation-actions button img {
   width: 20px;
   height: 20px;
 }
 
-.trajet-actions button:hover img {
+.reservation-actions button:hover img {
   filter: brightness(0.8);
 }
 

@@ -163,6 +163,15 @@ nav ul li a:hover {
 }
 
 /* Trajet Cards */
+.actions .action-btn {
+  background-color: #FF681A;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
 .trajet-card {
   margin-bottom: 20px;
   background-color: white;

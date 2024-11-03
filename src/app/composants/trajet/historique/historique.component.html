@@ -21,12 +21,17 @@
 <div class="image-section">
   <img src="assets/images/imagetra.png" alt="Description de l'image" class="header-image">
 </div>
+<br>
+<div class="actions">
+  <a href="/accueil" class="action-btn">Retour</a>
+</div>
 
 <!-- Main Content Section -->
 <section class="trajet-section">
   <div class="container">
     <!-- Filter Section -->
     <div class="filter-section">
+
       <h1>Historique  des Trajets</h1>
       <hr>
       <div class="search-bar">
@@ -53,6 +58,10 @@
         <input [(ngModel)]="searchTerm" (input)="applyFilter()" placeholder="Rechercher par date, lieu de départ, prix">
         <button class="search-btn" (click)="applyFilter()">Rechercher</button>
       </div>
+      <div class="actions">
+        <a href="/ajout" class="action-btn">Proposer Trajet</a>
+      </div>
+      <br>
       <h2>Trajet les plus recent</h2>
       <hr>
       <!-- Loop through filtered and sorted trajets -->
@@ -100,6 +109,7 @@
       </div>
 
       <h2>Trajets passee</h2>
+      <hr>
       <!-- Loop through upcoming trips -->
        <div  *ngIf="trajets && trajets.length > 0; else noTrajets">
       <div *ngFor="let trajet of trajets">

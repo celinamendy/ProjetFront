@@ -9,7 +9,6 @@
         <li><a href="#">Accueil</a></li>
         <li><a href="trajet">Trajets</a></li>
         <li><a href="historique">Historique</a></li>
-        <li><a href="historique-reservation">Mes Reservation</a></li>
         <li><a href="contact">Contact</a></li>
       </ul>
     </nav>
@@ -18,21 +17,29 @@
       <div *ngIf="isLoggedIn()">
         <button class="notification-btn" (click)="showNotifications()">
           <i class="fa fa-bell"></i>
-          <span *ngIf="hasNotifications" class="notification-badge">{{ notificationCount }}</span> <!-- Display the count -->
+          <span *ngIf="hasNotifications" class="notification-badge">{{ notificationCount }}</span>
         </button>
         <button class="action-btn" (click)="logout()">Déconnexion</button>
       </div>
 
-      <div *ngIf="!isLoggedIn()">
-        <div class="dropdown">
-          <button class="dropbtn">
-            <img src="/assets/images/iconp.jpeg" alt="User Icon" class="user-icon">
-          </button>
-          <div class="dropdown-content">
-            <a href="register" class="btn blue-btn">Inscription</a>
-            <a href="login" class="btn orange-btn">Connexion</a>
-          </div>
+      <!-- Dropdown pour le profil utilisateur connecté -->
+      <div class="dropdown" *ngIf="isLoggedIn()">
+        <button class="dropbtn">
+          <img src="/assets/images/iconp.jpeg" alt="User Icon" class="user-icon">
+        </button>
+        <div class="dropdown-content">
+          <a href="profile-conducteur" class="btn blue-btn">Profil</a>
+        </div>
+      </div>
 
+      <!-- Dropdown pour l’inscription/connexion si non connecté -->
+      <div class="dropdown" *ngIf="!isLoggedIn()">
+        <button class="dropbtn">
+          <img src="/assets/images/iconp.jpeg" alt="User Icon" class="user-icon">
+        </button>
+        <div class="dropdown-content">
+          <a href="register" class="btn blue-btn">Inscription</a>
+          <a href="login" class="btn orange-btn">Connexion</a>
         </div>
       </div>
     </div>

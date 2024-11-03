@@ -1,24 +1,24 @@
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DetailTrajetConducteurComponent } from './detail-conducteur.component';
 
-// import { DetailConducteurComponent } from './detail-conducteur.component';
 
 
-// describe('DetailConducteurComponent', () => {
-//   let component: DetailConducteurComponent;
-//   let fixture: ComponentFixture<DetailConducteurComponent>;
+describe('DetailTrajetConducteurComponent', () => {
+  let component: DetailTrajetConducteurComponent;
+  let fixture: ComponentFixture<DetailTrajetConducteurComponent>;
 
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       imports: [DetailConducteurComponent]
-//     })
-//     .compileComponents();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DetailTrajetConducteurComponent]
+    })
+    .compileComponents();
 
-//     fixture = TestBed.createComponent(DetailConducteurComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+    fixture = TestBed.createComponent(DetailTrajetConducteurComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

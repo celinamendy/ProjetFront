@@ -24,8 +24,9 @@ export class TrajetComponent implements OnInit {
   trajets: Trajet[] = []; // Initialize as an empty array for storing multiple trajets
   trajetForm: FormGroup;
   searchTerm: string = '';  // Variable for search functionality
-  trajetsToday: Trajet[] = []; // Array for today's trips
-  upcomingTrajets: Trajet[] = []; // Array for upcoming trips
+  todayTrajets: any[] = [];
+  upcomingTrajets: Trajet[] = [];
+  pastTrajets: Trajet[] = [];
   sortKey: string = '';  // Property to hold the current sort key
   sortDirection: string = 'asc';  // Property to hold the sorting direction
   filteredTrajets: Trajet[] = []; // Array to hold sorted/filter trajectories
@@ -60,17 +61,29 @@ export class TrajetComponent implements OnInit {
 
 
   // Méthode pour charger les notifications
+  // loadNotifications() {
+  //   this.notificationsService.getNotifications().subscribe(
+  //     (data) => {
+  //       this.notifications = data; // Adaptez cela selon la structure de votre réponse
+  //       this.notificationCount = this.notifications.length; // Comptez le nombre de notifications
+  //     },
+  //     (error) => {
+  //       console.error('Erreur lors de la récupération des notifications', error);
+  //     }
+  //   );
+  // }
   loadNotifications() {
     this.notificationsService.getNotifications().subscribe(
       (data) => {
-        this.notifications = data; // Adaptez cela selon la structure de votre réponse
-        this.notificationCount = this.notifications.length; // Comptez le nombre de notifications
+        this.notifications = data;
+        this.notificationCount = this.notifications.length;
       },
       (error) => {
         console.error('Erreur lors de la récupération des notifications', error);
       }
     );
   }
+
 
   // Méthode de déconnexion
   logout() {
@@ -141,21 +154,30 @@ export class TrajetComponent implements OnInit {
     this.sortKey = ''; // Reset sort key
     this.sortDirection = 'asc'; // Reset sort direction
   }
-
-  // Filter trajets into today's and upcoming
   filterTrajets(): void {
-    const today = new Date().setHours(0, 0, 0, 0); // Get today's date with time set to midnight
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Remettre les heures à 00:00:00 pour la comparaison
 
-    this.trajetsToday = this.trajets.filter((trajet) => {
-      const trajetDate = new Date(trajet.date_depart).setHours(0, 0, 0, 0); // Format the date_depart field
-      return trajetDate === today; // Check if the trip is today
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1); // Ajoute un jour pour obtenir demain
+
+    this.todayTrajets = this.trajets.filter((trajet) => {
+        const trajetDate = new Date(trajet.date_depart);
+        return trajetDate.getTime() >= today.getTime() && trajetDate.getTime() < tomorrow.getTime(); // Trajets qui sont pour aujourd'hui
     });
 
     this.upcomingTrajets = this.trajets.filter((trajet) => {
-      const trajetDate = new Date(trajet.date_depart).setHours(0, 0, 0, 0);
-      return trajetDate > today; // Check if the trip is in the future
+        const trajetDate = new Date(trajet.date_depart);
+        return trajetDate.getTime() >= tomorrow.getTime(); // Trajets à partir de demain
     });
-  }
+
+    this.pastTrajets = this.trajets.filter((trajet) => {
+        const trajetDate = new Date(trajet.date_depart);
+        return trajetDate.getTime() < today.getTime(); // Trajets passés
+    });
+}
+
+
 
   // Method to handle form submission
   onSubmit(): void {

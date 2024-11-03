@@ -1,17 +1,9 @@
-/* Header Section */
-/* header {
-  background-color: white;
-  padding: 1rem 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-} */
+
 
 .container {
   display: flex;
   gap: 50px;
-  justify-content: space-between; 
+  justify-content: space-between;
   /* align-items: center; */
   max-width: 1200px;
   margin: 0 auto;
@@ -19,48 +11,6 @@
 
  }
 
-/* .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #FF681A;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-} */
-
-/* nav ul li a:hover {
-  color: #FF681A;
-}
-
-.actions {
-  display: flex;
-  gap: 1rem;
-}
-
-.actions .action-btn {
-  background-color: #FF681A;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.actions .action-btn:hover {
-  background-color: #FF681A;
-} */
 
 
 
@@ -165,7 +115,20 @@ nav ul li a {
   border-radius: 10px;
   cursor: pointer;
 }
-
+.search-bar.contrainer-bouton{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+.actions .action-btn {
+  background-color: #FF681A;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
 .trajet h3 {
   margin-bottom: 20px;
   color: #ff6b35;
@@ -208,61 +171,6 @@ justify-content: space-between;
 
 
 
-/* Header Section */
-/* header {
-  background-color: white;
-  padding: 1rem 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-} */
-
-
-
-/* .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #FF681A;
-} */
-
-/* nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-nav ul li a:hover {
-  color: #FF681A;
-}
-
-.actions {
-  display: flex;
-  gap: 1rem;
-} */
-
-/* .actions .action-btn {
-  background-color: #FF681A;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.actions .action-btn:hover {
-  background-color: #FF681A;
-} */
-
 /* Styling for the itrajet-section  */
 .trajet-card .header{
 
@@ -282,13 +190,13 @@ nav ul li a:hover {
   background-color: #fff;
 }
 
-.header {
+/* .header {
   text-align: center;
   padding: 10px;
   background-color: white;
   color: #001E45;
   border-radius: 5px;
-}
+} */
 
 .header h1 {
   margin: 0;

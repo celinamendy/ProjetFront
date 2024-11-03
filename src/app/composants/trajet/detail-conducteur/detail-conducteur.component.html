@@ -17,6 +17,15 @@
         <p><b>Tél :</b> {{ trajet.conducteur.telephone }}</p>
         <p><b>Email :</b> {{ trajet.conducteur.email }}</p>
       </div> -->
+      <app-header></app-header>
+      <!-- Image Section -->
+<div class="image-section">
+  <img src="assets/images/imagetra.png" alt="Description de l'image" class="header-image">
+</div>
+<br>
+<div class="actions">
+  <a href="/accueil" class="action-btn">Retour</a>
+</div>
 
       <div *ngIf="!loading; else loadingTemplate">
         <div class="container">
