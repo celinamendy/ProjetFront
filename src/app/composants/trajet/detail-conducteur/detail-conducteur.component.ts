@@ -62,10 +62,7 @@ export class DetailTrajetConducteurComponent implements OnInit {
           this.reservations = response.data.reservations || [];
           this.avis = this.trajet.avis || [];
           this.datasRersvation = [...this.reservations];
-
-          // Afficher les réservations récupérées
-          // console.log('Réservations récupérées:', this.reservations);
-
+          
           // Appel de la fonction pour charger les réservations confirmées après les détails
           this.loadConfirmedReservations();
         } else {
@@ -82,10 +79,7 @@ export class DetailTrajetConducteurComponent implements OnInit {
   }
 
   loadConfirmedReservations(): void {
-    // Afficher les réservations avant le traitement
-    // console.log('Réservations avant traitement pour confirmation:', this.datasRersvation);
-
-    // Parcourir les réservations déjà chargées dans datasRersvation
+ // Parcourir les réservations déjà chargées dans datasRersvation
     this.datasRersvation.forEach(item => {
       if (item.statut === 'confirmer') {
         item.isSelected = true; // Pré-cocher les réservations confirmées

@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-image: url('/assets/images/connexion.png');
+  /* background-image: url('/assets/images/connexion.png'); */
   background-size: cover; /* Couvre tout l'arrière-plan */
   /* background-position: center; Centre l'image */
   height: 100vh; /* Hauteur de la vue */

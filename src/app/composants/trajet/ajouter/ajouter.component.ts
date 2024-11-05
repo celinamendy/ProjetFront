@@ -14,7 +14,7 @@ import { ConducteurService } from '../../../services/conducteur.service'; // Ajo
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './ajouter.component.html',
-  styleUrls: ['./ajouter.component.html']
+  styleUrls: ['./ajouter.component.css']
 })
 export class AjouterTrajetComponent implements OnInit {
   trajetForm: FormGroup;

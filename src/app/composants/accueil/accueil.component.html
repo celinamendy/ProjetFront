@@ -42,10 +42,11 @@
         <p>Bienvenue sur notre plateforme
           Votre solution de covoiturage simple, rapide et écoresponsable.
         Rejoignez une communauté engagée pour des déplacements plus économiques et respectueux de l'environnement.</p>
-        <div class="hero-buttons">
-            <a href="login" class="btn orange-btn">Connexion</a>
-            <a href="register" class="btn blue-btn">Inscription</a>
-        </div>
+          <!-- Boutons Connexion et Inscription, visibles uniquement si l'utilisateur n'est pas connecté -->
+      <div class="hero-buttons" *ngIf="!isLoggedIn()">
+        <a href="login" class="btn orange-btn">Connexion</a>
+        <a href="register" class="btn blue-btn">Inscription</a>
+      </div>
     </div>
 
     <!-- Search Section: Ajoutée dans la section hero -->
@@ -122,6 +123,7 @@
     <img src="/assets/images/image6.png" alt="À propos de nous" class="about-image" />
     <div class="about-text">
         <h2>A propos de nous</h2>
+        <hr>
         <p>
             Notre plateforme est une plateforme de covoiturage dédiée à faciliter vos déplacements quotidiens tout en réduisant votre empreinte carbone. Nous croyons en une mobilité partagée et durable, et nous mettons à disposition une interface intuitive pour connecter passagers et conducteurs en toute sécurité.
         </p>
@@ -135,6 +137,7 @@
 <section class="how-it-works">
   <div class="container container-precess-steps">
     <h2>Comment ça marche</h2>
+    <hr>
     <div class="process-steps">
       <img  class="feature-image3" src="/assets/images/image4.png" alt="Image 4" />
 
@@ -227,6 +230,7 @@
     <div class="testimonial-header">
         <h2>Avis et Témoignages</h2>
         <br>
+        <hr>
         <p class="quote-text">
             Découvrez ce que nos utilisateurs pensent de notre plateforme et comment elle a transformé leur expérience de covoiturage au quotidien. <br>
         </p>
@@ -309,7 +313,7 @@
 <div class="footer-container">
     <!-- Colonne 1 : Logo et description -->
     <div class="footer-column">
-        <h3>sama.covoiturage</h3>
+        <h3>GNU DEM</h3>
         <p>Notre plateforme de covoiturage vise à simplifier les déplacements quotidiens en connectant conducteurs et passagers en toute sécurité.</p>
         <div class="footer-social-icons">
             <a href="#"><img src="/assets/images/vector.png" alt="Icone Discord"></a>

@@ -1,4 +1,8 @@
 <div class="container mt-5">
+  <div class="img">
+      <img src="/assets/images/Desktop2.png" alt="Description de l'image" />
+  </div>
+  <div class=form-section>
   <h2>Ajouter un Trajet</h2>
   <form [formGroup]="trajetForm" (ngSubmit)="onSubmit()">
 
@@ -6,7 +10,7 @@
       <input type="hidden" formControlName="conducteur_id" />
       <div>
         <label for="point_depart">Point de départ:</label>
-        <input id="point_depart" formControlName="point_depart">
+        <input type="text" id="point_depart" class="form-control" formControlName="point_depart" placeholder="Entrez le point depart">
         <div *ngIf="trajetForm.get('point_depart')?.invalid && (trajetForm.get('point_depart')?.touched || trajetForm.get('point_depart')?.dirty)">
         </div>
       </div>
@@ -88,4 +92,5 @@
           <button type="reset" class="cancel-btn">Annuler</button>
       </div>
   </form>
+</div>
 </div>

@@ -201,6 +201,23 @@ input[type="checkbox"] {
   background-color: #FF681A;
 
 }
+.container-vehicule {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px; /* Espace entre l'image et les informations */
+  margin-bottom: 20px;
+}
+
+.vehicle-image-container {
+  flex: 1;
+}
+
+.vehicle-image {
+  width: 100%;
+  height: auto;
+  max-width: 300px; /* Limite la taille de l'image pour l'aligner avec le texte */
+  border-radius: 10px;
+}
 
 .comments-section {
   /* background-color: #fff; */

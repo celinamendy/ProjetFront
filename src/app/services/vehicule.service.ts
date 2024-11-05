@@ -8,6 +8,9 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class VehiculeService {
+  getVehicules() {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://127.0.0.1:8000/api';  // URL de l'API
 
 

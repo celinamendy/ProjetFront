@@ -15,6 +15,7 @@ import { imageUrl } from '../../../services/image';
 import { VehiculeService } from '../../../services/vehicule.service';
 import { log } from 'console';
 registerLocaleData(localeFR, 'fr');
+import { HeaderComponent } from '../../header-passager/header-passager.component';
 
 export enum Note {
   Pour = 'pour',
@@ -24,7 +25,7 @@ export enum Note {
 @Component({
   selector: 'app-detail-trajet',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule, HttpClientModule],
+  imports: [RouterModule, CommonModule, FormsModule, HttpClientModule, HeaderComponent ],
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
@@ -145,11 +146,13 @@ newNote: Note | '' = ''; // Valeur vide par défaut, soit 'pour', soit 'contre'
         this.dislikesCount = this.avis.filter((avis) => avis.note === Note.Contre).length;
         this.vehicules = this.trajet.data.conducteur.vehicules || [];
 
+
         const placesDisponibles = this.trajet.data.nombre_places;
         const nombreReservations = this.trajet.data.reservations.length;
         const placesRestantes = placesDisponibles - nombreReservations;
         this.trajet.data.placesRestantes = placesRestantes;
         console.log(this.trajet.data);
+
       } else {
         console.error('La propriété data est manquante dans la réponse du trajet');
       }
@@ -240,23 +243,7 @@ newNote: Note | '' = ''; // Valeur vide par défaut, soit 'pour', soit 'contre'
       this.showErrorMessage('Désolé, le nombre de places disponibles pour ce trajet est atteint.');
     }
   }
-  // fetchVehicules(idConducteur: number): void {
-  //   this.vehiculeService.getAllVehiculesByUserConnected(idConducteur).subscribe(
-  //     (      response: { data: any; }) => {
 
-  //       if (response && response.data) {
-  //         this.vehicules = response.data;  // Stocker la liste des véhicules
-
-  //         console.log('Véhicules du conducteur:', this.vehicules);
-  //       } else {
-  //         console.log('Pas de véhicules trouvés pour ce conducteur.');
-  //       }
-  //     },
-  //     (      error: any) => {
-  //       console.error('Erreur lors de la récupération des véhicules', error);
-  //     }
-  //   );
-  // }
 // Méthode pour définir la note et ajouter un avis
 setRating(note: Note): void {
   this.newNote = note; // Définir la note sélectionnée
@@ -305,11 +292,7 @@ addComment(): void {
   );
 }
 
-// Méthode pour mettre à jour les compteurs de pour et contre
-// updateCounts() {
-//   this.pourCount = this.trajet.data.avis.filter(avis => avis.note === Note.Pour).length;
-//   this.contreCount = this.trajet.data.avis.filter(avis => avis.note === Note.Contre).length;
-// }
+
   showSuccessMessage(message: string): void {
     Swal.fire({
       icon: 'success',

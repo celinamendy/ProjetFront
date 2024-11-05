@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   notifications: any[] = [];
   isModalOpen: boolean = false;
   notificationCount: number = 0;
+  userRole: string | null | undefined;
 
   constructor(
     private authService: AuthService,
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     if (this.isLoggedIn()) {
+      this.userRole = this.authService.getRole();  // Récupère le rôle de l'utilisateur
       this.checkNotifications();
     }
   }

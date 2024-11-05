@@ -110,6 +110,13 @@ export class AuthService {
 //     return null;
 //   }
 // }
+
+
+ // Récupère le rôle de l'utilisateur connecté depuis le localStorage
+ getRole(): string | null {
+  const user = this.getUser();
+  return user && user.roles ? user.roles[0] : null; // Retourne le premier rôle trouvé
+}
 getUser() {
   if (typeof window !== 'undefined' && window.localStorage) {
     try {

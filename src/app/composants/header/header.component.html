@@ -8,8 +8,12 @@
       <ul>
         <li><a href="#">Accueil</a></li>
         <li><a href="trajet">Trajets</a></li>
-        <li><a href="historique">Historique</a></li>
-        <li><a href="historique-reservation">Mes Reservation</a></li>
+        <!-- <ul *ngIf="isLoggedIn()"> -->
+          <ul *ngIf="isLoggedIn()">
+            <li *ngIf="userRole === 'conducteur'"><a routerLink="/historique">Historique</a></li>
+            <li *ngIf="userRole === 'passager'"><a routerLink="/mes-reservations">Mes Réservations</a></li>
+          </ul>
+        <!-- </ul> -->
         <li><a href="contact">Contact</a></li>
       </ul>
     </nav>
