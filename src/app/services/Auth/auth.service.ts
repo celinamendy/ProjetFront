@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://127.0.0.1:8000/api'; // URL de votre backend Laravel
+  // private apiUrl = 'http://127.0.0.1:8000/api'; // URL de votre backend Laravel
+  private apiUrl ='https://certif.celinemendy.simplonfabriques.com/api'; 
   private token: string | null = null;
 
   constructor(private http: HttpClient, private router: Router) {}

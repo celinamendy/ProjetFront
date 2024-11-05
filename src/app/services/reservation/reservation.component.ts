@@ -7,7 +7,8 @@ import { forkJoin, of } from 'rxjs';
   providedIn: 'root'
 })
 export class ReservationService {
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  // private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl ='https://certif.celinemendy.simplonfabriques.com/api'; 
 
   constructor(private http: HttpClient) {}
 

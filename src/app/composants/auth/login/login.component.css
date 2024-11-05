@@ -2,19 +2,19 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  /* background-image: url('/assets/images/connexion.png'); */
+  background-image: url('/assets/images/connexion.png'); /* Remplacez par le chemin de votre image d'arrière-plan */
   background-size: cover; /* Couvre tout l'arrière-plan */
-  /* background-position: center; Centre l'image */
+  background-position: center; /* Centre l'image */
   height: 100vh; /* Hauteur de la vue */
   display: flex; /* Utilisation de Flexbox pour disposer les éléments */
-  /* justify-content: center; Centrer horizontalement */
+  justify-content: center; /* Centrer horizontalement */
   align-items: center; /* Centrer verticalement */
 }
 
 .form-container {
   display: flex; /* Disposition en Flexbox */
-  /* width: 300px; Largeur maximale du conteneur */
-  width: 80%; /* Prendre toute la largeur disponible */
+  max-width: 800px; /* Largeur maximale du conteneur */
+  width: 100%; /* Prendre toute la largeur disponible */
 }
 
 .img-connexion {
@@ -22,7 +22,6 @@ body {
   display: flex;
   justify-content: center; /* Centrer l'image */
   align-items: center; /* Centrer verticalement */
-  width: 100%;
 }
 
 .img-connexion img {
@@ -35,7 +34,7 @@ body {
   border-radius: 8px;
   padding: 20px;
   max-width: 400px; /* Largeur maximale du formulaire */
-  /* width: 100%; Prendre toute la largeur disponible */
+  width: 100%; /* Prendre toute la largeur disponible */
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1); /* Ombre du formulaire */
 }
 
