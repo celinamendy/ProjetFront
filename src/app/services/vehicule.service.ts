@@ -12,7 +12,7 @@ export class VehiculeService {
     throw new Error('Method not implemented.');
   }
   // private apiUrl = 'http://127.0.0.1:8000/api';  // URL de l'API
-  private apiUrl ='https://certif.celinemendy.simplonfabriques.com/api'; 
+  private apiUrl ='https://celinemendy.simplonfabriques.com/api';
 
 
     constructor(private http: HttpClient) { }

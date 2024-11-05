@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PassagerService {
   // private apiUrl = 'http://127.0.0.1:8000/api'; // URL de votre backend Laravel
-  private apiUrl ='https://certif.celinemendy.simplonfabriques.com/api'; 
+  private apiUrl ='https://celinemendy.simplonfabriques.com/api';
   // Injecte HttpClient dans le constructeur
   constructor(private http: HttpClient) { }
 
